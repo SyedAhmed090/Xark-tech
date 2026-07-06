@@ -21,9 +21,25 @@ const splineMono = Spline_Sans_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://xark.tech"),
   title: "Xark Tech — We make software feel human",
   description:
     "Xark Tech is an independent design agency in Austin, TX. Brand identity, product design, and web experiences for companies that ship.",
+  openGraph: {
+    title: "Xark Tech — We make software feel human",
+    description:
+      "Independent design agency in Austin, TX. Brand identity, product design, and web experiences for companies that ship.",
+    url: "/",
+    siteName: "Xark Tech",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Xark Tech — We make software feel human",
+    description:
+      "Independent design agency in Austin, TX. Brand identity, product design, and web experiences for companies that ship.",
+  },
 };
 
 export default function RootLayout({

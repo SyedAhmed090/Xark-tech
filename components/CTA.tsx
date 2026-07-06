@@ -1,39 +1,44 @@
 "use client";
 
-import Magnetic from "./Magnetic";
+import ContactForm from "./ContactForm";
 import { LineReveal, Reveal } from "./Reveal";
 
 export default function CTA() {
   return (
     <section
       id="contact"
-      className="bg-klein px-5 py-28 text-paper md:px-10 md:py-44"
+      className="bg-klein px-5 py-28 text-paper md:px-10 md:py-40"
     >
-      <h2 className="display text-[13vw] md:text-[8.5vw]">
-        <LineReveal>Let's make</LineReveal>
+      <h2 className="display text-[clamp(2.5rem,13vw,5rem)] md:text-[clamp(4rem,8.5vw,9rem)]">
+        <LineReveal>Let’s make</LineReveal>
         <LineReveal delay={0.1}>
-          something{" "}
-          <span className="accent-word text-paper">worth</span>
+          something <span className="accent-word text-paper">worth</span>
         </LineReveal>
         <LineReveal delay={0.2}>shipping</LineReveal>
       </h2>
 
-      <Reveal delay={0.3}>
-        <div className="mt-14 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-          <Magnetic strength={0.25}>
+      <div className="mt-16 grid gap-12 md:grid-cols-2 md:gap-20">
+        <Reveal delay={0.2}>
+          <ContactForm theme="klein" />
+        </Reveal>
+
+        <Reveal delay={0.3}>
+          <div className="flex h-full flex-col justify-between gap-10">
+            <p className="max-w-xs text-sm leading-relaxed text-paper/70">
+              Booking new engagements for Q4 2026. Tell us what you’re building
+              — we reply within two business days. Prefer email? Write to us
+              directly:
+            </p>
             <a
               href="mailto:hello@xark.tech"
-              className="eyebrow inline-block rounded-full bg-paper px-9 py-5 text-ink transition-colors hover:bg-ink hover:text-paper"
+              className="font-serif italic text-3xl transition-opacity hover:opacity-70 md:text-5xl"
+              data-hover
             >
-              hello@xark.tech →
+              hello@xark.tech
             </a>
-          </Magnetic>
-          <p className="max-w-xs text-sm text-paper/70">
-            Booking new engagements for Q4 2026. Tell us what you're building —
-            we reply within two business days.
-          </p>
-        </div>
-      </Reveal>
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }

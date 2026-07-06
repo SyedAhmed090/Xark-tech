@@ -1,15 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+
+export const INTRO_SEEN_KEY = "xark-intro-seen";
 
 const LETTERS = ["X", "A", "R", "K"];
 
 export default function Preloader() {
   const [done, setDone] = useState(false);
 
-  useEffect(() => {
-    const t = setTimeout(() => setDone(true), 1900);
+  useLayoutEffect(() => {
+    // Play the intro once per browser session
+    if (sessionStorage.getItem(INTRO_SEEN_KEY)) {
+      setDone(true);
+      return;
+    }
+    const t = setTimeout(() => {
+      sessionStorage.setItem(INTRO_SEEN_KEY, "1");
+      setDone(true);
+    }, 1900);
     return () => clearTimeout(t);
   }, []);
 

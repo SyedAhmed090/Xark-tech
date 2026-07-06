@@ -20,20 +20,20 @@ function XMark() {
       <group ref={group}>
         <RoundedBox args={[4.4, 1.15, 1.15]} radius={0.55} smoothness={8} rotation={[0, 0, Math.PI / 4]}>
           <meshPhysicalMaterial
-            color="#dcdaf0"
-            metalness={1}
-            roughness={0.16}
+            color="#f2f1fa"
+            metalness={0.9}
+            roughness={0.22}
             clearcoat={1}
-            clearcoatRoughness={0.1}
+            clearcoatRoughness={0.15}
           />
         </RoundedBox>
         <RoundedBox args={[4.4, 1.15, 1.15]} radius={0.55} smoothness={8} rotation={[0, 0, -Math.PI / 4]}>
           <meshPhysicalMaterial
-            color="#dcdaf0"
-            metalness={1}
-            roughness={0.16}
+            color="#f2f1fa"
+            metalness={0.9}
+            roughness={0.22}
             clearcoat={1}
-            clearcoatRoughness={0.1}
+            clearcoatRoughness={0.15}
           />
         </RoundedBox>
       </group>
@@ -44,7 +44,7 @@ function XMark() {
 export default function HeroCanvas() {
   return (
     <Canvas
-      dpr={[1, 2]}
+      dpr={[1, 1.75]}
       camera={{ position: [0, 0, 9], fov: 32 }}
       gl={{ antialias: true, alpha: true }}
       style={{ background: "transparent" }}

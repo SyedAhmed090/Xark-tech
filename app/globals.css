@@ -73,27 +73,6 @@ body {
 }
 }
 
-/* Marquee strip */
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.marquee-track {
-  display: flex;
-  width: max-content;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .marquee-track {
-    animation: marquee 26s linear infinite;
-  }
-}
-
 /* Custom cursor hides the native one on precise pointers only */
 @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .has-custom-cursor,

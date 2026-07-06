@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Reveal } from "./Reveal";
 
@@ -7,13 +7,13 @@ const STEPS = [
     number: "01",
     name: "Listen",
     detail:
-      "Two weeks inside your world — stakeholder interviews, customer calls, and a hard look at the market. We don't sketch until we understand.",
+      "Two weeks inside your world — stakeholder interviews, customer calls, and a hard look at the market. We don’t sketch until we understand.",
   },
   {
     number: "02",
     name: "Define",
     detail:
-      "Strategy on one page: positioning, the design principles that will govern every decision, and a scope we'll actually hit.",
+      "Strategy on one page: positioning, the design principles that will govern every decision, and a scope we’ll actually hit.",
   },
   {
     number: "03",
@@ -41,7 +41,7 @@ export default function Process() {
             </h2>
             <p className="mt-6 max-w-sm text-ink/70">
               Most agency processes are theater. Ours is four steps because
-              that's how many it takes — each one with a deliverable you can
+              that’s how many it takes — each one with a deliverable you can
               hold.
             </p>
           </Reveal>
