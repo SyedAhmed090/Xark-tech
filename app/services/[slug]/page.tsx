@@ -43,7 +43,7 @@ export default async function ServicePage({
     <SmoothScroll>
       <Cursor />
       <Nav />
-      <main className="pt-32">
+      <main id="main" className="pt-32">
         <header className="px-5 md:px-10">
           <Reveal>
             <p className="eyebrow mb-4 text-klein">Service</p>

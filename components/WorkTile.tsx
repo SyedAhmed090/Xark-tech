@@ -26,7 +26,7 @@ export default function WorkTile({
       <Link href={`/work/${project.slug}`} className="group block" data-hover>
         <div
           ref={ref}
-          className="relative aspect-[4/5] overflow-hidden rounded-sm"
+          className="relative aspect-[4/5] overflow-hidden rounded-sm transition-[clip-path] duration-500 ease-out [clip-path:inset(0_0_0_0)] group-hover:[clip-path:inset(2.5%_2.5%_2.5%_2.5%)]"
         >
           <motion.div
             className="absolute inset-[-10%] transition-transform duration-700 ease-out group-hover:scale-[1.04]"

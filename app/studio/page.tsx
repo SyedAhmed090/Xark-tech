@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
@@ -38,11 +38,11 @@ const VALUES = [
 ];
 
 const AWARDS = [
-  { year: "2026", award: "Awwwards Site of the Day", project: "Forma Studio" },
-  { year: "2025", award: "FWA of the Day", project: "Meridian" },
-  { year: "2025", award: "CSSDA Website of the Day", project: "Meridian" },
-  { year: "2024", award: "Awwwards Honorable Mention", project: "Loop Health" },
-  { year: "2024", award: "CSSDA UX Award", project: "Atlas Freight" },
+  { year: "2026", award: "Awwwards Site of the Day", project: "Forma Studio", href: "https://www.awwwards.com" },
+  { year: "2025", award: "FWA of the Day", project: "Meridian", href: "https://thefwa.com" },
+  { year: "2025", award: "CSSDA Website of the Day", project: "Meridian", href: "https://www.cssdesignawards.com" },
+  { year: "2024", award: "Awwwards Honorable Mention", project: "Loop Health", href: "https://www.awwwards.com" },
+  { year: "2024", award: "CSSDA UX Award", project: "Atlas Freight", href: "https://www.cssdesignawards.com" },
 ];
 
 export default function StudioPage() {
@@ -50,7 +50,7 @@ export default function StudioPage() {
     <SmoothScroll>
       <Cursor />
       <Nav />
-      <main className="pt-32">
+      <main id="main" className="pt-32">
         <header className="px-5 md:px-10">
           <Reveal>
             <p className="eyebrow mb-4 text-klein">The studio</p>
@@ -116,15 +116,21 @@ export default function StudioPage() {
           <div className="border-t border-paper/15">
             {AWARDS.map((row, i) => (
               <Reveal key={`${row.year}-${row.award}`} delay={i * 0.04}>
-                <div className="grid grid-cols-[auto_1fr_auto] items-baseline gap-6 border-b border-paper/15 py-5 md:gap-12">
+                <a
+                  href={row.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group grid grid-cols-[auto_1fr_auto] items-baseline gap-6 border-b border-paper/15 py-5 md:gap-12"
+                  data-hover
+                >
                   <span className="font-mono text-sm text-klein">{row.year}</span>
-                  <span className="display-tight text-lg md:text-2xl">
-                    {row.award}
+                  <span className="display-tight text-lg transition-colors group-hover:text-klein md:text-2xl">
+                    {row.award} <span className="opacity-0 transition-opacity group-hover:opacity-100">↗</span>
                   </span>
-                  <span className="font-mono text-xs text-paper/50">
+                  <span className="font-mono text-xs text-paper/60">
                     {row.project}
                   </span>
-                </div>
+                </a>
               </Reveal>
             ))}
           </div>

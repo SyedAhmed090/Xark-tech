@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
@@ -18,7 +18,7 @@ export default function WorkIndex() {
     <SmoothScroll>
       <Cursor />
       <Nav />
-      <main className="pt-32">
+      <main id="main" className="pt-32">
         <header className="px-5 md:px-10">
           <Reveal>
             <p className="eyebrow mb-4 text-klein">

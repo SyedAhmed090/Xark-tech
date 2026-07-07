@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import SwapText from "./SwapText";
 
 const SITEMAP = [
   { label: "Work", href: "/work" },
   { label: "Services", href: "/#services" },
   { label: "Studio", href: "/studio" },
-  { label: "Process", href: "/#process" },
+  { label: "Journal", href: "/journal" },
+  { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -37,7 +39,7 @@ function AustinClock() {
   }, []);
 
   return (
-    <span className="font-mono text-xs tabular-nums text-paper/40">
+    <span className="font-mono text-xs tabular-nums text-paper/60">
       Austin, TX — {time || "··:··:··"}
     </span>
   );
@@ -73,11 +75,8 @@ export default function Footer() {
           <ul className="flex flex-col gap-3">
             {SITEMAP.map((link) => (
               <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-sm text-paper/80 transition-colors hover:text-paper"
-                >
-                  {link.label}
+                <Link href={link.href} className="group text-sm text-paper/80">
+                  <SwapText>{link.label}</SwapText>
                 </Link>
               </li>
             ))}
@@ -104,8 +103,15 @@ export default function Footer() {
       </div>
 
       <div className="mt-16 flex flex-col gap-2 border-t border-paper/15 pt-6 md:flex-row md:items-center md:justify-between">
-        <p className="font-mono text-xs text-paper/40">
-          © 2026 Xark Tech LLC. All rights reserved.
+        <p className="font-mono text-xs text-paper/60">
+          © 2026 Xark Tech LLC ·{" "}
+          <Link href="/privacy" className="transition-colors hover:text-paper">
+            Privacy
+          </Link>{" "}
+          ·{" "}
+          <Link href="/terms" className="transition-colors hover:text-paper">
+            Terms
+          </Link>
         </p>
         <AustinClock />
       </div>

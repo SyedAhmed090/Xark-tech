@@ -40,7 +40,7 @@ export default async function CasePage({
     <SmoothScroll>
       <Cursor />
       <Nav />
-      <main className="pt-32">
+      <main id="main" className="pt-32">
         <header className="px-5 md:px-10">
           <Reveal>
             <p className="eyebrow mb-4 text-klein">
@@ -85,6 +85,31 @@ export default async function CasePage({
             </Reveal>
           ))}
         </div>
+
+        <section className="px-5 pb-24 md:px-10 md:pb-32">
+          <Reveal>
+            <p className="eyebrow mb-10 text-klein">Inside the process</p>
+          </Reveal>
+          <div className="flex flex-col gap-16">
+            {project.artifacts.map((artifact, i) => (
+              <Reveal key={artifact.caption} delay={i * 0.05}>
+                <figure className={i % 2 === 1 ? "md:ml-auto md:w-4/5" : "md:w-4/5"}>
+                  <div className="relative aspect-[16/9] overflow-hidden rounded-sm">
+                    {artifact.panel}
+                  </div>
+                  <figcaption className="mt-4 flex items-baseline gap-3">
+                    <span className="font-mono text-xs text-klein">
+                      0{i + 1}
+                    </span>
+                    <span className="max-w-md text-sm text-ink/60">
+                      {artifact.caption}
+                    </span>
+                  </figcaption>
+                </figure>
+              </Reveal>
+            ))}
+          </div>
+        </section>
 
         <section className="bg-ink px-5 py-20 text-paper md:px-10 md:py-28">
           <div className="grid gap-12 md:grid-cols-3 md:gap-8 md:divide-x md:divide-paper/15">

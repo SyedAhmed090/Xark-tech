@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Archivo, Newsreader, Spline_Sans_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -42,6 +43,30 @@ export const metadata: Metadata = {
   },
 };
 
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Xark Tech",
+  description:
+    "Independent design agency in Austin, TX. Brand identity, product design, and web experiences for companies that ship.",
+  url: "https://xark.tech",
+  email: "hello@xark.tech",
+  foundingDate: "2014",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Austin",
+    addressRegion: "TX",
+    addressCountry: "US",
+  },
+  founder: { "@type": "Person", name: "Syed Ahmed" },
+  sameAs: [
+    "https://instagram.com",
+    "https://linkedin.com",
+    "https://dribbble.com",
+    "https://x.com",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -53,7 +78,15 @@ export default function RootLayout({
       className={`${archivo.variable} ${newsreader.variable} ${splineMono.variable} h-full antialiased`}
     >
       <body className="has-custom-cursor min-h-full flex flex-col bg-paper text-ink">
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
         {children}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+        />
+        <Analytics />
       </body>
     </html>
   );

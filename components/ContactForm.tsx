@@ -12,6 +12,7 @@ export default function ContactForm({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
   const onKlein = theme === "klein";
   const label = onKlein ? "text-paper/60" : "text-ink/50";
@@ -22,8 +23,24 @@ export default function ContactForm({
     ? "bg-paper text-ink hover:bg-ink hover:text-paper"
     : "bg-klein text-paper hover:bg-ink";
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      });
+      if (res.ok) {
+        setStatus("sent");
+        return;
+      }
+    } catch {
+      // fall through to mailto
+    }
+    // Backend not configured or failed — compose in the visitor's mail app
+    setStatus("idle");
     const subject = encodeURIComponent(
       `Project inquiry${name ? ` from ${name}` : ""}`
     );
@@ -32,6 +49,20 @@ export default function ContactForm({
     );
     window.location.href = `mailto:hello@xark.tech?subject=${subject}&body=${body}`;
   };
+
+  if (status === "sent") {
+    return (
+      <div aria-live="polite">
+        <p className={`font-serif italic text-3xl md:text-4xl ${onKlein ? "text-paper" : "text-ink"}`}>
+          Got it — thank you.
+        </p>
+        <p className={`mt-4 max-w-sm text-sm leading-relaxed ${onKlein ? "text-paper/70" : "text-ink/60"}`}>
+          Your note is in our inbox. A founder will reply within two business
+          days.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={submit} className="flex flex-col gap-8">
@@ -68,10 +99,11 @@ export default function ContactForm({
       <Magnetic strength={0.25}>
         <button
           type="submit"
-          className={`eyebrow w-fit rounded-full px-9 py-5 transition-colors ${button}`}
+          disabled={status === "sending"}
+          className={`eyebrow w-fit rounded-full px-9 py-5 transition-colors disabled:opacity-60 ${button}`}
           data-hover
         >
-          Send inquiry →
+          {status === "sending" ? "Sending…" : "Send inquiry →"}
         </button>
       </Magnetic>
     </form>

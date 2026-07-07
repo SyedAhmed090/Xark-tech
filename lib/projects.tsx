@@ -103,18 +103,93 @@ function CoverAtlas() {
   );
 }
 
+/* Process artifacts — shared panel types, tinted per project */
+
+export function Wireframe({ tint = "#2016e8" }: { tint?: string }) {
+  return (
+    <div className="grain relative h-full w-full bg-paper p-[6%]">
+      <div className="h-full w-full rounded border border-dashed border-ink/25 p-[5%]">
+        <div className="mb-[5%] h-3 w-1/3 rounded-sm border border-ink/25" />
+        <div className="flex h-[55%] gap-[4%]">
+          <div className="h-full w-2/3 rounded-sm border border-ink/25" />
+          <div className="flex h-full w-1/3 flex-col gap-[8%]">
+            <div className="h-1/3 rounded-sm border border-ink/25" />
+            <div className="h-1/3 rounded-sm" style={{ border: `1.5px solid ${tint}` }} />
+            <div className="h-1/3 rounded-sm border border-ink/25" />
+          </div>
+        </div>
+        <div className="mt-[5%] h-2 w-1/2 rounded-sm border border-ink/25" />
+        <div className="mt-[3%] h-2 w-2/5 rounded-sm border border-ink/25" />
+      </div>
+      <span className="absolute bottom-4 right-5 font-mono text-[10px] uppercase tracking-widest text-ink/40">
+        Lo-fi — round 2
+      </span>
+    </div>
+  );
+}
+
+export function SystemGrid({ tint = "#2016e8" }: { tint?: string }) {
+  return (
+    <div className="grain relative h-full w-full bg-ink p-[7%]">
+      <div className="grid h-full w-full grid-cols-4 gap-[4%]">
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className="flex items-center justify-center rounded bg-paper/10"
+            style={i === 2 ? { background: tint } : undefined}
+          >
+            {i % 3 === 0 && <div className="h-1/4 w-1/2 rounded-full bg-paper/60" />}
+            {i % 3 === 1 && <div className="h-1/3 w-1/3 rounded-full border-2 border-paper/60" />}
+            {i % 3 === 2 && <div className="h-1/4 w-2/3 rounded-sm bg-paper/40" />}
+          </div>
+        ))}
+      </div>
+      <span className="absolute bottom-4 right-5 font-mono text-[10px] uppercase tracking-widest text-paper/40">
+        Component library — v1
+      </span>
+    </div>
+  );
+}
+
+export function Screens({ tint = "#2016e8" }: { tint?: string }) {
+  return (
+    <div className="grain relative flex h-full w-full items-center justify-center gap-[5%] bg-tint px-[8%]">
+      {[0, 1, 2].map((i) => (
+        <div
+          key={i}
+          className="h-[76%] w-1/4 rounded-xl bg-paper p-[2%] shadow-xl"
+          style={{ transform: `translateY(${(i - 1) * 6}%)` }}
+        >
+          <div
+            className="mb-[8%] h-[22%] rounded-lg"
+            style={{ background: i === 1 ? tint : "rgba(16,16,18,0.12)" }}
+          />
+          {[...Array(3)].map((_, j) => (
+            <div key={j} className="mb-[7%] h-[7%] rounded bg-ink/10" />
+          ))}
+        </div>
+      ))}
+      <span className="absolute bottom-4 right-5 font-mono text-[10px] uppercase tracking-widest text-ink/40">
+        Shipped screens
+      </span>
+    </div>
+  );
+}
+
 export type Project = {
   slug: string;
   name: string;
   category: string;
   year: string;
   cover: ReactNode;
+  tint: string;
   summary: string;
   services: string[];
   challenge: string;
   approach: string;
   outcome: string;
   stats: { value: string; label: string }[];
+  artifacts: { caption: string; panel: ReactNode }[];
 };
 
 export const PROJECTS: Project[] = [
@@ -138,6 +213,21 @@ export const PROJECTS: Project[] = [
       { value: "10", label: "Interface patterns replacing 40+ screens" },
       { value: "2×", label: "Faster feature delivery against the system" },
     ],
+    tint: "#2016e8",
+    artifacts: [
+      {
+        caption: "Early structure: the meridian grid that every screen hangs from.",
+        panel: <Wireframe />,
+      },
+      {
+        caption: "Ten patterns, documented in Figma and code, replacing forty screens of one-offs.",
+        panel: <SystemGrid />,
+      },
+      {
+        caption: "The shipped platform — cash view, forecasting, and approvals.",
+        panel: <Screens />,
+      },
+    ],
   },
   {
     slug: "loop-health",
@@ -158,6 +248,21 @@ export const PROJECTS: Project[] = [
       { value: "2×", label: "Daily check-in completion" },
       { value: "11 → 2", label: "Taps to complete a check-in" },
       { value: "−52%", label: "App-related support calls" },
+    ],
+    tint: "#0f8a5f",
+    artifacts: [
+      {
+        caption: "Paper prototypes from twelve in-home research sessions with patients.",
+        panel: <Wireframe tint="#0f8a5f" />,
+      },
+      {
+        caption: "A component set sized for readers over sixty — large type, generous targets.",
+        panel: <SystemGrid tint="#0f8a5f" />,
+      },
+      {
+        caption: "Check-in, medications, and messages — the three screens patients live in.",
+        panel: <Screens tint="#0f8a5f" />,
+      },
     ],
   },
   {
@@ -180,6 +285,21 @@ export const PROJECTS: Project[] = [
       { value: "2", label: "National award shortlists that season" },
       { value: "100", label: "Lighthouse performance score" },
     ],
+    tint: "#8a6d3b",
+    artifacts: [
+      {
+        caption: "The structural grid, sketched before any pixels — like one of their buildings.",
+        panel: <Wireframe tint="#8a6d3b" />,
+      },
+      {
+        caption: "A restrained component set: type, hairlines, and full-bleed imagery.",
+        panel: <SystemGrid tint="#8a6d3b" />,
+      },
+      {
+        caption: "Case study walkthroughs, paced by scroll like a site visit.",
+        panel: <Screens tint="#8a6d3b" />,
+      },
+    ],
   },
   {
     slug: "atlas-freight",
@@ -200,6 +320,21 @@ export const PROJECTS: Project[] = [
       { value: "6 → 2", label: "Weeks to train a new dispatcher" },
       { value: "−18%", label: "Empty miles across the network" },
       { value: "94%", label: "Daily active use among dispatchers" },
+    ],
+    tint: "#c2410c",
+    artifacts: [
+      {
+        caption: "The exceptions board, sketched with dispatchers across three time zones.",
+        panel: <Wireframe tint="#c2410c" />,
+      },
+      {
+        caption: "Dense, keyboard-first components built for expert users, not demos.",
+        panel: <SystemGrid tint="#c2410c" />,
+      },
+      {
+        caption: "The day board, load detail, and driver hours — one keystroke apart.",
+        panel: <Screens tint="#c2410c" />,
+      },
     ],
   },
 ];

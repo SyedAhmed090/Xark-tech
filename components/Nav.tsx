@@ -9,6 +9,7 @@ import {
   useScroll,
 } from "framer-motion";
 import Magnetic from "./Magnetic";
+import SwapText from "./SwapText";
 
 const LINKS = [
   { label: "Work", href: "/work" },
@@ -107,11 +108,8 @@ export default function Nav() {
           <ul className="hidden items-center gap-8 md:flex">
             {LINKS.map((link) => (
               <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="eyebrow text-ink/70 transition-colors hover:text-klein"
-                >
-                  {link.label}
+                <Link href={link.href} className="group eyebrow text-ink/70">
+                  <SwapText>{link.label}</SwapText>
                 </Link>
               </li>
             ))}

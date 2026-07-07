@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import {
   motion,
@@ -8,7 +8,9 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import Magnetic from "./Magnetic";
+import Reel from "./Reel";
 import { INTRO_SEEN_KEY } from "./Preloader";
 
 const HeroCanvas = dynamic(() => import("./HeroCanvas"), { ssr: false });
@@ -57,6 +59,7 @@ function StaticX() {
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
+  const [reelOpen, setReelOpen] = useState(false);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -124,7 +127,18 @@ export default function Hero() {
           brands, products, and websites people remember — and actually enjoy
           using.
         </p>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4">
+          <Magnetic>
+            <button
+              type="button"
+              onClick={() => setReelOpen(true)}
+              className="eyebrow inline-flex items-center gap-2 rounded-full bg-ink px-7 py-4 text-paper transition-colors hover:bg-klein"
+              data-hover
+            >
+              <span className="inline-block h-2 w-2 rounded-full bg-klein" />
+              Play reel
+            </button>
+          </Magnetic>
           <Magnetic>
             <a
               href="#work"
@@ -143,6 +157,10 @@ export default function Hero() {
           </Magnetic>
         </div>
       </motion.div>
+
+      <AnimatePresence>
+        {reelOpen && <Reel onClose={() => setReelOpen(false)} />}
+      </AnimatePresence>
     </section>
   );
 }

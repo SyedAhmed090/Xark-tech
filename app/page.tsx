@@ -22,7 +22,7 @@ export default function Home() {
       <Preloader />
       <Cursor />
       <Nav />
-      <main>
+      <main id="main">
         <Hero />
         <Marquee />
         <LogoStrip />

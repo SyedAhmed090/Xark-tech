@@ -26,7 +26,7 @@ export default function LogoStrip() {
         {CLIENTS.map((client, i) => (
           <Reveal key={client.name} delay={i * 0.04}>
             <span
-              className={`block text-stone transition-colors duration-300 hover:text-ink ${client.className}`}
+              className={`block text-ink/55 transition-colors duration-300 hover:text-ink ${client.className}`}
             >
               {client.name}
             </span>

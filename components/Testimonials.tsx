@@ -46,7 +46,12 @@ export default function Testimonials() {
       </div>
 
       <Reveal>
-        <div ref={containerRef} className="px-5 md:px-10">
+        <div
+          ref={containerRef}
+          className="px-5 md:px-10"
+          role="region"
+          aria-label="Client testimonials — drag horizontally to see more"
+        >
           <motion.div
             className="flex cursor-grab gap-6 active:cursor-grabbing"
             drag="x"
