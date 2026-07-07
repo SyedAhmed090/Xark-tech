@@ -1,5 +1,3 @@
-"use client";
-
 import { Reveal } from "./Reveal";
 
 /* Text wordmarks with distinct type treatments — stands in for client logo SVGs */

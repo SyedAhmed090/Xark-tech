@@ -1,4 +1,5 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
+import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
@@ -37,6 +38,21 @@ export default function WorkIndex() {
             <WorkTile key={project.slug} project={project} index={i} />
           ))}
         </div>
+
+        <section className="px-5 pb-24 md:px-10 md:pb-32">
+          <Reveal>
+            <h2 className="display-tight max-w-2xl text-3xl md:text-5xl">
+              Want yours to be the next case here?
+            </h2>
+            <Link
+              href="/contact"
+              className="eyebrow mt-10 inline-block rounded-full bg-klein px-8 py-4 text-paper transition-colors hover:bg-ink"
+              data-hover
+            >
+              Start a project →
+            </Link>
+          </Reveal>
+        </section>
 
         <Footer />
       </main>

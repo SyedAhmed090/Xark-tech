@@ -25,9 +25,14 @@ export default function Cursor() {
       y.set(e.clientY);
       setVisible(true);
     };
+    let wasHovering = false;
     const onOver = (e: MouseEvent) => {
       const target = e.target as Element | null;
-      setHovering(Boolean(target?.closest("a, button, [data-hover]")));
+      const now = Boolean(target?.closest("a, button, [data-hover]"));
+      if (now !== wasHovering) {
+        wasHovering = now;
+        setHovering(now);
+      }
     };
     const onLeave = () => setVisible(false);
 

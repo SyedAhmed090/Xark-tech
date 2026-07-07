@@ -15,7 +15,7 @@ const LINKS = [
   { label: "Work", href: "/work" },
   { label: "Services", href: "/#services" },
   { label: "Studio", href: "/studio" },
-  { label: "Process", href: "/#process" },
+  { label: "Journal", href: "/journal" },
   { label: "Contact", href: "/contact" },
 ];
 

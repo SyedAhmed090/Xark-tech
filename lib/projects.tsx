@@ -105,7 +105,7 @@ function CoverAtlas() {
 
 /* Process artifacts — shared panel types, tinted per project */
 
-export function Wireframe({ tint = "#2016e8" }: { tint?: string }) {
+function Wireframe({ tint = "#2016e8" }: { tint?: string }) {
   return (
     <div className="grain relative h-full w-full bg-paper p-[6%]">
       <div className="h-full w-full rounded border border-dashed border-ink/25 p-[5%]">
@@ -128,7 +128,7 @@ export function Wireframe({ tint = "#2016e8" }: { tint?: string }) {
   );
 }
 
-export function SystemGrid({ tint = "#2016e8" }: { tint?: string }) {
+function SystemGrid({ tint = "#2016e8" }: { tint?: string }) {
   return (
     <div className="grain relative h-full w-full bg-ink p-[7%]">
       <div className="grid h-full w-full grid-cols-4 gap-[4%]">
@@ -151,7 +151,7 @@ export function SystemGrid({ tint = "#2016e8" }: { tint?: string }) {
   );
 }
 
-export function Screens({ tint = "#2016e8" }: { tint?: string }) {
+function Screens({ tint = "#2016e8" }: { tint?: string }) {
   return (
     <div className="grain relative flex h-full w-full items-center justify-center gap-[5%] bg-tint px-[8%]">
       {[0, 1, 2].map((i) => (

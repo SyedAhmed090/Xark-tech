@@ -19,9 +19,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const project = getProject((await params).slug);
   if (!project) return {};
+  const title = `${project.name} — Xark Tech case study`;
   return {
-    title: `${project.name} — Xark Tech case study`,
+    title,
     description: project.summary,
+    openGraph: { title, description: project.summary },
+    twitter: { card: "summary_large_image", title, description: project.summary },
   };
 }
 
@@ -132,7 +135,7 @@ export default async function CasePage({
               <p className="mt-3 text-ink/60">{next.category}</p>
             </Link>
             <Link
-              href="/#work"
+              href="/work"
               className="eyebrow mt-12 inline-block text-ink/60 transition-colors hover:text-klein"
             >
               ← All work

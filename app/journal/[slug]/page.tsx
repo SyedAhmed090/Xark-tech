@@ -19,7 +19,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const post = getPost((await params).slug);
   if (!post) return {};
-  return { title: `${post.title} — Xark Tech journal`, description: post.dek };
+  const title = `${post.title} — Xark Tech journal`;
+  return {
+    title,
+    description: post.dek,
+    openGraph: { title, description: post.dek, type: "article" },
+    twitter: { card: "summary_large_image", title, description: post.dek },
+  };
 }
 
 export default async function PostPage({

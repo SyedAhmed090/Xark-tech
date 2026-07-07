@@ -22,9 +22,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const service = getService((await params).slug);
   if (!service) return {};
+  const title = `${service.name} — Xark Tech`;
+  const description = `${service.tagline} ${service.duration}, ${service.price.toLowerCase()}.`;
   return {
-    title: `${service.name} — Xark Tech`,
-    description: `${service.tagline} ${service.duration}, ${service.price.toLowerCase()}.`,
+    title,
+    description,
+    openGraph: { title, description },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 

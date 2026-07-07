@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
@@ -85,7 +85,7 @@ export default function ContactPage() {
                   Straight answers on pricing, timelines, and who does the work
                   are on the{" "}
                   <Link
-                    href="/#contact"
+                    href="/#faq"
                     className="underline decoration-klein underline-offset-4 transition-colors hover:text-klein"
                   >
                     homepage FAQ

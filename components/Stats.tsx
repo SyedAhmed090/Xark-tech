@@ -32,9 +32,12 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
     return () => controls.stop();
   }, [inView, value, suffix]);
 
+  // Server-render the real value so crawlers and no-JS readers see it;
+  // the animation overwrites it from 0 once in view.
   return (
     <span ref={ref} className="tabular-nums">
-      0{suffix}
+      {value}
+      {suffix}
     </span>
   );
 }

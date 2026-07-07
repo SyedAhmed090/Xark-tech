@@ -1,5 +1,3 @@
-"use client";
-
 import ContactForm from "./ContactForm";
 import { LineReveal, Reveal } from "./Reveal";
 
@@ -9,7 +7,7 @@ export default function CTA() {
       id="contact"
       className="bg-klein px-5 py-28 text-paper md:px-10 md:py-40"
     >
-      <h2 className="display text-[clamp(2.5rem,13vw,5rem)] md:text-[clamp(4rem,8.5vw,9rem)]">
+      <h2 className="display text-[clamp(2.25rem,10.5vw,5rem)] md:text-[clamp(4rem,8.5vw,9rem)]">
         <LineReveal>Let’s make</LineReveal>
         <LineReveal delay={0.1}>
           something <span className="accent-word text-paper">worth</span>

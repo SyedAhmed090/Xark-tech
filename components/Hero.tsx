@@ -3,12 +3,12 @@
 import { useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import {
+  AnimatePresence,
   motion,
   useReducedMotion,
   useScroll,
   useTransform,
 } from "framer-motion";
-import { AnimatePresence } from "framer-motion";
 import Magnetic from "./Magnetic";
 import Reel from "./Reel";
 import { INTRO_SEEN_KEY } from "./Preloader";
@@ -145,14 +145,6 @@ export default function Hero() {
               className="eyebrow inline-block rounded-full bg-klein px-7 py-4 text-paper transition-colors hover:bg-ink"
             >
               See the work ↓
-            </a>
-          </Magnetic>
-          <Magnetic>
-            <a
-              href="#contact"
-              className="eyebrow inline-block rounded-full border border-ink/25 px-7 py-4 transition-colors hover:border-klein hover:text-klein"
-            >
-              Start a project
             </a>
           </Magnetic>
         </div>

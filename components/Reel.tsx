@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { PROJECTS } from "@/lib/projects";
 
@@ -14,6 +14,14 @@ const SCENES = PROJECTS.map((p) => ({
 
 export default function Reel({ onClose }: { onClose: () => void }) {
   const [index, setIndex] = useState(0);
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Move keyboard focus into the dialog, restore it on close
+    const previous = document.activeElement as HTMLElement | null;
+    dialogRef.current?.focus();
+    return () => previous?.focus();
+  }, []);
 
   useEffect(() => {
     const id = setInterval(
@@ -34,7 +42,9 @@ export default function Reel({ onClose }: { onClose: () => void }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[95] flex flex-col bg-ink text-paper"
+      ref={dialogRef}
+      tabIndex={-1}
+      className="fixed inset-0 z-[95] flex flex-col bg-ink text-paper outline-none"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

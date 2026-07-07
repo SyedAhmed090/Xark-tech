@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Magnetic from "./Magnetic";
 
-/* Opens the visitor's mail client with everything prefilled — no backend needed */
+/* Posts to /api/contact; if the backend isn't configured (501) it falls
+   back to composing in the visitor's mail client. */
 export default function ContactForm({
   theme = "klein",
 }: {
@@ -12,13 +13,16 @@ export default function ContactForm({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "sending" | "sent" | "error"
+  >("idle");
+  const [honeypot, setHoneypot] = useState("");
 
   const onKlein = theme === "klein";
-  const label = onKlein ? "text-paper/60" : "text-ink/50";
+  const label = onKlein ? "text-paper/75" : "text-ink/60";
   const field = onKlein
-    ? "border-paper/40 text-paper placeholder:text-paper/35 focus:border-paper"
-    : "border-ink/25 text-ink placeholder:text-ink/30 focus:border-klein";
+    ? "border-paper/40 text-paper placeholder:text-paper/55 focus:border-paper"
+    : "border-ink/25 text-ink placeholder:text-ink/45 focus:border-klein";
   const button = onKlein
     ? "bg-paper text-ink hover:bg-ink hover:text-paper"
     : "bg-klein text-paper hover:bg-ink";
@@ -26,28 +30,36 @@ export default function ContactForm({
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
+    let unconfigured = false;
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name, email, message, company: honeypot }),
       });
       if (res.ok) {
         setStatus("sent");
         return;
       }
+      unconfigured = res.status === 501;
     } catch {
-      // fall through to mailto
+      // network failure — treat like unconfigured and let email carry it
+      unconfigured = true;
     }
-    // Backend not configured or failed — compose in the visitor's mail app
-    setStatus("idle");
-    const subject = encodeURIComponent(
-      `Project inquiry${name ? ` from ${name}` : ""}`
-    );
-    const body = encodeURIComponent(
-      `${message}\n\n— ${name}${email ? ` (${email})` : ""}`
-    );
-    window.location.href = `mailto:hello@xark.tech?subject=${subject}&body=${body}`;
+    if (unconfigured) {
+      // No backend yet — compose in the visitor's mail app instead
+      setStatus("idle");
+      const subject = encodeURIComponent(
+        `Project inquiry${name ? ` from ${name}` : ""}`
+      );
+      const body = encodeURIComponent(
+        `${message}\n\n— ${name}${email ? ` (${email})` : ""}`
+      );
+      window.location.href = `mailto:hello@xark.tech?subject=${subject}&body=${body}`;
+      return;
+    }
+    // The backend exists but the send failed — tell the visitor honestly
+    setStatus("error");
   };
 
   if (status === "sent") {
@@ -70,6 +82,8 @@ export default function ContactForm({
         <span className={`eyebrow ${label}`}>Your name</span>
         <input
           type="text"
+          name="name"
+          autoComplete="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Jane Appleseed"
@@ -80,6 +94,9 @@ export default function ContactForm({
         <span className={`eyebrow ${label}`}>Work email</span>
         <input
           type="email"
+          name="email"
+          autoComplete="email"
+          required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="jane@company.com"
@@ -89,6 +106,8 @@ export default function ContactForm({
       <label className="flex flex-col gap-2">
         <span className={`eyebrow ${label}`}>What are you building?</span>
         <textarea
+          name="message"
+          required
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           rows={3}
@@ -96,6 +115,30 @@ export default function ContactForm({
           className={`resize-none border-b bg-transparent py-3 text-lg outline-none transition-colors ${field}`}
         />
       </label>
+      {/* Honeypot — hidden from humans, bots fill it */}
+      <label className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden>
+        Company
+        <input
+          type="text"
+          name="company"
+          tabIndex={-1}
+          autoComplete="off"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+        />
+      </label>
+      {status === "error" && (
+        <p
+          role="alert"
+          className={`text-sm ${onKlein ? "text-paper" : "text-ink"}`}
+        >
+          That didn’t go through — please email us directly at{" "}
+          <a href="mailto:hello@xark.tech" className="underline underline-offset-4">
+            hello@xark.tech
+          </a>
+          .
+        </p>
+      )}
       <Magnetic strength={0.25}>
         <button
           type="submit"
