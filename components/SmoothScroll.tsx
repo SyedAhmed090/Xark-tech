@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactLenis } from "lenis/react";
+import ScrollReset from "./ScrollReset";
 
 export default function SmoothScroll({
   children,
@@ -9,6 +10,7 @@ export default function SmoothScroll({
 }) {
   return (
     <ReactLenis root options={{ duration: 1.15, smoothWheel: true }}>
+      <ScrollReset />
       {children}
     </ReactLenis>
   );
