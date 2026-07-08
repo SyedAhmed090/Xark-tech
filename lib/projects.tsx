@@ -1,103 +1,25 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 
-/* Abstract product-shot covers — pure CSS so nothing depends on stock imagery.
-   Each project gets a distinct motif: dashboard, phone app, blocks, route map. */
+/* Real product shots — screenshots of standalone demo builds under
+   app/demo/[slug], captured via scripts/screenshot-portfolio.mjs.
+   Landscape shots (Meridian/Forma/Atlas) fill any container with
+   object-cover; the Loop Health phone shot gets a framed presentation
+   since a portrait crop looks wrong stretched to a wide hero. */
 
-function CoverMeridian() {
+function RealCover({ slug, alt }: { slug: string; alt: string }) {
   return (
-    <div className="grain relative h-full w-full overflow-hidden bg-ink">
-      <div className="absolute left-[10%] top-[12%] h-[86%] w-[84%] rounded-lg bg-paper p-[5%] shadow-2xl">
-        <div className="mb-[6%] flex items-center gap-[3%]">
-          <div className="h-3 w-3 rounded-full bg-klein" />
-          <div className="h-2 w-1/4 rounded bg-ink/15" />
-        </div>
-        <div className="mb-[8%] h-3 w-2/5 rounded bg-ink/80" />
-        <div className="flex h-[40%] items-end gap-[4%]">
-          {[35, 55, 45, 70, 60, 90, 78].map((h, i) => (
-            <div
-              key={i}
-              className={`w-full rounded-t ${i === 5 ? "bg-klein" : "bg-ink/15"}`}
-              style={{ height: `${h}%` }}
-            />
-          ))}
-        </div>
-        <div className="mt-[7%] flex gap-[4%]">
-          <div className="h-2 w-1/3 rounded bg-ink/15" />
-          <div className="h-2 w-1/5 rounded bg-klein/40" />
-        </div>
-      </div>
+    <div className="relative h-full w-full overflow-hidden">
+      <Image src={`/portfolio/${slug}.png`} alt={alt} fill className="object-cover object-left-top" />
     </div>
   );
 }
 
-function CoverLoop() {
+function LoopRealCover({ alt }: { alt: string }) {
   return (
-    <div className="grain relative h-full w-full overflow-hidden bg-tint">
-      <div className="absolute left-1/2 top-[10%] h-[95%] w-[52%] -translate-x-1/2 rounded-[2rem] bg-paper p-[4%] shadow-2xl">
-        <div className="mx-auto mb-[8%] h-1.5 w-1/3 rounded-full bg-ink/15" />
-        <div className="mb-[8%] h-[18%] rounded-xl bg-klein p-[8%]">
-          <div className="h-2 w-1/2 rounded bg-paper/70" />
-          <div className="mt-[6%] h-3 w-3/4 rounded bg-paper" />
-        </div>
-        {[0, 1, 2].map((i) => (
-          <div key={i} className="mb-[6%] flex items-center gap-[6%]">
-            <div className="h-8 w-8 shrink-0 rounded-full bg-tint" />
-            <div className="w-full">
-              <div className="h-2 w-3/4 rounded bg-ink/20" />
-              <div className="mt-[4%] h-2 w-1/2 rounded bg-ink/10" />
-            </div>
-          </div>
-        ))}
-        <div className="absolute bottom-[6%] right-[8%] h-10 w-10 rounded-full bg-klein" />
-      </div>
-    </div>
-  );
-}
-
-function CoverForma() {
-  return (
-    <div className="grain relative h-full w-full overflow-hidden bg-stone/40">
-      <div className="absolute left-[12%] top-[14%] h-[72%] w-[30%] bg-ink" />
-      <div className="absolute left-[48%] top-[30%] h-[56%] w-[16%] bg-klein" />
-      <div className="absolute left-[70%] top-[14%] h-[40%] w-[18%] bg-paper" />
-    </div>
-  );
-}
-
-function CoverAtlas() {
-  return (
-    <div className="grain relative h-full w-full overflow-hidden bg-klein">
-      <svg
-        className="absolute inset-0 h-full w-full"
-        viewBox="0 0 100 125"
-        preserveAspectRatio="none"
-        aria-hidden
-      >
-        <path
-          d="M-5 95 C 25 80, 40 90, 55 62 S 80 35, 108 28"
-          fill="none"
-          stroke="#f7f6f2"
-          strokeWidth="0.8"
-          strokeDasharray="3 2.5"
-        />
-        <path
-          d="M-5 110 C 30 105, 55 95, 105 85"
-          fill="none"
-          stroke="#f7f6f2"
-          strokeOpacity="0.35"
-          strokeWidth="0.5"
-        />
-        <path
-          d="M-5 40 C 30 45, 60 30, 105 42"
-          fill="none"
-          stroke="#f7f6f2"
-          strokeOpacity="0.35"
-          strokeWidth="0.5"
-        />
-      </svg>
-      <div className="absolute right-[24%] top-[24%] h-4 w-4 rounded-full bg-paper" />
-      <div className="absolute right-[10%] top-[32%] rounded bg-paper px-3 py-1.5 font-mono text-[10px] text-ink shadow-lg">
-        ETA 14:02 · ON TIME
+    <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-tint">
+      <div className="relative aspect-[390/844] h-[92%] overflow-hidden rounded-[1.75rem] shadow-2xl">
+        <Image src="/portfolio/loop-health.png" alt={alt} fill className="object-cover" />
       </div>
     </div>
   );
@@ -161,29 +83,6 @@ function MeridianSystem() {
   );
 }
 
-function MeridianShipped() {
-  return (
-    <div className="grain relative flex h-full w-full items-center justify-center gap-[5%] bg-tint px-[8%]">
-      {[0, 1, 2].map((i) => (
-        <div
-          key={i}
-          className="h-[76%] w-1/4 rounded-xl bg-paper p-[2%] shadow-xl"
-          style={{ transform: `translateY(${(i - 1) * 6}%)` }}
-        >
-          <div
-            className="mb-[8%] h-[22%] rounded-lg"
-            style={{ background: i === 1 ? "#2016e8" : "rgba(16,16,18,0.12)" }}
-          />
-          {[...Array(3)].map((_, j) => (
-            <div key={j} className="mb-[7%] h-[7%] rounded bg-ink/10" />
-          ))}
-        </div>
-      ))}
-      <Caption>Shipped — cash, forecasting, approvals</Caption>
-    </div>
-  );
-}
-
 /* Loop Health — phone-frame prototype, touch-sized card list, shipped app trio */
 function LoopWireframe() {
   return (
@@ -215,26 +114,6 @@ function LoopSystem() {
         ))}
       </div>
       <Caption light>Touch-sized components — v1</Caption>
-    </div>
-  );
-}
-
-function LoopShipped() {
-  const labels = ["Check-in", "Medications", "Messages"];
-  return (
-    <div className="grain relative flex h-full w-full items-center justify-center gap-[4%] bg-tint px-[6%]">
-      {labels.map((label, i) => (
-        <div
-          key={label}
-          className="flex flex-col items-center rounded-[1.3rem] bg-paper p-[4%] shadow-xl"
-          style={{ aspectRatio: "9/16", height: "78%", transform: `translateY(${(i - 1) * 4}%)` }}
-        >
-          <div className="mb-[10%] h-[26%] w-full rounded-xl" style={{ background: i === 0 ? "#0f8a5f" : "rgba(16,16,18,0.1)" }} />
-          <div className="mb-[8%] h-2 w-2/3 rounded bg-ink/25" />
-          <span className="mt-auto font-mono text-[9px] uppercase tracking-widest text-ink/40">{label}</span>
-        </div>
-      ))}
-      <Caption>Shipped — the three screens patients live in</Caption>
     </div>
   );
 }
@@ -271,17 +150,6 @@ function FormaSystem() {
   );
 }
 
-function FormaShipped() {
-  return (
-    <div className="grain relative flex h-full w-full gap-px overflow-hidden bg-ink">
-      <div className="h-full w-1/3 bg-stone/50" />
-      <div className="h-full w-1/3 bg-ink" />
-      <div className="h-full w-1/3 bg-paper" />
-      <Caption light>Case study walkthrough — full bleed</Caption>
-    </div>
-  );
-}
-
 /* Atlas — route-line sketch, dense dispatch board, shipped exception rows */
 function AtlasWireframe() {
   return (
@@ -311,26 +179,6 @@ function AtlasSystem() {
   );
 }
 
-function AtlasShipped() {
-  return (
-    <div className="grain relative flex h-full w-full items-center gap-[4%] bg-tint p-[6%]">
-      <div className="flex h-full w-2/3 flex-col justify-center gap-[4%] rounded-sm bg-paper p-[4%] shadow-xl">
-        {[0, 1, 2, 3].map((i) => (
-          <div key={i} className="flex items-center gap-[3%]">
-            <div className="h-2 w-2 rounded-full" style={{ background: i === 1 ? "#c2410c" : "rgba(16,16,18,0.15)" }} />
-            <div className="h-2 w-full rounded-sm bg-ink/15" />
-          </div>
-        ))}
-      </div>
-      <div className="flex h-full w-1/3 flex-col justify-center gap-[6%] rounded-sm bg-ink p-[5%]">
-        <div className="h-3 w-2/3 rounded-sm bg-paper/70" />
-        <div className="h-2 w-1/2 rounded-sm bg-paper/30" />
-      </div>
-      <Caption>Shipped — day board and driver hours</Caption>
-    </div>
-  );
-}
-
 export type Project = {
   slug: string;
   name: string;
@@ -353,7 +201,7 @@ export const PROJECTS: Project[] = [
     name: "Meridian",
     category: "Fintech — brand & platform",
     year: "2025",
-    cover: <CoverMeridian />,
+    cover: <RealCover slug="meridian" alt="Meridian treasury dashboard — cash position, forecast, and pending approvals" />,
     summary:
       "A treasury platform for mid-market CFOs that looked like a science project and needed to feel like an institution.",
     services: ["Brand identity", "Product design", "Design system"],
@@ -380,7 +228,7 @@ export const PROJECTS: Project[] = [
       },
       {
         caption: "The shipped platform — cash view, forecasting, and approvals.",
-        panel: <MeridianShipped />,
+        panel: <RealCover slug="meridian" alt="Meridian treasury dashboard" />,
       },
     ],
   },
@@ -389,7 +237,7 @@ export const PROJECTS: Project[] = [
     name: "Loop Health",
     category: "Healthcare — patient app",
     year: "2025",
-    cover: <CoverLoop />,
+    cover: <LoopRealCover alt="Loop Health check-in screen with mood selector and medication list" />,
     summary:
       "A patient app for a chronic-care clinic network, redesigned around the moments between appointments.",
     services: ["UX research", "Product design", "Motion"],
@@ -416,7 +264,7 @@ export const PROJECTS: Project[] = [
       },
       {
         caption: "Check-in, medications, and messages — the three screens patients live in.",
-        panel: <LoopShipped />,
+        panel: <LoopRealCover alt="Loop Health check-in screen" />,
       },
     ],
   },
@@ -425,7 +273,7 @@ export const PROJECTS: Project[] = [
     name: "Forma Studio",
     category: "Architecture — portfolio site",
     year: "2024",
-    cover: <CoverForma />,
+    cover: <RealCover slug="forma-studio" alt="Forma Studio homepage — full-bleed color fields and editorial type" />,
     summary:
       "A portfolio site for an architecture studio whose buildings deserved better than a squarespace template.",
     services: ["Web design", "Development", "Motion & 3D"],
@@ -452,7 +300,7 @@ export const PROJECTS: Project[] = [
       },
       {
         caption: "Case study walkthroughs, paced by scroll like a site visit.",
-        panel: <FormaShipped />,
+        panel: <RealCover slug="forma-studio" alt="Forma Studio homepage" />,
       },
     ],
   },
@@ -461,7 +309,7 @@ export const PROJECTS: Project[] = [
     name: "Atlas Freight",
     category: "Logistics — product design",
     year: "2024",
-    cover: <CoverAtlas />,
+    cover: <RealCover slug="atlas-freight" alt="Atlas Freight dispatch board — today's exceptions and driver hours" />,
     summary:
       "A dispatch platform redesigned for the people who actually use it: dispatchers working three screens at 5 a.m.",
     services: ["UX research", "Product design", "Design system"],
@@ -488,7 +336,7 @@ export const PROJECTS: Project[] = [
       },
       {
         caption: "The day board, load detail, and driver hours — one keystroke apart.",
-        panel: <AtlasShipped />,
+        panel: <RealCover slug="atlas-freight" alt="Atlas Freight dispatch board" />,
       },
     ],
   },
