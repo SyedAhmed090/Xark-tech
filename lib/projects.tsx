@@ -1,26 +1,15 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 
-/* Real product shots — screenshots of standalone demo builds under
-   app/demo/[slug], captured via scripts/screenshot-portfolio.mjs.
-   Landscape shots (Meridian/Forma/Atlas) fill any container with
-   object-cover; the Loop Health phone shot gets a framed presentation
-   since a portrait crop looks wrong stretched to a wide hero. */
+/* Product photography — each demo build (app/demo/[slug], screenshotted via
+   scripts/screenshot-portfolio.mjs) composited onto a real device-in-scene
+   photo via Higgsfield, using the screenshot as a reference so the on-screen
+   UI text stays legible instead of being redrawn as gibberish. */
 
-function RealCover({ slug, alt }: { slug: string; alt: string }) {
+function PhotoCover({ slug, alt }: { slug: string; alt: string }) {
   return (
     <div className="relative h-full w-full overflow-hidden">
-      <Image src={`/portfolio/${slug}.png`} alt={alt} fill className="object-cover object-left-top" />
-    </div>
-  );
-}
-
-function LoopRealCover({ alt }: { alt: string }) {
-  return (
-    <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-tint">
-      <div className="relative aspect-[390/844] h-[92%] overflow-hidden rounded-[1.75rem] shadow-2xl">
-        <Image src="/portfolio/loop-health.png" alt={alt} fill className="object-cover" />
-      </div>
+      <Image src={`/portfolio/${slug}-photo.jpg`} alt={alt} fill className="object-cover" />
     </div>
   );
 }
@@ -201,7 +190,7 @@ export const PROJECTS: Project[] = [
     name: "Meridian",
     category: "Fintech — brand & platform",
     year: "2025",
-    cover: <RealCover slug="meridian" alt="Meridian treasury dashboard — cash position, forecast, and pending approvals" />,
+    cover: <PhotoCover slug="meridian" alt="Meridian treasury dashboard on a laptop screen" />,
     summary:
       "A treasury platform for mid-market CFOs that looked like a science project and needed to feel like an institution.",
     services: ["Brand identity", "Product design", "Design system"],
@@ -228,7 +217,7 @@ export const PROJECTS: Project[] = [
       },
       {
         caption: "The shipped platform — cash view, forecasting, and approvals.",
-        panel: <RealCover slug="meridian" alt="Meridian treasury dashboard" />,
+        panel: <PhotoCover slug="meridian" alt="Meridian treasury dashboard on a laptop screen" />,
       },
     ],
   },
@@ -237,7 +226,7 @@ export const PROJECTS: Project[] = [
     name: "Loop Health",
     category: "Healthcare — patient app",
     year: "2025",
-    cover: <LoopRealCover alt="Loop Health check-in screen with mood selector and medication list" />,
+    cover: <PhotoCover slug="loop-health" alt="Loop Health check-in screen held in hand" />,
     summary:
       "A patient app for a chronic-care clinic network, redesigned around the moments between appointments.",
     services: ["UX research", "Product design", "Motion"],
@@ -264,7 +253,7 @@ export const PROJECTS: Project[] = [
       },
       {
         caption: "Check-in, medications, and messages — the three screens patients live in.",
-        panel: <LoopRealCover alt="Loop Health check-in screen" />,
+        panel: <PhotoCover slug="loop-health" alt="Loop Health check-in screen held in hand" />,
       },
     ],
   },
@@ -273,7 +262,7 @@ export const PROJECTS: Project[] = [
     name: "Forma Studio",
     category: "Architecture — portfolio site",
     year: "2024",
-    cover: <RealCover slug="forma-studio" alt="Forma Studio homepage — full-bleed color fields and editorial type" />,
+    cover: <PhotoCover slug="forma-studio" alt="Forma Studio homepage on a laptop in a studio" />,
     summary:
       "A portfolio site for an architecture studio whose buildings deserved better than a squarespace template.",
     services: ["Web design", "Development", "Motion & 3D"],
@@ -300,7 +289,7 @@ export const PROJECTS: Project[] = [
       },
       {
         caption: "Case study walkthroughs, paced by scroll like a site visit.",
-        panel: <RealCover slug="forma-studio" alt="Forma Studio homepage" />,
+        panel: <PhotoCover slug="forma-studio" alt="Forma Studio homepage on a laptop in a studio" />,
       },
     ],
   },
@@ -309,7 +298,7 @@ export const PROJECTS: Project[] = [
     name: "Atlas Freight",
     category: "Logistics — product design",
     year: "2024",
-    cover: <RealCover slug="atlas-freight" alt="Atlas Freight dispatch board — today's exceptions and driver hours" />,
+    cover: <PhotoCover slug="atlas-freight" alt="Atlas Freight dispatch board on a monitor" />,
     summary:
       "A dispatch platform redesigned for the people who actually use it: dispatchers working three screens at 5 a.m.",
     services: ["UX research", "Product design", "Design system"],
@@ -336,7 +325,7 @@ export const PROJECTS: Project[] = [
       },
       {
         caption: "The day board, load detail, and driver hours — one keystroke apart.",
-        panel: <RealCover slug="atlas-freight" alt="Atlas Freight dispatch board" />,
+        panel: <PhotoCover slug="atlas-freight" alt="Atlas Freight dispatch board on a monitor" />,
       },
     ],
   },
