@@ -51,7 +51,7 @@ export default function StudioPage() {
       <Cursor />
       <Nav />
       <main id="main" className="pt-32">
-        <header className="px-5 md:px-10">
+        <header className="grid gap-10 px-5 md:grid-cols-[2fr_1fr] md:gap-8 md:px-10">
           <Reveal>
             <p className="eyebrow mb-4 text-klein">The studio</p>
             <h1 className="display text-[clamp(2.75rem,10vw,10rem)]">
@@ -59,6 +59,23 @@ export default function StudioPage() {
               <br />
               <span className="accent-word">serious</span> about craft
             </h1>
+          </Reveal>
+
+          <Reveal delay={0.1} className="md:pt-24">
+            <div className="hairline-t">
+              <div className="flex items-baseline justify-between py-4 hairline-b">
+                <span className="eyebrow text-ink/50">Founded</span>
+                <span className="font-mono text-sm">2014, Austin TX</span>
+              </div>
+              <div className="flex items-baseline justify-between py-4 hairline-b">
+                <span className="eyebrow text-ink/50">Team</span>
+                <span className="font-mono text-sm">4 people</span>
+              </div>
+              <div className="flex items-baseline justify-between py-4 hairline-b">
+                <span className="eyebrow text-ink/50">Focus</span>
+                <span className="font-mono text-sm">Fintech, health, logistics</span>
+              </div>
+            </div>
           </Reveal>
         </header>
 
@@ -73,12 +90,15 @@ export default function StudioPage() {
           </Reveal>
           <Reveal delay={0.1}>
             <p className="leading-relaxed text-ink/70">
-              We work with product teams across the United States — fintech,
-              healthcare, logistics, architecture — always in small
-              engagements where the people you meet are the people doing the
-              work. No account layer, no juniors billed as seniors, no big
-              reveal at the end. Just weekly momentum you can see, and a
-              deliverable at every step you can hold.
+              Most of our work is complex B2B software — fintech, healthcare,
+              logistics — the kind with real compliance constraints and users
+              who can't afford to be confused. Occasionally something outside
+              that lane is worth the detour, like an architecture studio's
+              portfolio. Every engagement is small on purpose: the people you
+              meet are the people doing the work. No account layer, no
+              juniors billed as seniors, no big reveal at the end. Just
+              weekly momentum you can see, and a deliverable at every step
+              you can hold.
             </p>
             <p className="mt-6 leading-relaxed text-ink/70">
               When we’re not shipping client work, we’re teaching design

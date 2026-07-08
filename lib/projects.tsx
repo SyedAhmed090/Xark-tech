@@ -103,9 +103,23 @@ function CoverAtlas() {
   );
 }
 
-/* Process artifacts — shared panel types, tinted per project */
+/* Process artifacts — one distinct visual family per project, not a
+   reskinned shared template. Each still runs lo-fi → system → shipped. */
 
-function Wireframe({ tint = "#2016e8" }: { tint?: string }) {
+function Caption({ children, light }: { children: ReactNode; light?: boolean }) {
+  return (
+    <span
+      className={`absolute bottom-4 right-5 font-mono text-[10px] uppercase tracking-widest ${
+        light ? "text-paper/40" : "text-ink/40"
+      }`}
+    >
+      {children}
+    </span>
+  );
+}
+
+/* Meridian — dashboard sketch, component grid, shipped cash/forecast views */
+function MeridianWireframe() {
   return (
     <div className="grain relative h-full w-full bg-paper p-[6%]">
       <div className="h-full w-full rounded border border-dashed border-ink/25 p-[5%]">
@@ -114,21 +128,19 @@ function Wireframe({ tint = "#2016e8" }: { tint?: string }) {
           <div className="h-full w-2/3 rounded-sm border border-ink/25" />
           <div className="flex h-full w-1/3 flex-col gap-[8%]">
             <div className="h-1/3 rounded-sm border border-ink/25" />
-            <div className="h-1/3 rounded-sm" style={{ border: `1.5px solid ${tint}` }} />
+            <div className="h-1/3 rounded-sm border-2 border-klein" />
             <div className="h-1/3 rounded-sm border border-ink/25" />
           </div>
         </div>
         <div className="mt-[5%] h-2 w-1/2 rounded-sm border border-ink/25" />
         <div className="mt-[3%] h-2 w-2/5 rounded-sm border border-ink/25" />
       </div>
-      <span className="absolute bottom-4 right-5 font-mono text-[10px] uppercase tracking-widest text-ink/40">
-        Lo-fi — round 2
-      </span>
+      <Caption>Lo-fi — round 2</Caption>
     </div>
   );
 }
 
-function SystemGrid({ tint = "#2016e8" }: { tint?: string }) {
+function MeridianSystem() {
   return (
     <div className="grain relative h-full w-full bg-ink p-[7%]">
       <div className="grid h-full w-full grid-cols-4 gap-[4%]">
@@ -136,7 +148,7 @@ function SystemGrid({ tint = "#2016e8" }: { tint?: string }) {
           <div
             key={i}
             className="flex items-center justify-center rounded bg-paper/10"
-            style={i === 2 ? { background: tint } : undefined}
+            style={i === 2 ? { background: "#2016e8" } : undefined}
           >
             {i % 3 === 0 && <div className="h-1/4 w-1/2 rounded-full bg-paper/60" />}
             {i % 3 === 1 && <div className="h-1/3 w-1/3 rounded-full border-2 border-paper/60" />}
@@ -144,14 +156,12 @@ function SystemGrid({ tint = "#2016e8" }: { tint?: string }) {
           </div>
         ))}
       </div>
-      <span className="absolute bottom-4 right-5 font-mono text-[10px] uppercase tracking-widest text-paper/40">
-        Component library — v1
-      </span>
+      <Caption light>Component library — v1</Caption>
     </div>
   );
 }
 
-function Screens({ tint = "#2016e8" }: { tint?: string }) {
+function MeridianShipped() {
   return (
     <div className="grain relative flex h-full w-full items-center justify-center gap-[5%] bg-tint px-[8%]">
       {[0, 1, 2].map((i) => (
@@ -162,16 +172,161 @@ function Screens({ tint = "#2016e8" }: { tint?: string }) {
         >
           <div
             className="mb-[8%] h-[22%] rounded-lg"
-            style={{ background: i === 1 ? tint : "rgba(16,16,18,0.12)" }}
+            style={{ background: i === 1 ? "#2016e8" : "rgba(16,16,18,0.12)" }}
           />
           {[...Array(3)].map((_, j) => (
             <div key={j} className="mb-[7%] h-[7%] rounded bg-ink/10" />
           ))}
         </div>
       ))}
-      <span className="absolute bottom-4 right-5 font-mono text-[10px] uppercase tracking-widest text-ink/40">
-        Shipped screens
-      </span>
+      <Caption>Shipped — cash, forecasting, approvals</Caption>
+    </div>
+  );
+}
+
+/* Loop Health — phone-frame prototype, touch-sized card list, shipped app trio */
+function LoopWireframe() {
+  return (
+    <div className="grain relative flex h-full w-full items-center justify-center bg-paper p-[6%]">
+      <div className="flex h-full flex-col items-center justify-center rounded-[1.5rem] border border-dashed border-ink/30 px-[6%] py-[5%]" style={{ aspectRatio: "9/16" }}>
+        <div className="mb-auto h-1.5 w-1/4 rounded-full border border-ink/25" />
+        <div className="h-[38%] w-full rounded-2xl border-2 border-[#0f8a5f]" />
+        <div className="mt-[8%] h-2 w-3/4 rounded-sm border border-ink/25" />
+        <div className="mt-[6%] h-2 w-1/2 rounded-sm border border-ink/25" />
+      </div>
+      <Caption>Paper prototype — patient sessions</Caption>
+    </div>
+  );
+}
+
+function LoopSystem() {
+  return (
+    <div className="grain relative flex h-full w-full items-center justify-center bg-ink p-[7%]">
+      <div className="flex h-full w-[46%] flex-col justify-center gap-[6%]" style={{ aspectRatio: "9/16" }}>
+        {[0, 1, 2, 3].map((i) => (
+          <div
+            key={i}
+            className="flex items-center gap-[6%] rounded-xl p-[6%]"
+            style={{ background: i === 0 ? "#0f8a5f" : "rgba(247,246,242,0.08)" }}
+          >
+            <div className="h-6 w-6 shrink-0 rounded-full bg-paper/70" />
+            <div className="h-2 w-full rounded bg-paper/40" />
+          </div>
+        ))}
+      </div>
+      <Caption light>Touch-sized components — v1</Caption>
+    </div>
+  );
+}
+
+function LoopShipped() {
+  const labels = ["Check-in", "Medications", "Messages"];
+  return (
+    <div className="grain relative flex h-full w-full items-center justify-center gap-[4%] bg-tint px-[6%]">
+      {labels.map((label, i) => (
+        <div
+          key={label}
+          className="flex flex-col items-center rounded-[1.3rem] bg-paper p-[4%] shadow-xl"
+          style={{ aspectRatio: "9/16", height: "78%", transform: `translateY(${(i - 1) * 4}%)` }}
+        >
+          <div className="mb-[10%] h-[26%] w-full rounded-xl" style={{ background: i === 0 ? "#0f8a5f" : "rgba(16,16,18,0.1)" }} />
+          <div className="mb-[8%] h-2 w-2/3 rounded bg-ink/25" />
+          <span className="mt-auto font-mono text-[9px] uppercase tracking-widest text-ink/40">{label}</span>
+        </div>
+      ))}
+      <Caption>Shipped — the three screens patients live in</Caption>
+    </div>
+  );
+}
+
+/* Forma — architectural elevation sketch, material swatches, full-bleed crops */
+function FormaWireframe() {
+  return (
+    <div className="grain relative h-full w-full bg-paper p-[8%]">
+      <div className="flex h-full w-full items-end gap-[3%]">
+        {[38, 62, 45, 80, 30].map((h, i) => (
+          <div
+            key={i}
+            className="w-full border border-ink/30"
+            style={{ height: `${h}%`, borderColor: i === 3 ? "#8a6d3b" : undefined }}
+          />
+        ))}
+      </div>
+      <div className="absolute bottom-[8%] left-[8%] right-[8%] h-px bg-ink/30" />
+      <Caption>Elevation study — before any pixels</Caption>
+    </div>
+  );
+}
+
+function FormaSystem() {
+  return (
+    <div className="grain relative h-full w-full bg-ink p-[8%]">
+      <div className="grid h-full w-full grid-cols-5 gap-[4%]">
+        {["#8a6d3b", "#a9a79c", "#f7f6f2", "#101012", "#dcd6c8", "#8a6d3b", "#101012", "#f7f6f2", "#a9a79c", "#dcd6c8"].map((c, i) => (
+          <div key={i} className="rounded-sm" style={{ background: c, border: c === "#101012" ? "1px solid rgba(247,246,242,0.2)" : undefined }} />
+        ))}
+      </div>
+      <Caption light>Material and type palette</Caption>
+    </div>
+  );
+}
+
+function FormaShipped() {
+  return (
+    <div className="grain relative flex h-full w-full gap-px overflow-hidden bg-ink">
+      <div className="h-full w-1/3 bg-stone/50" />
+      <div className="h-full w-1/3 bg-ink" />
+      <div className="h-full w-1/3 bg-paper" />
+      <Caption light>Case study walkthrough — full bleed</Caption>
+    </div>
+  );
+}
+
+/* Atlas — route-line sketch, dense dispatch board, shipped exception rows */
+function AtlasWireframe() {
+  return (
+    <div className="grain relative h-full w-full bg-paper p-[6%]">
+      <svg className="h-full w-full" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden>
+        <path d="M2 50 C 25 40, 40 45, 55 25 S 80 10, 98 5" fill="none" stroke="#101012" strokeOpacity="0.3" strokeWidth="0.6" strokeDasharray="2 2" />
+        <circle cx="55" cy="25" r="2" fill="#c2410c" />
+      </svg>
+      <div className="absolute bottom-[8%] left-[6%] right-[6%] h-2 rounded-sm border border-ink/25" />
+      <Caption>Route sketch — three dispatch centers</Caption>
+    </div>
+  );
+}
+
+function AtlasSystem() {
+  return (
+    <div className="grain relative flex h-full w-full flex-col justify-center gap-[3%] bg-ink p-[7%]">
+      {[0, 1, 2, 3, 4].map((i) => (
+        <div key={i} className="flex items-center gap-[3%] rounded-sm px-[3%] py-[2%]" style={{ background: i === 2 ? "#c2410c" : "rgba(247,246,242,0.06)" }}>
+          <div className="h-2 w-1/12 rounded-sm bg-paper/40" />
+          <div className="h-2 w-1/3 rounded-sm bg-paper/40" />
+          <div className="ml-auto h-2 w-1/6 rounded-sm bg-paper/30" />
+        </div>
+      ))}
+      <Caption light>Dispatch board — keyboard-first rows</Caption>
+    </div>
+  );
+}
+
+function AtlasShipped() {
+  return (
+    <div className="grain relative flex h-full w-full items-center gap-[4%] bg-tint p-[6%]">
+      <div className="flex h-full w-2/3 flex-col justify-center gap-[4%] rounded-sm bg-paper p-[4%] shadow-xl">
+        {[0, 1, 2, 3].map((i) => (
+          <div key={i} className="flex items-center gap-[3%]">
+            <div className="h-2 w-2 rounded-full" style={{ background: i === 1 ? "#c2410c" : "rgba(16,16,18,0.15)" }} />
+            <div className="h-2 w-full rounded-sm bg-ink/15" />
+          </div>
+        ))}
+      </div>
+      <div className="flex h-full w-1/3 flex-col justify-center gap-[6%] rounded-sm bg-ink p-[5%]">
+        <div className="h-3 w-2/3 rounded-sm bg-paper/70" />
+        <div className="h-2 w-1/2 rounded-sm bg-paper/30" />
+      </div>
+      <Caption>Shipped — day board and driver hours</Caption>
     </div>
   );
 }
@@ -217,15 +372,15 @@ export const PROJECTS: Project[] = [
     artifacts: [
       {
         caption: "Early structure: the meridian grid that every screen hangs from.",
-        panel: <Wireframe />,
+        panel: <MeridianWireframe />,
       },
       {
         caption: "Ten patterns, documented in Figma and code, replacing forty screens of one-offs.",
-        panel: <SystemGrid />,
+        panel: <MeridianSystem />,
       },
       {
         caption: "The shipped platform — cash view, forecasting, and approvals.",
-        panel: <Screens />,
+        panel: <MeridianShipped />,
       },
     ],
   },
@@ -253,15 +408,15 @@ export const PROJECTS: Project[] = [
     artifacts: [
       {
         caption: "Paper prototypes from twelve in-home research sessions with patients.",
-        panel: <Wireframe tint="#0f8a5f" />,
+        panel: <LoopWireframe />,
       },
       {
         caption: "A component set sized for readers over sixty — large type, generous targets.",
-        panel: <SystemGrid tint="#0f8a5f" />,
+        panel: <LoopSystem />,
       },
       {
         caption: "Check-in, medications, and messages — the three screens patients live in.",
-        panel: <Screens tint="#0f8a5f" />,
+        panel: <LoopShipped />,
       },
     ],
   },
@@ -289,15 +444,15 @@ export const PROJECTS: Project[] = [
     artifacts: [
       {
         caption: "The structural grid, sketched before any pixels — like one of their buildings.",
-        panel: <Wireframe tint="#8a6d3b" />,
+        panel: <FormaWireframe />,
       },
       {
         caption: "A restrained component set: type, hairlines, and full-bleed imagery.",
-        panel: <SystemGrid tint="#8a6d3b" />,
+        panel: <FormaSystem />,
       },
       {
         caption: "Case study walkthroughs, paced by scroll like a site visit.",
-        panel: <Screens tint="#8a6d3b" />,
+        panel: <FormaShipped />,
       },
     ],
   },
@@ -325,15 +480,15 @@ export const PROJECTS: Project[] = [
     artifacts: [
       {
         caption: "The exceptions board, sketched with dispatchers across three time zones.",
-        panel: <Wireframe tint="#c2410c" />,
+        panel: <AtlasWireframe />,
       },
       {
         caption: "Dense, keyboard-first components built for expert users, not demos.",
-        panel: <SystemGrid tint="#c2410c" />,
+        panel: <AtlasSystem />,
       },
       {
         caption: "The day board, load detail, and driver hours — one keystroke apart.",
-        panel: <Screens tint="#c2410c" />,
+        panel: <AtlasShipped />,
       },
     ],
   },

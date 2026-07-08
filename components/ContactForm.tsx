@@ -13,6 +13,7 @@ export default function ContactForm({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [budget, setBudget] = useState("");
   const [status, setStatus] = useState<
     "idle" | "sending" | "sent" | "error"
   >("idle");
@@ -35,7 +36,7 @@ export default function ContactForm({
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message, company: honeypot }),
+        body: JSON.stringify({ name, email, message, budget, company: honeypot }),
       });
       if (res.ok) {
         setStatus("sent");
@@ -52,8 +53,9 @@ export default function ContactForm({
       const subject = encodeURIComponent(
         `Project inquiry${name ? ` from ${name}` : ""}`
       );
+      const budgetLine = budget ? `\nBudget: ${budget}` : "";
       const body = encodeURIComponent(
-        `${message}\n\n— ${name}${email ? ` (${email})` : ""}`
+        `${message}${budgetLine}\n\n— ${name}${email ? ` (${email})` : ""}`
       );
       window.location.href = `mailto:hello@xark.tech?subject=${subject}&body=${body}`;
       return;
@@ -102,6 +104,21 @@ export default function ContactForm({
           placeholder="jane@company.com"
           className={`border-b bg-transparent py-3 text-lg outline-none transition-colors ${field}`}
         />
+      </label>
+      <label className="flex flex-col gap-2">
+        <span className={`eyebrow ${label}`}>Rough budget</span>
+        <select
+          name="budget"
+          value={budget}
+          onChange={(e) => setBudget(e.target.value)}
+          className={`border-b bg-transparent py-3 text-lg outline-none transition-colors ${field}`}
+        >
+          <option value="">Not sure yet</option>
+          <option value="Under $25k">Under $25k</option>
+          <option value="$25k–75k">$25k–75k</option>
+          <option value="$75k–150k">$75k–150k</option>
+          <option value="$150k+">$150k+</option>
+        </select>
       </label>
       <label className="flex flex-col gap-2">
         <span className={`eyebrow ${label}`}>What are you building?</span>

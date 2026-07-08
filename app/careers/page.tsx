@@ -36,7 +36,7 @@ export default function CareersPage() {
       <Cursor />
       <Nav />
       <main id="main" className="pt-32">
-        <header className="px-5 md:px-10">
+        <header className="grid gap-10 px-5 md:grid-cols-[2fr_1fr] md:gap-8 md:px-10">
           <Reveal>
             <p className="eyebrow mb-4 text-klein">Careers</p>
             <h1 className="display text-[clamp(2.5rem,9vw,9rem)]">
@@ -49,6 +49,23 @@ export default function CareersPage() {
               people change plans. We read every portfolio that lands in our
               inbox, and we reply to all of them.
             </p>
+          </Reveal>
+
+          <Reveal delay={0.1} className="md:pt-24">
+            <div className="hairline-t">
+              <div className="flex items-baseline justify-between py-4 hairline-b">
+                <span className="eyebrow text-ink/50">Team today</span>
+                <span className="font-mono text-sm">4 people</span>
+              </div>
+              <div className="flex items-baseline justify-between py-4 hairline-b">
+                <span className="eyebrow text-ink/50">Based in</span>
+                <span className="font-mono text-sm">Austin, TX</span>
+              </div>
+              <div className="flex items-baseline justify-between py-4 hairline-b">
+                <span className="eyebrow text-ink/50">Open roles</span>
+                <span className="font-mono text-sm">0, by design</span>
+              </div>
+            </div>
           </Reveal>
         </header>
 

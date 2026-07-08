@@ -123,9 +123,9 @@ export default function Hero() {
         transition={{ delay: baseDelay + 0.55, duration: 0.8 }}
       >
         <p className="max-w-md text-base leading-relaxed text-ink/70 md:text-lg">
-          Xark Tech partners with ambitious teams across the US to design
-          brands, products, and websites people remember — and actually enjoy
-          using.
+          Xark Tech designs brands, products, and websites for complex B2B
+          software — fintech, healthcare, logistics — built for the people
+          who actually have to use it every day.
         </p>
         <div className="flex flex-wrap items-center gap-4">
           <Magnetic>

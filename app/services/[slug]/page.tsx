@@ -48,7 +48,7 @@ export default async function ServicePage({
       <Cursor />
       <Nav />
       <main id="main" className="pt-32">
-        <header className="px-5 md:px-10">
+        <header className="grid gap-10 px-5 md:grid-cols-[2fr_1fr] md:gap-8 md:px-10">
           <Reveal>
             <p className="eyebrow mb-4 text-klein">Service</p>
             <h1 className="display text-[clamp(2.75rem,9vw,9rem)]">
@@ -60,6 +60,25 @@ export default async function ServicePage({
             <p className="mt-6 max-w-2xl leading-relaxed text-ink/70">
               {service.description}
             </p>
+          </Reveal>
+
+          <Reveal delay={0.1} className="md:pt-24">
+            <div className="hairline-t">
+              <div className="flex items-baseline justify-between py-4 hairline-b">
+                <span className="eyebrow text-ink/50">Engagement</span>
+                <span className="font-mono text-sm">{service.duration}</span>
+              </div>
+              <div className="flex items-baseline justify-between py-4 hairline-b">
+                <span className="eyebrow text-ink/50">Investment</span>
+                <span className="font-mono text-sm">{service.price}</span>
+              </div>
+              <div className="flex items-baseline justify-between py-4 hairline-b">
+                <span className="eyebrow text-ink/50">Shown here</span>
+                <span className="font-mono text-sm">
+                  {related.length} case{related.length === 1 ? "" : "s"}
+                </span>
+              </div>
+            </div>
           </Reveal>
         </header>
 

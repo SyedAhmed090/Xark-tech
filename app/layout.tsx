@@ -25,11 +25,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://xark.tech"),
   title: "Xark Tech — We make software feel human",
   description:
-    "Xark Tech is an independent design agency in Austin, TX. Brand identity, product design, and web experiences for companies that ship.",
+    "Xark Tech is an independent design agency in Austin, TX, focused on complex B2B software — fintech, healthcare, logistics. Brand identity, product design, and web experiences.",
   openGraph: {
     title: "Xark Tech — We make software feel human",
     description:
-      "Independent design agency in Austin, TX. Brand identity, product design, and web experiences for companies that ship.",
+      "Independent design agency in Austin, TX, focused on complex B2B software — fintech, healthcare, logistics.",
     url: "/",
     siteName: "Xark Tech",
     locale: "en_US",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Xark Tech — We make software feel human",
     description:
-      "Independent design agency in Austin, TX. Brand identity, product design, and web experiences for companies that ship.",
+      "Independent design agency in Austin, TX, focused on complex B2B software — fintech, healthcare, logistics.",
   },
 };
 
@@ -48,7 +48,7 @@ const JSON_LD = {
   "@type": "ProfessionalService",
   name: "Xark Tech",
   description:
-    "Independent design agency in Austin, TX. Brand identity, product design, and web experiences for companies that ship.",
+    "Independent design agency in Austin, TX, focused on complex B2B software — fintech, healthcare, logistics.",
   url: "https://xark.tech",
   email: "hello@xark.tech",
   foundingDate: "2014",

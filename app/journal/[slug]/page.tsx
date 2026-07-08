@@ -6,6 +6,7 @@ import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
+import NewsletterForm from "@/components/NewsletterForm";
 import { POSTS, getPost } from "@/lib/posts";
 
 export function generateStaticParams() {
@@ -93,6 +94,15 @@ export default async function PostPage({
             </Reveal>
           </div>
         </article>
+
+        <section className="px-5 hairline-t md:px-10">
+          <Reveal>
+            <div className="mx-auto max-w-3xl py-12 md:py-16">
+              <p className="eyebrow mb-5 text-klein">Enjoyed this?</p>
+              <NewsletterForm />
+            </div>
+          </Reveal>
+        </section>
 
         <section className="px-5 py-16 hairline-t md:px-10 md:py-24">
           <Reveal>

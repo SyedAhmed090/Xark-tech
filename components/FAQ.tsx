@@ -7,7 +7,7 @@ import { Reveal } from "./Reveal";
 const ITEMS = [
   {
     q: "What does an engagement cost?",
-    a: "Brand identity work starts at $35k, marketing sites at $45k, and product design engagements at $60k per quarter. We scope fixed-fee wherever possible — you should know the number before we start, not after.",
+    a: "Brand identity work starts at $35k, marketing sites at $45k, and embedded product design at $50k per month, booked by the quarter. We scope fixed-fee wherever possible — you should know the number before we start, not after.",
   },
   {
     q: "How long does a typical project take?",

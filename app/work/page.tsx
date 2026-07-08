@@ -11,7 +11,7 @@ import { PROJECTS } from "@/lib/projects";
 export const metadata: Metadata = {
   title: "Work — Xark Tech",
   description:
-    "Selected case studies from Xark Tech: fintech, healthcare, architecture, and logistics — brand, product, and web.",
+    "Selected case studies from Xark Tech: brand, product, and web for complex B2B software in fintech, healthcare, and logistics.",
 };
 
 export default function WorkIndex() {
@@ -27,8 +27,10 @@ export default function WorkIndex() {
             </p>
             <h1 className="display text-[clamp(3rem,12vw,11rem)]">Work</h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/70">
-              Every engagement here shipped. Each case covers the challenge,
-              the approach, and what changed — the numbers included.
+              Mostly complex B2B software — fintech, healthcare, logistics —
+              plus the occasional detour worth taking. Every engagement here
+              shipped. Each case covers the challenge, the approach, and what
+              changed — the numbers included.
             </p>
           </Reveal>
         </header>

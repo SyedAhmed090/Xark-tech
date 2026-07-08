@@ -51,7 +51,7 @@ export const SERVICES: Service[] = [
     name: "Product design",
     tagline: "Interfaces designed around how people actually work.",
     description:
-      "Research, interface design, and design systems for software teams — embedded in your rituals, shipping against your sprints. We design with your engineers, not at them, and we test with real users before anything is declared done.",
+      "Research, interface design, and design systems for B2B software teams in fintech, healthcare, and logistics — embedded in your rituals, shipping against your sprints. One senior pod, one workstream: we design with your engineers, not at them, and we test with real users before anything is declared done.",
     deliverables: [
       "UX research & user interviews",
       "Journey mapping",
@@ -77,8 +77,8 @@ export const SERVICES: Service[] = [
           "A step back: what shipped, what the metrics say, and what the next quarter's design bets should be.",
       },
     ],
-    duration: "Quarterly engagements",
-    price: "From $60k / quarter",
+    duration: "Quarterly commitments",
+    price: "From $50k / month",
     related: ["loop-health", "atlas-freight"],
   },
   {

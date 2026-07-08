@@ -13,6 +13,7 @@ export async function POST(req: Request) {
   const name = String(data.name ?? "").slice(0, 200);
   const email = String(data.email ?? "").slice(0, 200);
   const message = String(data.message ?? "").slice(0, 5000);
+  const budget = String(data.budget ?? "").slice(0, 50);
   const honeypot = String(data.company ?? "");
 
   // Bots fill the hidden field — pretend success, send nothing
@@ -41,7 +42,7 @@ export async function POST(req: Request) {
         to: [process.env.CONTACT_TO ?? "hello@xark.tech"],
         reply_to: email || undefined,
         subject: `Project inquiry${name ? ` from ${name}` : ""}`,
-        text: `${message}\n\n— ${name}${email ? ` (${email})` : ""}`,
+        text: `${message}${budget ? `\nBudget: ${budget}` : ""}\n\n— ${name}${email ? ` (${email})` : ""}`,
       }),
     });
     if (!res.ok) {

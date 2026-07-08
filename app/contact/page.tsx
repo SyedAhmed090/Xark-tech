@@ -5,6 +5,7 @@ import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
+import BookingLink from "@/components/BookingLink";
 import { Reveal } from "@/components/Reveal";
 
 export const metadata: Metadata = {
@@ -54,6 +55,7 @@ export default function ContactPage() {
 
           <Reveal delay={0.15}>
             <div className="flex flex-col gap-12">
+              <BookingLink />
               <div>
                 <p className="eyebrow mb-4 text-klein">Prefer email?</p>
                 <a

@@ -5,6 +5,7 @@ import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
+import NewsletterForm from "@/components/NewsletterForm";
 import { POSTS } from "@/lib/posts";
 
 export const metadata: Metadata = {
@@ -19,7 +20,7 @@ export default function JournalIndex() {
       <Cursor />
       <Nav />
       <main id="main" className="pt-32">
-        <header className="px-5 md:px-10">
+        <header className="grid gap-10 px-5 md:grid-cols-[2fr_1fr] md:gap-8 md:px-10">
           <Reveal>
             <p className="eyebrow mb-4 text-klein">Journal</p>
             <h1 className="display text-[clamp(2.75rem,11vw,10rem)]">
@@ -33,7 +34,31 @@ export default function JournalIndex() {
               content calendar.
             </p>
           </Reveal>
+
+          <Reveal delay={0.1} className="md:pt-24">
+            <Link
+              href={`/journal/${POSTS[0].slug}`}
+              className="group block hairline-t pt-6"
+              data-hover
+            >
+              <p className="eyebrow mb-3 text-ink/50">Latest</p>
+              <h2 className="display-tight text-xl transition-colors group-hover:text-klein">
+                {POSTS[0].title}
+              </h2>
+              <p className="mt-2 font-mono text-xs text-ink/50">
+                {POSTS[0].displayDate} — {POSTS[0].readingTime} →
+              </p>
+            </Link>
+          </Reveal>
         </header>
+
+        <div className="px-5 md:px-10">
+          <Reveal delay={0.1}>
+            <div className="rounded-sm bg-tint/50 p-6 md:p-8">
+              <NewsletterForm />
+            </div>
+          </Reveal>
+        </div>
 
         <div className="px-5 py-16 md:px-10 md:py-24">
           <div className="hairline-t">
