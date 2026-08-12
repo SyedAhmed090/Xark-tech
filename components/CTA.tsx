@@ -28,11 +28,11 @@ export default function CTA() {
               directly:
             </p>
             <a
-              href="mailto:hello@xark.tech"
+              href="mailto:hello@xarktech.com"
               className="font-serif italic text-3xl transition-opacity hover:opacity-70 md:text-5xl"
               data-hover
             >
-              hello@xark.tech
+              hello@xarktech.com
             </a>
           </div>
         </Reveal>

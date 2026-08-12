@@ -1,27 +1,47 @@
 "use client";
 
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 export const INTRO_SEEN_KEY = "xark-intro-seen";
 
 const LETTERS = ["X", "A", "R", "K"];
 
-export default function Preloader() {
-  const [done, setDone] = useState(false);
+/** sessionStorage doesn't emit events for same-tab writes, and the only write
+ *  is ours below — so there is nothing to subscribe to. */
+function subscribeToIntroSeen() {
+  return () => {};
+}
 
-  useLayoutEffect(() => {
+/** Read during render rather than setting state in an effect. */
+function getIntroSeen() {
+  return sessionStorage.getItem(INTRO_SEEN_KEY) !== null;
+}
+
+/** No sessionStorage on the server — assume unseen so the intro is in the
+ *  server HTML, then let the client drop it immediately if it was seen. */
+function getIntroSeenOnServer() {
+  return false;
+}
+
+export default function Preloader() {
+  const introSeen = useSyncExternalStore(
+    subscribeToIntroSeen,
+    getIntroSeen,
+    getIntroSeenOnServer,
+  );
+  const [played, setPlayed] = useState(false);
+  const done = introSeen || played;
+
+  useEffect(() => {
+    if (introSeen) return;
     // Play the intro once per browser session
-    if (sessionStorage.getItem(INTRO_SEEN_KEY)) {
-      setDone(true);
-      return;
-    }
     const t = setTimeout(() => {
       sessionStorage.setItem(INTRO_SEEN_KEY, "1");
-      setDone(true);
+      setPlayed(true);
     }, 1900);
     return () => clearTimeout(t);
-  }, []);
+  }, [introSeen]);
 
   return (
     <AnimatePresence>

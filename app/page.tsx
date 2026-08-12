@@ -15,10 +15,27 @@ import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
+import { FAQ_ITEMS } from "@/lib/faq";
+import { ORG_REF } from "@/lib/site";
+
+/** Mirrors the visible FAQ verbatim — Google penalises schema that doesn't
+ *  match on-page content, so this must stay generated from FAQ_ITEMS. */
+const FAQ_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_ITEMS.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+  publisher: ORG_REF,
+};
 
 export default function Home() {
   return (
     <SmoothScroll>
+      <JsonLd data={FAQ_SCHEMA} />
       <Preloader />
       <Cursor />
       <Nav />

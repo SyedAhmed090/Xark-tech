@@ -13,7 +13,8 @@ import SwapText from "./SwapText";
 
 const LINKS = [
   { label: "Work", href: "/work" },
-  { label: "Services", href: "/#services" },
+  { label: "Services", href: "/services" },
+  { label: "Packages", href: "/packages" },
   { label: "Studio", href: "/studio" },
   { label: "Journal", href: "/journal" },
   { label: "Contact", href: "/contact" },
@@ -68,8 +69,8 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         exit={{ opacity: 0 }}
         transition={{ delay: 0.4, duration: 0.4 }}
       >
-        <a href="mailto:hello@xark.tech" className="eyebrow text-paper/70">
-          hello@xark.tech
+        <a href="mailto:hello@xarktech.com" className="eyebrow text-paper/70">
+          hello@xarktech.com
         </a>
         <p className="eyebrow text-paper/40">Austin, TX</p>
       </motion.div>

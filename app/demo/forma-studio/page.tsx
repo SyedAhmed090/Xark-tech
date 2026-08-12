@@ -1,3 +1,9 @@
+import type { Metadata } from "next";
+import { noindexPage } from "@/lib/site";
+
+/** Interactive prop for the case study — deliberately kept out of search. */
+export const metadata: Metadata = noindexPage("/demo/forma-studio");
+
 /* Screenshot target for the Forma Studio case study — an architecture
    portfolio homepage. No real photography; the shipped design leans on
    restrained type and full-bleed color fields instead of stock imagery. */

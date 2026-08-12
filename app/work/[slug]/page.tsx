@@ -6,7 +6,9 @@ import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
-import { PROJECTS, getProject } from "@/lib/projects";
+import JsonLd from "@/components/JsonLd";
+import { PROJECTS, getProject, type Project } from "@/lib/projects";
+import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta } from "@/lib/site";
 
 export function generateStaticParams() {
   return PROJECTS.map((p) => ({ slug: p.slug }));
@@ -19,12 +21,32 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const project = getProject((await params).slug);
   if (!project) return {};
-  const title = `${project.name} — Xark Tech case study`;
-  return {
-    title,
+  return pageMeta({
+    title: `${project.name} — case study`,
     description: project.summary,
-    openGraph: { title, description: project.summary },
-    twitter: { card: "summary_large_image", title, description: project.summary },
+    path: `/work/${project.slug}`,
+    images: [`/portfolio/${project.slug}-photo.jpg`],
+  });
+}
+
+function caseStudySchema(project: Project) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: `${project.name} — ${project.category} case study`,
+    description: project.summary,
+    url: absoluteUrl(`/work/${project.slug}`),
+    image: absoluteUrl(`/portfolio/${project.slug}-photo.jpg`),
+    author: ORG_REF,
+    publisher: ORG_REF,
+    about: project.services,
+    // Case studies carry a year, not a full publication date.
+    datePublished: `${project.year}-01-01`,
+    inLanguage: "en-US",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": absoluteUrl(`/work/${project.slug}`),
+    },
   };
 }
 
@@ -41,6 +63,14 @@ export default async function CasePage({
 
   return (
     <SmoothScroll>
+      <JsonLd data={caseStudySchema(project)} />
+      <JsonLd
+        data={breadcrumbs([
+          { name: "Home", path: "/" },
+          { name: "Work", path: "/work" },
+          { name: project.name, path: `/work/${project.slug}` },
+        ])}
+      />
       <Cursor />
       <Nav />
       <main id="main" className="pt-32">
@@ -49,7 +79,10 @@ export default async function CasePage({
             <p className="eyebrow mb-4 text-klein">
               Case study — {project.category} — {project.year}
             </p>
-            <h1 className="display text-[clamp(3rem,12vw,11rem)]">
+            {/* Floor is 2.25rem, not 3rem: single-word titles like "Meridian"
+                can't wrap, and at 3rem the ultra-wide display face overflowed
+                a 320px viewport by 6px. Only affects widths under ~400px. */}
+            <h1 className="display text-[clamp(2.25rem,12vw,11rem)]">
               {project.name}
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink/70">
@@ -136,7 +169,7 @@ export default async function CasePage({
             </Link>
             <Link
               href="/work"
-              className="eyebrow mt-12 inline-block text-ink/60 transition-colors hover:text-klein"
+              className="eyebrow mt-12 inline-block py-1.5 text-ink/60 transition-colors hover:text-klein"
             >
               ← All work
             </Link>

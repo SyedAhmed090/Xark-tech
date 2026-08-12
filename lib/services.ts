@@ -1,3 +1,15 @@
+export type Package = {
+  name: string;
+  /** One line on who this tier is for — sits under the name. */
+  summary: string;
+  price: string;
+  duration: string;
+  /** Scope for this tier. Each tier is additive over the one before it. */
+  includes: string[];
+  /** The tier we steer most clients toward — rendered on ink. */
+  featured?: boolean;
+};
+
 export type Service = {
   slug: string;
   name: string;
@@ -6,7 +18,9 @@ export type Service = {
   deliverables: string[];
   rhythm: { title: string; detail: string }[];
   duration: string;
+  /** Entry price — matches the first package tier. */
   price: string;
+  packages: Package[];
   related: string[]; // project slugs
 };
 
@@ -44,6 +58,50 @@ export const SERVICES: Service[] = [
     ],
     duration: "6–8 weeks",
     price: "From $35k",
+    packages: [
+      {
+        name: "Essential",
+        summary:
+          "One product, one market. The identity you need to launch and look credible.",
+        price: "$35k",
+        duration: "6 weeks",
+        includes: [
+          "Positioning & messaging",
+          "Logo & core visual identity",
+          "Type & color systems",
+          "One-page usage guide",
+        ],
+      },
+      {
+        name: "Studio",
+        summary:
+          "The full system, tested against every place your brand actually shows up.",
+        price: "$60k",
+        duration: "8–10 weeks",
+        featured: true,
+        includes: [
+          "Everything in Essential",
+          "Naming & verbal identity",
+          "Voice & tone guidelines",
+          "Launch asset kit",
+          "Two identity directions, applied to real surfaces",
+        ],
+      },
+      {
+        name: "Partner",
+        summary:
+          "For companies rebranding a portfolio, or entering a second market.",
+        price: "$95k",
+        duration: "12 weeks +",
+        includes: [
+          "Everything in Studio",
+          "Sub-brand & product naming architecture",
+          "Motion identity",
+          "Photography & illustration direction",
+          "Two quarters of brand stewardship",
+        ],
+      },
+    ],
     related: ["meridian", "forma-studio"],
   },
   {
@@ -79,6 +137,50 @@ export const SERVICES: Service[] = [
     ],
     duration: "Quarterly commitments",
     price: "From $50k / month",
+    packages: [
+      {
+        name: "Essential",
+        summary:
+          "One senior designer embedded in one workstream, for a single quarter.",
+        price: "$50k / month",
+        duration: "One quarter",
+        includes: [
+          "Interface design against your sprints",
+          "Fortnightly working cycles",
+          "Figma library maintained as we go",
+          "Engineering handoff & QA",
+        ],
+      },
+      {
+        name: "Studio",
+        summary:
+          "A senior pod — design plus research — running two quarters with your team.",
+        price: "$75k / month",
+        duration: "Two quarters",
+        featured: true,
+        includes: [
+          "Everything in Essential",
+          "UX research & user interviews",
+          "Journey mapping",
+          "Prototyping & usability testing",
+          "Quarterly design-bet review",
+        ],
+      },
+      {
+        name: "Partner",
+        summary:
+          "We own design for the product. Annual commitment, multiple workstreams.",
+        price: "$110k / month",
+        duration: "Annual",
+        includes: [
+          "Everything in Studio",
+          "Multiple parallel workstreams",
+          "Design system in Figma + code",
+          "Standing research cadence",
+          "Roadmap input at the exec table",
+        ],
+      },
+    ],
     related: ["loop-health", "atlas-freight"],
   },
   {
@@ -114,6 +216,50 @@ export const SERVICES: Service[] = [
     ],
     duration: "8–12 weeks",
     price: "From $45k",
+    packages: [
+      {
+        name: "Essential",
+        summary:
+          "A marketing site that loads fast and says the right thing. Up to eight pages.",
+        price: "$45k",
+        duration: "8 weeks",
+        includes: [
+          "Site strategy & information architecture",
+          "Design & art direction",
+          "Next.js build, up to 8 pages",
+          "Performance budget & technical SEO",
+        ],
+      },
+      {
+        name: "Studio",
+        summary:
+          "The full site, with a CMS your team will actually use and content we help load.",
+        price: "$70k",
+        duration: "10–12 weeks",
+        featured: true,
+        includes: [
+          "Everything in Essential",
+          "CMS integration & editor training",
+          "Unlimited page templates",
+          "Motion & interaction design",
+          "Analytics & launch support",
+        ],
+      },
+      {
+        name: "Partner",
+        summary:
+          "E-commerce or editorial platforms, plus a care plan so it stays fast after launch.",
+        price: "$110k",
+        duration: "12 weeks + care plan",
+        includes: [
+          "Everything in Studio",
+          "E-commerce or editorial platform build",
+          "Localization & multi-region setup",
+          "Ongoing performance monitoring",
+          "Two quarters of iteration",
+        ],
+      },
+    ],
     related: ["forma-studio", "meridian"],
   },
   {
@@ -149,6 +295,50 @@ export const SERVICES: Service[] = [
     ],
     duration: "2–6 weeks",
     price: "From $20k",
+    packages: [
+      {
+        name: "Essential",
+        summary:
+          "A focused motion pass — the handful of moments that carry the most weight.",
+        price: "$20k",
+        duration: "2 weeks",
+        includes: [
+          "Motion audit & art direction",
+          "Interaction & motion design",
+          "Browser prototypes at real frame rates",
+          "Lottie / Rive handoff files",
+        ],
+      },
+      {
+        name: "Studio",
+        summary:
+          "WebGL and 3D work, built inside a performance budget your engineers can keep.",
+        price: "$38k",
+        duration: "4–6 weeks",
+        featured: true,
+        includes: [
+          "Everything in Essential",
+          "WebGL / Three.js experiences",
+          "Motion guidelines & tokens",
+          "Social & campaign assets",
+          "Handoff kit your team can extend",
+        ],
+      },
+      {
+        name: "Partner",
+        summary:
+          "Launch films and a standing motion retainer for teams shipping continuously.",
+        price: "$65k",
+        duration: "Retained, per quarter",
+        includes: [
+          "Everything in Studio",
+          "Product launch film",
+          "Full animation library",
+          "Quarterly motion refresh",
+          "On-call for launch moments",
+        ],
+      },
+    ],
     related: ["forma-studio", "meridian"],
   },
 ];

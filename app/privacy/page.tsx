@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/site";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 
-export const metadata: Metadata = {
-  title: "Privacy policy — Xark Tech",
-  description: "How Xark Tech handles the small amount of data this site collects.",
-};
+export const metadata: Metadata = pageMeta({
+  title: "Privacy policy",
+  description:
+    "How Xark Tech handles the small amount of data this site collects, and how to ask us to delete it.",
+  path: "/privacy",
+});
 
 const SECTIONS = [
   {
@@ -25,7 +28,7 @@ const SECTIONS = [
   },
   {
     title: "Your choices",
-    body: "You can email us directly instead of using the form. You can ask us to delete any correspondence at any time by writing to hello@xark.tech, and we will.",
+    body: "You can email us directly instead of using the form. You can ask us to delete any correspondence at any time by writing to hello@xarktech.com, and we will.",
   },
   {
     title: "Changes",

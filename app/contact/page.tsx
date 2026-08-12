@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/site";
 import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
@@ -8,11 +9,12 @@ import ContactForm from "@/components/ContactForm";
 import BookingLink from "@/components/BookingLink";
 import { Reveal } from "@/components/Reveal";
 
-export const metadata: Metadata = {
-  title: "Contact — Xark Tech",
+export const metadata: Metadata = pageMeta({
+  title: "Contact",
   description:
     "Tell us what you're building. Xark Tech replies within two business days — currently booking Q4 2026 engagements.",
-};
+  path: "/contact",
+});
 
 const NEXT_STEPS = [
   {
@@ -59,11 +61,11 @@ export default function ContactPage() {
               <div>
                 <p className="eyebrow mb-4 text-klein">Prefer email?</p>
                 <a
-                  href="mailto:hello@xark.tech"
+                  href="mailto:hello@xarktech.com"
                   className="font-serif italic text-3xl text-ink transition-colors hover:text-klein md:text-4xl"
                   data-hover
                 >
-                  hello@xark.tech
+                  hello@xarktech.com
                 </a>
               </div>
 

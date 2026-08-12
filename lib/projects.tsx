@@ -9,7 +9,16 @@ import Image from "next/image";
 function PhotoCover({ slug, alt }: { slug: string; alt: string }) {
   return (
     <div className="relative h-full w-full overflow-hidden">
-      <Image src={`/portfolio/${slug}-photo.jpg`} alt={alt} fill className="object-cover" />
+      {/* Covers render full-width on mobile and half-width in the two-column
+          grid above md. Without sizes, Next assumes 100vw at every breakpoint
+          and ships desktop-weight images to phones. */}
+      <Image
+        src={`/portfolio/${slug}-photo.jpg`}
+        alt={alt}
+        fill
+        sizes="(max-width: 768px) 100vw, 50vw"
+        className="object-cover"
+      />
     </div>
   );
 }

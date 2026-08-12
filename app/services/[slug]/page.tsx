@@ -7,9 +7,12 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import WorkTile from "@/components/WorkTile";
 import Magnetic from "@/components/Magnetic";
+import { PackagesSection } from "@/components/Packages";
 import { Reveal } from "@/components/Reveal";
-import { SERVICES, getService } from "@/lib/services";
+import JsonLd from "@/components/JsonLd";
+import { SERVICES, getService, type Service } from "@/lib/services";
 import { PROJECTS } from "@/lib/projects";
+import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta } from "@/lib/site";
 
 export function generateStaticParams() {
   return SERVICES.map((s) => ({ slug: s.slug }));
@@ -22,13 +25,78 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const service = getService((await params).slug);
   if (!service) return {};
-  const title = `${service.name} — Xark Tech`;
-  const description = `${service.tagline} ${service.duration}, ${service.price.toLowerCase()}.`;
+  return pageMeta({
+    title: service.name,
+    description: `${service.tagline} ${service.duration}, ${service.price.toLowerCase()}.`,
+    path: `/services/${service.slug}`,
+  });
+}
+
+/** Parses "$35k" / "$50k / month" into a plain number for schema offers. */
+function priceValue(price: string) {
+  const match = price.match(/\$([\d.]+)k/i);
+  return match ? Number(match[1]) * 1000 : undefined;
+}
+
+/** True for retainer pricing like "$50k / month". */
+function isMonthly(price: string) {
+  return /month/i.test(price);
+}
+
+/**
+ * A bare `price` on an Offer reads as a one-time charge. Retainers must use a
+ * UnitPriceSpecification with a billing period, or search engines advertise a
+ * monthly fee as if it were the total project cost.
+ */
+function offerPricing(price: string) {
+  const value = priceValue(price);
+  if (value === undefined) return {};
+  if (!isMonthly(price)) return { price: value, priceCurrency: "USD" };
   return {
-    title,
-    description,
-    openGraph: { title, description },
-    twitter: { card: "summary_large_image", title, description },
+    priceSpecification: {
+      "@type": "UnitPriceSpecification",
+      price: value,
+      priceCurrency: "USD",
+      unitText: "MONTH",
+      billingDuration: 1,
+      billingIncrement: 1,
+    },
+  };
+}
+
+function serviceSchema(service: Service) {
+  const prices = service.packages
+    .map((p) => priceValue(p.price))
+    .filter((n): n is number => typeof n === "number");
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.name,
+    description: service.description,
+    url: absoluteUrl(`/services/${service.slug}`),
+    serviceType: service.name,
+    provider: ORG_REF,
+    areaServed: { "@type": "Country", name: "United States" },
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "USD",
+      lowPrice: Math.min(...prices),
+      highPrice: Math.max(...prices),
+      offerCount: service.packages.length,
+      // Makes the retainer case explicit at the aggregate level too.
+      ...(service.packages.some((p) => isMonthly(p.price))
+        ? { description: `${service.name} is retained monthly, billed quarterly.` }
+        : {}),
+      offers: service.packages.map((pkg) => ({
+        "@type": "Offer",
+        name: `${service.name} — ${pkg.name}`,
+        description: pkg.summary,
+        ...offerPricing(pkg.price),
+        url: absoluteUrl(`/services/${service.slug}`),
+        availability: "https://schema.org/InStock",
+      })),
+    },
   };
 }
 
@@ -45,6 +113,14 @@ export default async function ServicePage({
 
   return (
     <SmoothScroll>
+      <JsonLd data={serviceSchema(service)} />
+      <JsonLd
+        data={breadcrumbs([
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+          { name: service.name, path: `/services/${service.slug}` },
+        ])}
+      />
       <Cursor />
       <Nav />
       <main id="main" className="pt-32">
@@ -112,6 +188,11 @@ export default async function ServicePage({
             </div>
           </Reveal>
         </section>
+
+        <PackagesSection
+          packages={service.packages}
+          serviceName={service.name}
+        />
 
         <section className="bg-ink px-5 py-16 text-paper md:px-10 md:py-20">
           <Reveal>
