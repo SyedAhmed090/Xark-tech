@@ -16,7 +16,7 @@ export default function Work() {
           </div>
           <Link
             href="/work"
-            className="eyebrow text-ink/60 transition-colors hover:text-klein"
+            className="eyebrow inline-block py-1.5 text-ink/60 transition-colors hover:text-klein"
             data-hover
           >
             All work →

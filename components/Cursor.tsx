@@ -1,10 +1,37 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
+const CURSOR_QUERIES = ["(pointer: fine)", "(prefers-reduced-motion: reduce)"];
+
+/** Re-render when either media query flips (e.g. a mouse is plugged in). */
+function subscribeToCursorSupport(onChange: () => void) {
+  const lists = CURSOR_QUERIES.map((q) => window.matchMedia(q));
+  lists.forEach((l) => l.addEventListener("change", onChange));
+  return () => lists.forEach((l) => l.removeEventListener("change", onChange));
+}
+
+/** The custom cursor is for precise pointers only, and never overrides
+ *  reduced-motion. Read during render so we never setState in an effect. */
+function getCursorSupported() {
+  return (
+    window.matchMedia("(pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
+/** No matchMedia on the server — render nothing and let the client decide. */
+function getCursorSupportedOnServer() {
+  return false;
+}
+
 export default function Cursor() {
-  const [enabled, setEnabled] = useState(false);
+  const enabled = useSyncExternalStore(
+    subscribeToCursorSupport,
+    getCursorSupported,
+    getCursorSupportedOnServer,
+  );
   const [visible, setVisible] = useState(false);
   const [hovering, setHovering] = useState(false);
 
@@ -14,11 +41,7 @@ export default function Cursor() {
   const springY = useSpring(y, { stiffness: 450, damping: 40 });
 
   useEffect(() => {
-    const fine = window.matchMedia("(pointer: fine)").matches;
-    const motionOk = !window.matchMedia("(prefers-reduced-motion: reduce)")
-      .matches;
-    if (!fine || !motionOk) return;
-    setEnabled(true);
+    if (!enabled) return;
 
     const onMove = (e: MouseEvent) => {
       x.set(e.clientX);
@@ -44,7 +67,7 @@ export default function Cursor() {
       window.removeEventListener("mouseover", onOver);
       document.documentElement.removeEventListener("mouseleave", onLeave);
     };
-  }, [x, y]);
+  }, [enabled, x, y]);
 
   if (!enabled) return null;
 

@@ -3,29 +3,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Reveal } from "./Reveal";
-
-const ITEMS = [
-  {
-    q: "What does an engagement cost?",
-    a: "Brand identity work starts at $35k, marketing sites at $45k, and embedded product design at $50k per month, booked by the quarter. We scope fixed-fee wherever possible — you should know the number before we start, not after.",
-  },
-  {
-    q: "How long does a typical project take?",
-    a: "A brand and site together usually run 8–12 weeks. Product design is ongoing — most clients engage us for a quarter at a time, with two-week working cycles inside it.",
-  },
-  {
-    q: "Who actually works on our project?",
-    a: "The four people on this page. We don’t sell you partners and staff you with juniors — whoever you meet in the first call is who does the work.",
-  },
-  {
-    q: "Can you work with our in-house team?",
-    a: "Yes, and it usually goes best that way. We embed in your rituals — your standups, your Figma, your Slack — and leave behind a design system your team can run without us.",
-  },
-  {
-    q: "How do we start?",
-    a: "Email hello@xark.tech with a couple of lines about what you’re building. We’ll book a 30-minute intro call, and if it’s a fit you’ll have a scoped proposal within a week.",
-  },
-];
+import { FAQ_ITEMS } from "@/lib/faq";
 
 function Item({
   item,
@@ -33,7 +11,7 @@ function Item({
   open,
   onToggle,
 }: {
-  item: (typeof ITEMS)[number];
+  item: (typeof FAQ_ITEMS)[number];
   index: number;
   open: boolean;
   onToggle: () => void;
@@ -92,7 +70,7 @@ export default function FAQ() {
           </Reveal>
         </div>
         <div className="hairline-t">
-          {ITEMS.map((item, i) => (
+          {FAQ_ITEMS.map((item, i) => (
             <Reveal key={item.q} delay={i * 0.04}>
               <Item
                 item={item}

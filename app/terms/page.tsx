@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/site";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 
-export const metadata: Metadata = {
-  title: "Terms of use — Xark Tech",
-  description: "The terms that apply to using this website.",
-};
+export const metadata: Metadata = pageMeta({
+  title: "Terms of use",
+  description:
+    "The terms that apply to using the Xark Tech website, including content ownership and governing law.",
+  path: "/terms",
+});
 
 const SECTIONS = [
   {
@@ -29,7 +32,7 @@ const SECTIONS = [
   },
   {
     title: "Governing law",
-    body: "These terms are governed by the laws of the State of Texas. Questions about them can be sent to hello@xark.tech.",
+    body: "These terms are governed by the laws of the State of Texas. Questions about them can be sent to hello@xarktech.com.",
   },
 ];
 

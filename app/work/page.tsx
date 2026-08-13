@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/site";
 import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
@@ -8,11 +9,12 @@ import WorkTile from "@/components/WorkTile";
 import { Reveal } from "@/components/Reveal";
 import { PROJECTS } from "@/lib/projects";
 
-export const metadata: Metadata = {
-  title: "Work — Xark Tech",
+export const metadata: Metadata = pageMeta({
+  title: "Work",
   description:
     "Selected case studies from Xark Tech: brand, product, and web for complex B2B software in fintech, healthcare, and logistics.",
-};
+  path: "/work",
+});
 
 export default function WorkIndex() {
   return (
@@ -35,11 +37,16 @@ export default function WorkIndex() {
           </Reveal>
         </header>
 
-        <div className="grid gap-10 px-5 py-20 md:grid-cols-2 md:gap-x-10 md:gap-y-20 md:px-10 md:py-28">
-          {PROJECTS.map((project, i) => (
-            <WorkTile key={project.slug} project={project} index={i} />
-          ))}
-        </div>
+        {/* WorkTile headings are h3. Without an h2 here the outline jumped
+            h1 -> h3, which screen readers report as a missing level. */}
+        <section className="px-5 py-20 md:px-10 md:py-28">
+          <h2 className="sr-only">Case studies</h2>
+          <div className="grid gap-10 md:grid-cols-2 md:gap-x-10 md:gap-y-20">
+            {PROJECTS.map((project, i) => (
+              <WorkTile key={project.slug} project={project} index={i} />
+            ))}
+          </div>
+        </section>
 
         <section className="px-5 pb-24 md:px-10 md:pb-32">
           <Reveal>

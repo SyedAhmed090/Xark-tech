@@ -1,3 +1,9 @@
+import type { Metadata } from "next";
+import { noindexPage } from "@/lib/site";
+
+/** Interactive prop for the case study — deliberately kept out of search. */
+export const metadata: Metadata = noindexPage("/demo/atlas-freight");
+
 /* Screenshot target for the Atlas Freight case study — a dense,
    keyboard-first dispatch board for expert users, not a demo audience. */
 

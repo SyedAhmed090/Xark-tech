@@ -79,15 +79,15 @@ export default function NewsletterForm() {
       {status === "unconfigured" && (
         <p className="mt-3 text-sm text-ink/50">
           Sign-ups aren’t wired up yet — email{" "}
-          <a href="mailto:hello@xark.tech" className="underline underline-offset-4">
-            hello@xark.tech
+          <a href="mailto:hello@xarktech.com" className="underline underline-offset-4">
+            hello@xarktech.com
           </a>{" "}
           and we’ll add you by hand.
         </p>
       )}
       {status === "error" && (
         <p role="alert" className="mt-3 text-sm text-ink/50">
-          That didn’t go through — try again, or email hello@xark.tech.
+          That didn’t go through — try again, or email hello@xarktech.com.
         </p>
       )}
     </div>

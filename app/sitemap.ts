@@ -2,27 +2,33 @@ import type { MetadataRoute } from "next";
 import { PROJECTS } from "@/lib/projects";
 import { SERVICES } from "@/lib/services";
 import { POSTS } from "@/lib/posts";
-
-const BASE = "https://xark.tech";
+import { absoluteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    { url: BASE, priority: 1 },
-    { url: `${BASE}/work`, priority: 0.9 },
-    { url: `${BASE}/studio`, priority: 0.8 },
-    { url: `${BASE}/contact`, priority: 0.8 },
-    { url: `${BASE}/journal`, priority: 0.7 },
-    { url: `${BASE}/careers`, priority: 0.5 },
-    { url: `${BASE}/privacy`, priority: 0.2 },
-    { url: `${BASE}/terms`, priority: 0.2 },
-    ...PROJECTS.map((p) => ({ url: `${BASE}/work/${p.slug}`, priority: 0.7 })),
+    { url: absoluteUrl("/"), changeFrequency: "monthly", priority: 1 },
+    { url: absoluteUrl("/work"), changeFrequency: "monthly", priority: 0.9 },
+    { url: absoluteUrl("/services"), changeFrequency: "monthly", priority: 0.9 },
+    { url: absoluteUrl("/packages"), changeFrequency: "monthly", priority: 0.9 },
+    { url: absoluteUrl("/studio"), changeFrequency: "yearly", priority: 0.8 },
+    { url: absoluteUrl("/contact"), changeFrequency: "yearly", priority: 0.8 },
+    { url: absoluteUrl("/journal"), changeFrequency: "weekly", priority: 0.7 },
+    { url: absoluteUrl("/privacy"), changeFrequency: "yearly", priority: 0.2 },
+    { url: absoluteUrl("/terms"), changeFrequency: "yearly", priority: 0.2 },
     ...SERVICES.map((s) => ({
-      url: `${BASE}/services/${s.slug}`,
+      url: absoluteUrl(`/services/${s.slug}`),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+    ...PROJECTS.map((p) => ({
+      url: absoluteUrl(`/work/${p.slug}`),
+      changeFrequency: "yearly" as const,
       priority: 0.7,
     })),
     ...POSTS.map((p) => ({
-      url: `${BASE}/journal/${p.slug}`,
+      url: absoluteUrl(`/journal/${p.slug}`),
       lastModified: p.date,
+      changeFrequency: "yearly" as const,
       priority: 0.6,
     })),
   ];

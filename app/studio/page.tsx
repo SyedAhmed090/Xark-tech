@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/site";
 import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
@@ -8,11 +9,12 @@ import Team from "@/components/Team";
 import Magnetic from "@/components/Magnetic";
 import { Reveal } from "@/components/Reveal";
 
-export const metadata: Metadata = {
-  title: "Studio — Xark Tech",
+export const metadata: Metadata = pageMeta({
+  title: "Studio",
   description:
     "An independent design agency in Austin, TX. Four senior people, twelve years, and a bias for work that ships.",
-};
+  path: "/studio",
+});
 
 const VALUES = [
   {
@@ -92,8 +94,8 @@ export default function StudioPage() {
             <p className="leading-relaxed text-ink/70">
               Most of our work is complex B2B software — fintech, healthcare,
               logistics — the kind with real compliance constraints and users
-              who can't afford to be confused. Occasionally something outside
-              that lane is worth the detour, like an architecture studio's
+              who can’t afford to be confused. Occasionally something outside
+              that lane is worth the detour, like an architecture studio’s
               portfolio. Every engagement is small on purpose: the people you
               meet are the people doing the work. No account layer, no
               juniors billed as seniors, no big reveal at the end. Just

@@ -39,7 +39,7 @@ export async function POST(req: Request) {
       },
       body: JSON.stringify({
         from: process.env.CONTACT_FROM ?? "Xark website <onboarding@resend.dev>",
-        to: [process.env.CONTACT_TO ?? "hello@xark.tech"],
+        to: [process.env.CONTACT_TO ?? "hello@xarktech.com"],
         reply_to: email || undefined,
         subject: `Project inquiry${name ? ` from ${name}` : ""}`,
         text: `${message}${budget ? `\nBudget: ${budget}` : ""}\n\n— ${name}${email ? ` (${email})` : ""}`,

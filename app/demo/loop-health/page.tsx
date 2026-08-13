@@ -1,3 +1,9 @@
+import type { Metadata } from "next";
+import { noindexPage } from "@/lib/site";
+
+/** Interactive prop for the case study — deliberately kept out of search. */
+export const metadata: Metadata = noindexPage("/demo/loop-health");
+
 /* Screenshot target for the Loop Health case study. Rendered at phone
    viewport size (390x844) so the capture is a full-screen app shot, not a
    device mockup. */

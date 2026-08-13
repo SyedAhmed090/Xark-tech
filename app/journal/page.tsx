@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/site";
 import Link from "next/link";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
@@ -8,11 +9,12 @@ import { Reveal } from "@/components/Reveal";
 import NewsletterForm from "@/components/NewsletterForm";
 import { POSTS } from "@/lib/posts";
 
-export const metadata: Metadata = {
-  title: "Journal — Xark Tech",
+export const metadata: Metadata = pageMeta({
+  title: "Journal",
   description:
     "Notes on design systems, motion, and running a small studio — from the team at Xark Tech.",
-};
+  path: "/journal",
+});
 
 export default function JournalIndex() {
   return (

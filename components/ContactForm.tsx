@@ -57,7 +57,7 @@ export default function ContactForm({
       const body = encodeURIComponent(
         `${message}${budgetLine}\n\n— ${name}${email ? ` (${email})` : ""}`
       );
-      window.location.href = `mailto:hello@xark.tech?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:hello@xarktech.com?subject=${subject}&body=${body}`;
       return;
     }
     // The backend exists but the send failed — tell the visitor honestly
@@ -150,8 +150,8 @@ export default function ContactForm({
           className={`text-sm ${onKlein ? "text-paper" : "text-ink"}`}
         >
           That didn’t go through — please email us directly at{" "}
-          <a href="mailto:hello@xark.tech" className="underline underline-offset-4">
-            hello@xark.tech
+          <a href="mailto:hello@xarktech.com" className="underline underline-offset-4">
+            hello@xarktech.com
           </a>
           .
         </p>

@@ -1,3 +1,9 @@
+import type { Metadata } from "next";
+import { noindexPage } from "@/lib/site";
+
+/** Interactive prop for the case study — deliberately kept out of search. */
+export const metadata: Metadata = noindexPage("/demo/meridian");
+
 /* Screenshot target for the Meridian case study — not a real route in the
    marketing site (excluded via robots.ts). Renders a full desktop dashboard
    at fixed scale so Playwright can capture it as a product shot. */

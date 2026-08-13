@@ -7,7 +7,9 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 import NewsletterForm from "@/components/NewsletterForm";
-import { POSTS, getPost } from "@/lib/posts";
+import JsonLd from "@/components/JsonLd";
+import { POSTS, getPost, type Post } from "@/lib/posts";
+import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta } from "@/lib/site";
 
 export function generateStaticParams() {
   return POSTS.map((p) => ({ slug: p.slug }));
@@ -20,12 +22,41 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const post = getPost((await params).slug);
   if (!post) return {};
-  const title = `${post.title} — Xark Tech journal`;
   return {
-    title,
+    ...pageMeta({
+      title: post.title,
+      description: post.dek,
+      path: `/journal/${post.slug}`,
+    }),
+    // Articles get the richer OG type, which pageMeta defaults to "website".
+    openGraph: {
+      title: `${post.title} — Xark Tech`,
+      description: post.dek,
+      url: `/journal/${post.slug}`,
+      type: "article",
+      publishedTime: post.date,
+    },
+  };
+}
+
+function postSchema(post: Post) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
     description: post.dek,
-    openGraph: { title, description: post.dek, type: "article" },
-    twitter: { card: "summary_large_image", title, description: post.dek },
+    url: absoluteUrl(`/journal/${post.slug}`),
+    datePublished: post.date,
+    dateModified: post.date,
+    author: ORG_REF,
+    publisher: ORG_REF,
+    inLanguage: "en-US",
+    wordCount: post.body.join(" ").split(/\s+/).length,
+    articleBody: post.body.join("\n\n"),
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": absoluteUrl(`/journal/${post.slug}`),
+    },
   };
 }
 
@@ -43,6 +74,14 @@ export default async function PostPage({
 
   return (
     <SmoothScroll>
+      <JsonLd data={postSchema(post)} />
+      <JsonLd
+        data={breadcrumbs([
+          { name: "Home", path: "/" },
+          { name: "Journal", path: "/journal" },
+          { name: post.title, path: `/journal/${post.slug}` },
+        ])}
+      />
       <Cursor />
       <Nav />
       <main id="main" className="pt-32">
@@ -114,7 +153,7 @@ export default async function PostPage({
             </Link>
             <Link
               href="/journal"
-              className="eyebrow mt-10 inline-block text-ink/60 transition-colors hover:text-klein"
+              className="eyebrow mt-10 inline-block py-1.5 text-ink/60 transition-colors hover:text-klein"
             >
               ← All notes
             </Link>
