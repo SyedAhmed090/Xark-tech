@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   AnimatePresence,
@@ -109,10 +110,17 @@ export default function Nav() {
         <nav className="mx-auto flex max-w-[1600px] items-center justify-between px-5 py-4 md:px-10">
           <Link
             href="/"
+            aria-label="Xark Tech home"
             className={`display-tight text-lg tracking-tight transition-colors ${open ? "text-paper" : ""}`}
           >
-            XARK
-            <span className="font-mono text-xs align-super text-klein">®</span>
+            <Image
+              src="/portfolio/image.png"
+              alt="Xark Tech"
+              width={160}
+              height={80}
+              priority
+              className={`h-10 w-auto object-contain ${open ? "invert" : ""}`}
+            />
           </Link>
 
           <ul className="hidden items-center gap-8 md:flex">

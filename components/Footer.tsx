@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import SwapText from "./SwapText";
 import { SITE } from "@/lib/site";
@@ -57,10 +58,13 @@ export default function Footer() {
 
       <div className="grid gap-12 md:grid-cols-[2fr_1fr_1fr]">
         <div>
-          <p className="display text-5xl md:text-7xl">
-            XARK
-            <span className="font-mono align-super text-lg text-klein">®</span>
-          </p>
+          <Image
+            src="/portfolio/image.png"
+            alt="Xark Tech"
+            width={320}
+            height={160}
+            className="h-20 w-auto object-contain invert md:h-24"
+          />
           <p className="mt-6 max-w-sm text-sm leading-relaxed text-paper/60">
             Independent design agency. Based in Sheridan, Wyoming — working with
             teams across the United States and worldwide.

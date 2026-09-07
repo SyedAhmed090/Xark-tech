@@ -26,8 +26,7 @@ export const SITE = {
     street: "30 N Gould St Ste R",
     postalCode: "82801",
   },
-  /** TODO(launch): phone in E.164 (e.g. +1-512-555-0100) — omitted while null. */
-  phone: null as string | null,
+  phone: "+13074009487" as string | null,
   /**
    * Verified profile URLs for JSON-LD `sameAs` and the footer. Deliberately
    * empty: the previous values pointed at platform homepages rather than real
