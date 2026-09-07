@@ -23,13 +23,22 @@ const LINKS = [
 function MobileMenu({ onClose }: { onClose: () => void }) {
   useEffect(() => {
     document.documentElement.style.overflow = "hidden";
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+
     return () => {
       document.documentElement.style.overflow = "";
+      document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [onClose]);
 
   return (
     <motion.div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Mobile navigation"
       className="fixed inset-0 z-[80] flex flex-col justify-between bg-ink px-5 pb-10 pt-24 text-paper"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -109,7 +118,11 @@ export default function Nav() {
           <ul className="hidden items-center gap-8 md:flex">
             {LINKS.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="group eyebrow text-ink/70">
+                <Link
+                  href={link.href}
+                  aria-label={link.label}
+                  className="group eyebrow text-ink/70"
+                >
                   <SwapText>{link.label}</SwapText>
                 </Link>
               </li>

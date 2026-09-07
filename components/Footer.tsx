@@ -76,6 +76,7 @@ export default function Footer() {
               <li key={link.href}>
                 <Link
                   href={link.href}
+                  aria-label={link.label}
                   className="group inline-block py-1.5 text-sm text-paper/80"
                 >
                   <SwapText>{link.label}</SwapText>
