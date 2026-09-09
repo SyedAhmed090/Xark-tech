@@ -11,7 +11,7 @@ export default function Work() {
           <div>
             <p className="eyebrow mb-4 text-klein">Selected work</p>
             <h2 className="display-tight max-w-2xl text-4xl md:text-6xl">
-              Recent projects, 2024–2026
+              Concept projects, built not mocked up
             </h2>
           </div>
           <Link

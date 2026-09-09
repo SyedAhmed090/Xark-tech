@@ -1,5 +1,14 @@
 import { ImageResponse } from "next/og";
-import { getService } from "@/lib/services";
+import { SERVICES, getService } from "@/lib/services";
+
+// Static export: without generateStaticParams this route stays dynamic
+// and the build cannot emit it. Mirrors the sibling page.tsx so every
+// entry ships a social card.
+export const dynamic = "force-static";
+
+export function generateStaticParams() {
+  return SERVICES.map((s) => ({ slug: s.slug }));
+}
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";

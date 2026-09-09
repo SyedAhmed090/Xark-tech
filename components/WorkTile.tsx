@@ -34,6 +34,11 @@ export default function WorkTile({
           >
             {project.cover}
           </motion.div>
+          {/* Always visible, not hover-only: the concept framing has to reach
+              readers who never hover, including every touch device. */}
+          <span className="eyebrow absolute left-4 top-4 rounded-full bg-paper/90 px-3 py-1.5 text-ink/70">
+            Concept
+          </span>
           <span className="eyebrow absolute right-4 top-4 rounded-full bg-paper/90 px-3 py-1.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             Read the case →
           </span>

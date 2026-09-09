@@ -12,11 +12,15 @@ export const SITE = {
   tagline: "We make software feel human",
   email: "hello@xarktech.com",
   description:
-    "Xark Tech is an independent design agency in Sheridan, WY, focused on complex B2B software — fintech, healthcare, logistics. Brand identity, product design, and web experiences.",
+    "Xark Tech is an independent design studio in Sheridan, WY, focused on complex B2B software — fintech, healthcare, logistics. Brand identity, product design, and web experiences.",
   /** Shorter variant for social cards, where long text is truncated. */
   shortDescription:
-    "Independent design agency in Sheridan, WY, focused on complex B2B software — fintech, healthcare, logistics.",
-  foundingDate: "2014",
+    "Independent design studio in Sheridan, WY, focused on complex B2B software — fintech, healthcare, logistics.",
+  /**
+   * No foundingDate: the previous value (2014) was not verified, and an
+   * unverifiable date asserted in JSON-LD is a claim to search engines rather
+   * than decoration. Add a real one here and the layout emits it again.
+   */
   founder: "Syed Ahmed",
   locale: "en_US",
   address: {

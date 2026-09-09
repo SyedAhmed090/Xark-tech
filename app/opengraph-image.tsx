@@ -1,3 +1,7 @@
+// Static export: metadata routes must opt in explicitly or the build
+// aborts with "dynamic not configured". See next.config.ts.
+export const dynamic = "force-static";
+
 import { ImageResponse } from "next/og";
 
 export const size = { width: 1200, height: 630 };

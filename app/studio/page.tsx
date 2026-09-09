@@ -12,7 +12,7 @@ import { Reveal } from "@/components/Reveal";
 export const metadata: Metadata = pageMeta({
   title: "Studio",
   description:
-    "An independent design agency in Sheridan, WY. Four senior people, twelve years, and a bias for work that ships.",
+    "An independent, founder-led design studio in Sheridan, WY, with a bias for work that ships.",
   path: "/studio",
 });
 
@@ -30,7 +30,7 @@ const VALUES = [
   {
     name: "Small on purpose",
     detail:
-      "Four people is a decision, not a phase. It keeps seniors on the work, decisions fast, and your budget out of the org chart.",
+      "Staying small is a decision, not a phase. It keeps senior attention on the work, decisions fast, and your budget out of the org chart.",
   },
   {
     name: "Leave them stronger",
@@ -39,13 +39,13 @@ const VALUES = [
   },
 ];
 
-const AWARDS = [
-  { year: "2026", award: "Awwwards Site of the Day", project: "Forma Studio", href: "https://www.awwwards.com" },
-  { year: "2025", award: "FWA of the Day", project: "Meridian", href: "https://thefwa.com" },
-  { year: "2025", award: "CSSDA Website of the Day", project: "Meridian", href: "https://www.cssdesignawards.com" },
-  { year: "2024", award: "Awwwards Honorable Mention", project: "Loop Health", href: "https://www.awwwards.com" },
-  { year: "2024", award: "CSSDA UX Award", project: "Atlas Freight", href: "https://www.cssdesignawards.com" },
-];
+/**
+ * The "Recognition" section that stood here listed five Awwwards / FWA / CSSDA
+ * wins that could not be substantiated, each linked to the real award body's
+ * site. Award directories are public and checkable, so this was the highest-risk
+ * claim on the site. Removed rather than rewritten — add real awards here only
+ * when there are entries to point at.
+ */
 
 export default function StudioPage() {
   return (
@@ -66,12 +66,12 @@ export default function StudioPage() {
           <Reveal delay={0.1} className="md:pt-24">
             <div className="hairline-t">
               <div className="flex items-baseline justify-between py-4 hairline-b">
-                <span className="eyebrow text-ink/50">Founded</span>
-                <span className="font-mono text-sm">2014, Sheridan WY</span>
+                <span className="eyebrow text-ink/50">Based</span>
+                <span className="font-mono text-sm">Sheridan, WY</span>
               </div>
               <div className="flex items-baseline justify-between py-4 hairline-b">
-                <span className="eyebrow text-ink/50">Team</span>
-                <span className="font-mono text-sm">4 people</span>
+                <span className="eyebrow text-ink/50">Studio</span>
+                <span className="font-mono text-sm">Independent, founder-led</span>
               </div>
               <div className="flex items-baseline justify-between py-4 hairline-b">
                 <span className="eyebrow text-ink/50">Focus</span>
@@ -84,28 +84,30 @@ export default function StudioPage() {
         <section className="grid gap-12 px-5 py-20 md:grid-cols-2 md:gap-20 md:px-10 md:py-28">
           <Reveal>
             <p className="text-xl leading-relaxed text-ink/80 md:text-2xl">
-              Xark Tech started in 2014 with a simple irritation: software that
-              worked but felt like homework. Twelve years later we’re still
-              four people in Sheridan, still independent, and still convinced
-              that how something feels is part of whether it works.
+              Xark Tech started with a simple irritation: software that worked
+              but felt like homework. We&rsquo;re independent, based in
+              Sheridan, and convinced that how something feels is part of
+              whether it works.
             </p>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="leading-relaxed text-ink/70">
-              Most of our work is complex B2B software — fintech, healthcare,
+              We focus on complex B2B software — fintech, healthcare,
               logistics — the kind with real compliance constraints and users
               who can’t afford to be confused. Occasionally something outside
               that lane is worth the detour, like an architecture studio’s
-              portfolio. Every engagement is small on purpose: the people you
-              meet are the people doing the work. No account layer, no
+              portfolio. Every engagement is small on purpose: the person you
+              meet is the person doing the work. No account layer, no
               juniors billed as seniors, no big reveal at the end. Just
               weekly momentum you can see, and a deliverable at every step
               you can hold.
             </p>
             <p className="mt-6 leading-relaxed text-ink/70">
-              When we’re not shipping client work, we’re teaching design
-              systems, running a monthly critique night for local designers,
-              and arguing about typography over breakfast.
+              The case studies on this site are self-initiated concept
+              projects — each one designed, built and shipped as a working
+              prototype you can open and use. They exist because the fastest
+              way to show how we think is to build the thing rather than
+              describe it.
             </p>
           </Reveal>
         </section>
@@ -129,33 +131,6 @@ export default function StudioPage() {
         </section>
 
         <Team />
-
-        <section className="bg-ink px-5 py-20 text-paper md:px-10 md:py-28">
-          <Reveal>
-            <p className="eyebrow mb-10 text-paper/50">Recognition</p>
-          </Reveal>
-          <div className="border-t border-paper/15">
-            {AWARDS.map((row, i) => (
-              <Reveal key={`${row.year}-${row.award}`} delay={i * 0.04}>
-                <a
-                  href={row.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group grid grid-cols-[auto_1fr_auto] items-baseline gap-6 border-b border-paper/15 py-5 md:gap-12"
-                  data-hover
-                >
-                  <span className="font-mono text-sm text-klein">{row.year}</span>
-                  <span className="display-tight text-lg transition-colors group-hover:text-klein md:text-2xl">
-                    {row.award} <span className="opacity-0 transition-opacity group-hover:opacity-100">↗</span>
-                  </span>
-                  <span className="font-mono text-xs text-paper/60">
-                    {row.project}
-                  </span>
-                </a>
-              </Reveal>
-            ))}
-          </div>
-        </section>
 
         <section className="px-5 py-24 md:px-10 md:py-32">
           <Reveal>
