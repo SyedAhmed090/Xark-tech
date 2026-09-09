@@ -46,3 +46,7 @@ next-env.d.ts
 # Local runtime data written by the PHP endpoints when testing with `php -S`.
 # On the server this lives above public_html and is never in the repo.
 /xark-data/
+
+# Deployment archive produced from out/ for uploading to public_html.
+# Regenerate with `npm run build && cd out && zip -r ../xark-site.zip .`
+/xark-site.zip
