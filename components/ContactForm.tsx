@@ -41,20 +41,39 @@ export default function ContactForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message, budget, company: honeypot }),
       });
-      if (res.ok) {
+      // A 200 is not proof of anything on its own. If PHP isn't executing,
+      // Apache serves contact.php as a static file — status 200, body full of
+      // PHP source — and trusting res.ok alone would show the visitor a
+      // success message for a message that was never sent. Only our own JSON
+      // counts as delivery.
+      let payload: { ok?: boolean } | null = null;
+      try {
+        payload = await res.json();
+      } catch {
+        payload = null;
+      }
+
+      if (res.ok && payload?.ok === true) {
         setStatus("sent");
         return;
       }
+      // 200 but not our JSON: the endpoint isn't running as PHP. Nothing the
+      // visitor can do, so hand them the mail client rather than a lie.
+      if (res.ok) {
+        unconfigured = true;
+      }
       // 429 is the rate limiter, and it means the endpoint is working — the
       // visitor needs telling to wait, not a mail client.
-      if (res.status === 429) {
+      if (!unconfigured && res.status === 429) {
         setStatus("rate-limited");
         return;
       }
       // 404/405 mean the PHP file is absent or PHP isn't running; 501 is the
       // old Next route's "not configured". All three are server-side gaps the
-      // visitor can't fix, so hand them a working alternative.
-      unconfigured =
+      // visitor can't fix, so hand them a working alternative. Note ||= — a
+      // plain assignment here would clear the flag set by the 200-but-not-JSON
+      // case above.
+      unconfigured ||=
         res.status === 404 || res.status === 405 || res.status === 501;
     } catch {
       // network failure — treat like unconfigured and let email carry it

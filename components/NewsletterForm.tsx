@@ -23,8 +23,23 @@ export default function NewsletterForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, company: honeypot }),
       });
-      if (res.ok) {
+      // Only our own JSON counts as success. Where PHP isn't executing, Apache
+      // serves subscribe.php as a static file with status 200, and trusting
+      // res.ok would tell someone they're subscribed when nothing was stored.
+      let payload: { ok?: boolean } | null = null;
+      try {
+        payload = await res.json();
+      } catch {
+        payload = null;
+      }
+
+      if (res.ok && payload?.ok === true) {
         setStatus("sent");
+        return;
+      }
+      if (res.ok) {
+        // 200 without our JSON — the endpoint isn't running as PHP.
+        setStatus("unconfigured");
         return;
       }
       if (res.status === 429) {
