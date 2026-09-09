@@ -61,11 +61,11 @@ export default function ContactPage() {
               <div>
                 <p className="eyebrow mb-4 text-klein">Prefer email?</p>
                 <a
-                  href="mailto:hello@xarktech.com"
+                  href={`mailto:${SITE.email}`}
                   className="font-serif italic text-3xl text-ink transition-colors hover:text-klein md:text-4xl"
                   data-hover
                 >
-                  hello@xarktech.com
+                  {SITE.email}
                 </a>
               </div>
 

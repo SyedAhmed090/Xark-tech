@@ -9,15 +9,22 @@
  * file OUTSIDE public_html and require() it instead.
  */
 
-// Where contact-form submissions are delivered.
-const CONTACT_TO = 'hello@xarktech.com';
+// Where contact-form submissions are delivered. Must match SITE.email in
+// lib/site.ts, which is what the site tells visitors to write to.
+const CONTACT_TO = 'info@xarktech.com';
 
 /**
- * Envelope sender. MUST be an address on this domain, or the server's own
- * SPF record won't cover it and the mail lands in spam. This is not a mailbox
- * anyone reads — replies go to the visitor via Reply-To.
+ * Envelope sender. MUST be a real mailbox on this domain, or the server's own
+ * SPF record won't cover it and the mail lands in spam.
+ *
+ * Currently the same mailbox as CONTACT_TO, because that is the only address
+ * on the domain. Self-addressed mail is delivered locally and works, but some
+ * filters score it slightly higher for spam. If that ever becomes a problem,
+ * create a dedicated sender (e.g. noreply@xarktech.com) in cPanel and put it
+ * here — nothing else needs to change, since replies reach the visitor via
+ * Reply-To rather than this address.
  */
-const CONTACT_FROM = 'website@xarktech.com';
+const CONTACT_FROM = 'info@xarktech.com';
 const CONTACT_FROM_NAME = 'Xark website';
 
 /**

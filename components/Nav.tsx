@@ -11,6 +11,7 @@ import {
 } from "framer-motion";
 import Magnetic from "./Magnetic";
 import SwapText from "./SwapText";
+import { SITE } from "@/lib/site";
 
 const LINKS = [
   { label: "Work", href: "/work" },
@@ -79,8 +80,8 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         exit={{ opacity: 0 }}
         transition={{ delay: 0.4, duration: 0.4 }}
       >
-        <a href="mailto:hello@xarktech.com" className="eyebrow text-paper/70">
-          hello@xarktech.com
+        <a href={`mailto:${SITE.email}`} className="eyebrow text-paper/70">
+          {SITE.email}
         </a>
         <p className="eyebrow text-paper/40">Sheridan, WY</p>
       </motion.div>

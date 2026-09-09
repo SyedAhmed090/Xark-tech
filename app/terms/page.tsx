@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { pageMeta } from "@/lib/site";
+import { SITE, pageMeta } from "@/lib/site";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
@@ -32,7 +32,7 @@ const SECTIONS = [
   },
   {
     title: "Governing law",
-    body: "These terms are governed by the laws of the State of Wyoming. Questions about them can be sent to hello@xarktech.com.",
+    body: `These terms are governed by the laws of the State of Wyoming. Questions about them can be sent to ${SITE.email}.`,
   },
 ];
 

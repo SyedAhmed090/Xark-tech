@@ -56,10 +56,18 @@ permission, but making it yourself avoids a first-signup failure.
 
 Then set the delivery address. In `public_html/api/config.php`:
 
-- `CONTACT_TO` — where inquiries land (default `hello@xarktech.com`)
-- `CONTACT_FROM` — must be an address **on this domain**, or your own SPF
-  record won't cover it and mail lands in spam. Create `website@xarktech.com`
-  in cPanel → Email Accounts first.
+Both are already set to `info@xarktech.com`, so if that mailbox exists there
+is nothing to change:
+
+- `CONTACT_TO` — where inquiries land
+- `CONTACT_FROM` — the envelope sender. Must be a real mailbox **on this
+  domain** or your SPF record won't cover it and mail lands in spam. It is
+  currently the same mailbox as `CONTACT_TO`, which works fine; if you later
+  want a separate sender, create `noreply@xarktech.com` in cPanel → Email
+  Accounts and put it here.
+
+If you change the public address, change `SITE.email` in `lib/site.ts` too —
+that is what every page on the site displays — and rebuild.
 
 ## Verify
 

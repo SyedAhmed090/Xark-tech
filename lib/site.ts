@@ -10,7 +10,7 @@ export const SITE = {
   url: "https://xarktech.com",
   name: "Xark Tech",
   tagline: "We make software feel human",
-  email: "hello@xarktech.com",
+  email: "info@xarktech.com",
   description:
     "Xark Tech is an independent design studio in Sheridan, WY, focused on complex B2B software — fintech, healthcare, logistics. Brand identity, product design, and web experiences.",
   /** Shorter variant for social cards, where long text is truncated. */

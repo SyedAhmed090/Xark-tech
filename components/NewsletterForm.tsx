@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Magnetic from "./Magnetic";
+import { SITE } from "@/lib/site";
 
 /* Posts to /api/subscribe.php, the PHP endpoint deployed alongside the static
    export. If that endpoint is missing or PHP isn't executing (404/405/501) it
@@ -90,8 +91,8 @@ export default function NewsletterForm() {
       {status === "unconfigured" && (
         <p className="mt-3 text-sm text-ink/50">
           Sign-ups aren’t wired up yet — email{" "}
-          <a href="mailto:hello@xarktech.com" className="underline underline-offset-4">
-            hello@xarktech.com
+          <a href={`mailto:${SITE.email}`} className="underline underline-offset-4">
+            {SITE.email}
           </a>{" "}
           and we’ll add you by hand.
         </p>
@@ -103,7 +104,7 @@ export default function NewsletterForm() {
       )}
       {status === "error" && (
         <p role="alert" className="mt-3 text-sm text-ink/50">
-          That didn’t go through — try again, or email hello@xarktech.com.
+          That didn’t go through — try again, or email {SITE.email}.
         </p>
       )}
     </div>
