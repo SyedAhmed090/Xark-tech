@@ -30,6 +30,19 @@ async function exists(dir) {
   }
 }
 
+/**
+ * Skip entirely on Vercel (used as a preview environment for reviewing changes
+ * before they go to cPanel). Vercel has no Apache and no PHP, so .htaccess is
+ * inert there and the .php files would be served as plain text — publishing
+ * their source. Nothing secret lives in them today, but that stops being true
+ * the moment SMTP credentials are added, and a preview host is the wrong place
+ * to find that out.
+ */
+if (process.env.VERCEL) {
+  console.log("prepare-deploy: VERCEL detected — skipping Apache/PHP artifacts.");
+  process.exit(0);
+}
+
 if (!(await exists(target))) {
   console.error(
     "prepare-deploy: out/ not found. Run `next build` with output: \"export\" first."
