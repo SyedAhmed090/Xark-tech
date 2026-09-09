@@ -68,10 +68,34 @@ if ($safeEmail !== '') {
     $headers[] = 'Reply-To: ' . $safeEmail;
 }
 
+/*
+ * Record the inquiry BEFORE attempting mail.
+ *
+ * mail() returning true only means the local mail server accepted the message;
+ * it can still be discarded afterwards — a mailbox that no longer exists, mail
+ * routing pointed elsewhere, a spam filter. That failure is invisible from
+ * here, and an inquiry lost that way is lost permanently. Writing it down
+ * first means the worst case is a delayed reply rather than a lost client.
+ */
+$stored = append_row(
+    INQUIRIES_FILE,
+    array('received_at', 'name', 'email', 'budget', 'message', 'ip'),
+    array(
+        gmdate('c'),
+        $name,
+        $email,
+        $budget,
+        $message,
+        $_SERVER['REMOTE_ADDR'] ?? '',
+    )
+);
+
 // Retries without the -f envelope flag if this host refuses it. See config.php.
 $sent = send_mail(CONTACT_TO, $subject, $body, $headers);
 
-if ($sent === false) {
+// Only a total failure — neither stored nor sent — is worth telling the
+// visitor about, because only then has their message genuinely not arrived.
+if ($sent === false && !$stored) {
     respond(502, array('ok' => false, 'reason' => 'send-failed'));
 }
 
