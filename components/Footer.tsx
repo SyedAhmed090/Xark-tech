@@ -58,15 +58,17 @@ export default function Footer() {
 
       <div className="grid gap-12 md:grid-cols-[2fr_1fr_1fr]">
         <div>
+          {/* invert turns the black mark white for the dark footer — which
+              only works because logo.png is genuinely transparent. */}
           <Image
-            src="/portfolio/image.png"
+            src="/logo.png"
             alt="Xark Tech"
-            width={320}
-            height={160}
+            width={878}
+            height={406}
             className="h-20 w-auto object-contain invert md:h-24"
           />
           <p className="mt-6 max-w-sm text-sm leading-relaxed text-paper/60">
-            Independent design agency. Based in Sheridan, Wyoming — working with
+            Independent design studio. Based in Sheridan, Wyoming — working with
             teams across the United States and worldwide.
           </p>
         </div>
