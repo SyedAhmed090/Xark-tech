@@ -1,60 +1,36 @@
 import type { NextConfig } from "next";
 
 /**
- * Content-Security-Policy notes — read before tightening:
+ * The site is deployed as a static export to Apache on cPanel shared hosting,
+ * which has no Node runtime. Two consequences worth knowing before editing:
  *
- * - `script-src` needs 'unsafe-inline' because Next.js inlines its bootstrap
- *   and RSC flight payload, and the JSON-LD blocks are inline <script> tags.
- *   Removing it requires a nonce issued per request from middleware; that is a
- *   deliberate change, not a config tweak.
- * - `'unsafe-eval'` is required by the WebGL stack (three.js compiles shader
- *   and material code at runtime). Dropping it breaks the hero on the homepage.
- * - `va.vercel-scripts.com` is Vercel Web Analytics; `blob:` covers the worker
- *   and canvas output three.js creates.
- * - `frame-ancestors 'none'` is the modern equivalent of X-Frame-Options, which
- *   is also sent below for older browsers that ignore CSP.
+ * 1. There is no `headers()` block here any more. Static exports don't support
+ *    it, so the CSP and every other security header now live in
+ *    `deploy/.htaccess` and are merged into `out/` by scripts/prepare-deploy.mjs.
+ *    Edit them there — changing this file will not affect what the server sends.
+ *
+ * 2. Image Optimization is off. It needs a Node server, so `next/image` runs
+ *    unoptimized and ships the original files. Keep an eye on the weight of
+ *    anything added to public/.
+ *
+ * Route handlers are also unsupported, which is why the contact and newsletter
+ * endpoints are PHP files in deploy/api/ rather than app/api/ routes.
  */
-const csp = [
-  "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com",
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
-  "font-src 'self' data:",
-  "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com",
-  "worker-src 'self' blob:",
-  "media-src 'self'",
-  "object-src 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "frame-ancestors 'none'",
-  "upgrade-insecure-requests",
-].join("; ");
-
-const securityHeaders = [
-  { key: "Content-Security-Policy", value: csp },
-  // Legacy clickjacking protection for browsers that ignore frame-ancestors.
-  { key: "X-Frame-Options", value: "DENY" },
-  { key: "X-Content-Type-Options", value: "nosniff" },
-  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  // No feature on this site needs these, so deny them outright.
-  {
-    key: "Permissions-Policy",
-    value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
-  },
-  // Hosts terminate TLS, but sending this ourselves means it survives a move.
-  {
-    key: "Strict-Transport-Security",
-    value: "max-age=63072000; includeSubDomains; preload",
-  },
-  { key: "X-DNS-Prefetch-Control", value: "on" },
-];
-
 const nextConfig: NextConfig = {
-  // Hide the framework fingerprint.
+  output: "export",
+
+  /**
+   * Emits `work/meridian/index.html` instead of `work/meridian.html`, which is
+   * what Apache's DirectoryIndex resolves without any rewrite rules. Without
+   * this every clean URL would 404 on the server.
+   */
+  trailingSlash: true,
+
+  images: { unoptimized: true },
+
+  // Hide the framework fingerprint. Apache also unsets it in .htaccess, since
+  // this setting only covers responses Next itself serves.
   poweredByHeader: false,
-  async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
-  },
 };
 
 export default nextConfig;

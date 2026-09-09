@@ -1,3 +1,7 @@
+// Static export: metadata routes must opt in explicitly or the build
+// aborts with "dynamic not configured". See next.config.ts.
+export const dynamic = "force-static";
+
 import { ImageResponse } from "next/og";
 
 // 180×180 is the size iOS actually requests for home-screen bookmarks.

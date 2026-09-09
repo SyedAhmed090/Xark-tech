@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Newsreader, Spline_Sans_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import { SITE, absoluteUrl } from "@/lib/site";
 import { SERVICES } from "@/lib/services";
 import "./globals.css";
@@ -100,7 +99,6 @@ const JSON_LD = {
       url: SITE.url,
       image: absoluteUrl("/opengraph-image"),
       email: SITE.email,
-      foundingDate: SITE.foundingDate,
       priceRange: "$$$",
       address: {
         "@type": "PostalAddress",
@@ -174,7 +172,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
         />
-        <Analytics />
       </body>
     </html>
   );

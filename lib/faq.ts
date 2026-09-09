@@ -14,11 +14,11 @@ export const FAQ_ITEMS = [
   },
   {
     q: "How long does a typical project take?",
-    a: "A brand and site together usually run 8–12 weeks. Product design is ongoing — most clients engage us for a quarter at a time, with two-week working cycles inside it.",
+    a: "A brand and site together usually run 8–12 weeks. Product design is ongoing — engagements are booked a quarter at a time, with two-week working cycles inside them.",
   },
   {
     q: "Who actually works on our project?",
-    a: "The four people on this page. We don’t sell you partners and staff you with juniors — whoever you meet in the first call is who does the work.",
+    a: "Whoever you meet on the first call is who does the work. Xark Tech is founder-led and deliberately small — we don’t sell you partners and staff you with juniors. When a project needs a specialist we bring in trusted collaborators and tell you exactly who is doing what.",
   },
   {
     q: "Can you work with our in-house team?",
