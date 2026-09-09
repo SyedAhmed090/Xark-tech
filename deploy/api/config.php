@@ -45,6 +45,31 @@ const RATE_LIMIT_WINDOW = 3600;
 /** Reject bodies larger than this before doing any parsing. */
 const MAX_BODY_BYTES = 20000;
 
+/**
+ * Send mail, retrying without the -f envelope flag if the first attempt fails.
+ *
+ * -f sets the envelope sender, which helps deliverability — but a number of
+ * shared hosts refuse it from non-trusted users, and PHP then returns false
+ * with nothing written to any log the site owner can reach. Rather than fail
+ * the visitor's submission over a host quirk, try the plain call too.
+ *
+ * Returns 'sent-with-envelope', 'sent-plain', or false so the caller can tell
+ * which path worked without guessing.
+ */
+function send_mail($to, $subject, $body, array $headers)
+{
+    $encoded = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+    $head = implode("\r\n", $headers);
+
+    if (@mail($to, $encoded, $body, $head, '-f' . CONTACT_FROM)) {
+        return 'sent-with-envelope';
+    }
+    if (@mail($to, $encoded, $body, $head)) {
+        return 'sent-plain';
+    }
+    return false;
+}
+
 /** Send a JSON response and stop. */
 function respond($status, array $payload)
 {

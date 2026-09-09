@@ -56,16 +56,15 @@ fclose($handle);
 
 // Best-effort notification. A failure here doesn't fail the request — the
 // address is already stored, which is the part that matters.
-@mail(
+send_mail(
     CONTACT_TO,
-    '=?UTF-8?B?' . base64_encode('New newsletter subscriber') . '?=',
+    'New newsletter subscriber',
     header_safe($email) . " subscribed via xarktech.com.\n",
-    implode("\r\n", array(
+    array(
         'From: ' . header_safe(CONTACT_FROM_NAME) . ' <' . CONTACT_FROM . '>',
         'MIME-Version: 1.0',
         'Content-Type: text/plain; charset=UTF-8',
-    )),
-    '-f' . CONTACT_FROM
+    )
 );
 
 respond(200, array('ok' => true));

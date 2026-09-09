@@ -68,16 +68,10 @@ if ($safeEmail !== '') {
     $headers[] = 'Reply-To: ' . $safeEmail;
 }
 
-$sent = @mail(
-    CONTACT_TO,
-    // encoded so non-ASCII names don't mangle the subject line
-    '=?UTF-8?B?' . base64_encode($subject) . '?=',
-    $body,
-    implode("\r\n", $headers),
-    '-f' . CONTACT_FROM
-);
+// Retries without the -f envelope flag if this host refuses it. See config.php.
+$sent = send_mail(CONTACT_TO, $subject, $body, $headers);
 
-if (!$sent) {
+if ($sent === false) {
     respond(502, array('ok' => false, 'reason' => 'send-failed'));
 }
 
