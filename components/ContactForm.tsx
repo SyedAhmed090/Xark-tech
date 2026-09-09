@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Magnetic from "./Magnetic";
+import { SITE } from "@/lib/site";
 
 /* Posts to /api/contact.php, the PHP endpoint deployed alongside the static
    export. If that endpoint is missing or PHP isn't executing (404/405/501),
@@ -69,7 +70,7 @@ export default function ContactForm({
       const body = encodeURIComponent(
         `${message}${budgetLine}\n\n— ${name}${email ? ` (${email})` : ""}`
       );
-      window.location.href = `mailto:hello@xarktech.com?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:${SITE.email}?subject=${subject}&body=${body}`;
       return;
     }
     // The backend exists but the send failed — tell the visitor honestly
@@ -164,10 +165,10 @@ export default function ContactForm({
           That’s a few messages in a short window — please wait a little
           before sending another, or email us directly at{" "}
           <a
-            href="mailto:hello@xarktech.com"
+            href={`mailto:${SITE.email}`}
             className="underline underline-offset-4"
           >
-            hello@xarktech.com
+            {SITE.email}
           </a>
           .
         </p>
@@ -178,8 +179,8 @@ export default function ContactForm({
           className={`text-sm ${onKlein ? "text-paper" : "text-ink"}`}
         >
           That didn’t go through — please email us directly at{" "}
-          <a href="mailto:hello@xarktech.com" className="underline underline-offset-4">
-            hello@xarktech.com
+          <a href={`mailto:${SITE.email}`} className="underline underline-offset-4">
+            {SITE.email}
           </a>
           .
         </p>

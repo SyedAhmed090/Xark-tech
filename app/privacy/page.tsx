@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { pageMeta } from "@/lib/site";
+import { SITE, pageMeta } from "@/lib/site";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
@@ -28,7 +28,7 @@ const SECTIONS = [
   },
   {
     title: "Your choices",
-    body: "You can email us directly instead of using the form. You can ask us to delete any correspondence at any time by writing to hello@xarktech.com, and we will.",
+    body: `You can email us directly instead of using the form. You can ask us to delete any correspondence at any time by writing to ${SITE.email}, and we will.`,
   },
   {
     title: "Changes",

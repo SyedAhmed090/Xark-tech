@@ -9,15 +9,22 @@
  * file OUTSIDE public_html and require() it instead.
  */
 
-// Where contact-form submissions are delivered.
-const CONTACT_TO = 'hello@xarktech.com';
+// Where contact-form submissions are delivered. Must match SITE.email in
+// lib/site.ts, which is what the site tells visitors to write to.
+const CONTACT_TO = 'info@xarktech.com';
 
 /**
- * Envelope sender. MUST be an address on this domain, or the server's own
- * SPF record won't cover it and the mail lands in spam. This is not a mailbox
- * anyone reads — replies go to the visitor via Reply-To.
+ * Envelope sender. MUST be a real mailbox on this domain, or the server's own
+ * SPF record won't cover it and the mail lands in spam.
+ *
+ * Currently the same mailbox as CONTACT_TO, because that is the only address
+ * on the domain. Self-addressed mail is delivered locally and works, but some
+ * filters score it slightly higher for spam. If that ever becomes a problem,
+ * create a dedicated sender (e.g. noreply@xarktech.com) in cPanel and put it
+ * here — nothing else needs to change, since replies reach the visitor via
+ * Reply-To rather than this address.
  */
-const CONTACT_FROM = 'website@xarktech.com';
+const CONTACT_FROM = 'info@xarktech.com';
 const CONTACT_FROM_NAME = 'Xark website';
 
 /**
@@ -37,6 +44,31 @@ const RATE_LIMIT_WINDOW = 3600;
 
 /** Reject bodies larger than this before doing any parsing. */
 const MAX_BODY_BYTES = 20000;
+
+/**
+ * Send mail, retrying without the -f envelope flag if the first attempt fails.
+ *
+ * -f sets the envelope sender, which helps deliverability — but a number of
+ * shared hosts refuse it from non-trusted users, and PHP then returns false
+ * with nothing written to any log the site owner can reach. Rather than fail
+ * the visitor's submission over a host quirk, try the plain call too.
+ *
+ * Returns 'sent-with-envelope', 'sent-plain', or false so the caller can tell
+ * which path worked without guessing.
+ */
+function send_mail($to, $subject, $body, array $headers)
+{
+    $encoded = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+    $head = implode("\r\n", $headers);
+
+    if (@mail($to, $encoded, $body, $head, '-f' . CONTACT_FROM)) {
+        return 'sent-with-envelope';
+    }
+    if (@mail($to, $encoded, $body, $head)) {
+        return 'sent-plain';
+    }
+    return false;
+}
 
 /** Send a JSON response and stop. */
 function respond($status, array $payload)

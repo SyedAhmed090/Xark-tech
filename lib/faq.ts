@@ -7,6 +7,8 @@
  * Answers must stay consistent with lib/services.ts pricing: Google treats
  * FAQ schema that contradicts on-page or sitewide content as untrustworthy.
  */
+import { SITE } from "@/lib/site";
+
 export const FAQ_ITEMS = [
   {
     q: "What does an engagement cost?",
@@ -26,6 +28,6 @@ export const FAQ_ITEMS = [
   },
   {
     q: "How do we start?",
-    a: "Email hello@xarktech.com with a couple of lines about what you’re building. We’ll book a 30-minute intro call, and if it’s a fit you’ll have a scoped proposal within a week.",
+    a: `Email ${SITE.email} with a couple of lines about what you’re building. We’ll book a 30-minute intro call, and if it’s a fit you’ll have a scoped proposal within a week.`,
   },
 ];

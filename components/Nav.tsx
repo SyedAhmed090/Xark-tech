@@ -11,6 +11,7 @@ import {
 } from "framer-motion";
 import Magnetic from "./Magnetic";
 import SwapText from "./SwapText";
+import { SITE } from "@/lib/site";
 
 const LINKS = [
   { label: "Work", href: "/work" },
@@ -79,8 +80,8 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         exit={{ opacity: 0 }}
         transition={{ delay: 0.4, duration: 0.4 }}
       >
-        <a href="mailto:hello@xarktech.com" className="eyebrow text-paper/70">
-          hello@xarktech.com
+        <a href={`mailto:${SITE.email}`} className="eyebrow text-paper/70">
+          {SITE.email}
         </a>
         <p className="eyebrow text-paper/40">Sheridan, WY</p>
       </motion.div>
@@ -113,11 +114,16 @@ export default function Nav() {
             aria-label="Xark Tech home"
             className={`display-tight text-lg tracking-tight transition-colors ${open ? "text-paper" : ""}`}
           >
+            {/* public/logo.png is a true RGBA file. The previous asset
+                (portfolio/image.png) was a flattened screenshot with the image
+                editor's transparency checkerboard baked into the pixels, so the
+                header rendered a grey-and-white checked box behind the mark.
+                Keep any replacement transparent, or that returns. */}
             <Image
-              src="/portfolio/image.png"
+              src="/logo.png"
               alt="Xark Tech"
-              width={160}
-              height={80}
+              width={878}
+              height={406}
               priority
               className={`h-10 w-auto object-contain ${open ? "invert" : ""}`}
             />
