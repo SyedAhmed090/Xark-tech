@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { pageMeta } from "@/lib/site";
+import { pageMeta, SITE } from "@/lib/site";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -58,11 +58,22 @@ export default function ContactPage() {
               <div>
                 <p className="eyebrow mb-4 text-brand">Prefer email?</p>
                 <a
-                  href="mailto:hello@xarktech.com"
+                  href={`mailto:${SITE.email}`}
                   className="text-3xl text-ink transition-colors hover:text-brand md:text-4xl"
                 >
-                  hello@xarktech.com
+                  {SITE.email}
                 </a>
+              </div>
+
+              <div>
+                <p className="eyebrow mb-4 text-brand">Our location</p>
+                <address className="font-serif text-2xl not-italic leading-snug text-ink md:text-3xl">
+                  <span className="block">{SITE.address.street}</span>
+                  <span className="block">
+                    {SITE.address.locality}, {SITE.address.region}{" "}
+                    {SITE.address.postalCode}
+                  </span>
+                </address>
               </div>
 
               <div>

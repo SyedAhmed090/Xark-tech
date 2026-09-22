@@ -1,0 +1,160 @@
+<?php
+/**
+ * Shared configuration for the contact and subscribe endpoints.
+ *
+ * These files are deployed to public_html/api/ alongside the static export.
+ * Nothing secret lives here: mail is handed to the local MTA on the same
+ * cPanel account that receives it, so there is no API key or SMTP password to
+ * protect. If you later switch to authenticated SMTP, move credentials into a
+ * file OUTSIDE public_html and require() it instead.
+ */
+
+// Where contact-form submissions are delivered. Must match SITE.email in
+// lib/site.ts, which is what the site tells visitors to write to.
+const CONTACT_TO = 'info@xarktech.com';
+
+/**
+ * Envelope sender. MUST be a real mailbox on this domain, or the server's own
+ * SPF record won't cover it and the mail lands in spam.
+ *
+ * Currently the same mailbox as CONTACT_TO, because that is the only address
+ * on the domain. Self-addressed mail is delivered locally and works, but some
+ * filters score it slightly higher for spam. If that ever becomes a problem,
+ * create a dedicated sender (e.g. noreply@xarktech.com) in cPanel and put it
+ * here — nothing else needs to change, since replies reach the visitor via
+ * Reply-To rather than this address.
+ */
+const CONTACT_FROM = 'info@xarktech.com';
+const CONTACT_FROM_NAME = 'Xark website';
+
+/**
+ * Newsletter signups are appended here. This path is resolved relative to
+ * this file and points ABOVE public_html on a standard cPanel layout, so the
+ * list is never web-readable. Verify it lands outside your document root:
+ * a subscriber list served over HTTP is a data breach.
+ */
+const SUBSCRIBERS_FILE = __DIR__ . '/../../xark-data/subscribers.csv';
+
+/** Rate-limit state. Also kept outside the document root. */
+const RATE_LIMIT_DIR = __DIR__ . '/../../xark-data/ratelimit';
+
+/** Max submissions per IP per window, and the window in seconds. */
+const RATE_LIMIT_MAX = 5;
+const RATE_LIMIT_WINDOW = 3600;
+
+/** Reject bodies larger than this before doing any parsing. */
+const MAX_BODY_BYTES = 20000;
+
+/**
+ * Send mail, retrying without the -f envelope flag if the first attempt fails.
+ *
+ * -f sets the envelope sender, which helps deliverability — but a number of
+ * shared hosts refuse it from non-trusted users, and PHP then returns false
+ * with nothing written to any log the site owner can reach. Rather than fail
+ * the visitor's submission over a host quirk, try the plain call too.
+ *
+ * Returns 'sent-with-envelope', 'sent-plain', or false so the caller can tell
+ * which path worked without guessing.
+ */
+function send_mail($to, $subject, $body, array $headers)
+{
+    $encoded = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+    $head = implode("\r\n", $headers);
+
+    if (@mail($to, $encoded, $body, $head, '-f' . CONTACT_FROM)) {
+        return 'sent-with-envelope';
+    }
+    if (@mail($to, $encoded, $body, $head)) {
+        return 'sent-plain';
+    }
+    return false;
+}
+
+/** Send a JSON response and stop. */
+function respond($status, array $payload)
+{
+    http_response_code($status);
+    header('Content-Type: application/json');
+    header('X-Content-Type-Options: nosniff');
+    echo json_encode($payload);
+    exit;
+}
+
+/**
+ * Strip CR/LF and NUL from any value interpolated into a mail header.
+ * Without this, a newline in the name or email field lets a submitter append
+ * their own headers and use the form as an open relay. This is the single
+ * most important line in these scripts.
+ */
+function header_safe($value)
+{
+    return trim(str_replace(array("\r", "\n", "\0", '%0a', '%0d'), '', $value));
+}
+
+/** Read and decode the JSON request body, enforcing POST and a size cap. */
+function read_json_body()
+{
+    if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+        header('Allow: POST');
+        respond(405, array('ok' => false, 'reason' => 'method-not-allowed'));
+    }
+
+    $raw = file_get_contents('php://input', false, null, 0, MAX_BODY_BYTES + 1);
+    if ($raw === false || strlen($raw) > MAX_BODY_BYTES) {
+        respond(413, array('ok' => false, 'reason' => 'too-large'));
+    }
+
+    $data = json_decode($raw, true);
+    if (!is_array($data)) {
+        respond(400, array('ok' => false, 'reason' => 'bad-request'));
+    }
+    return $data;
+}
+
+/** Trim a submitted field to a maximum length, coercing missing keys to ''. */
+function field(array $data, $key, $max)
+{
+    $value = isset($data[$key]) && is_scalar($data[$key]) ? (string) $data[$key] : '';
+    // mb_substr keeps multi-byte characters intact; substr would split them.
+    return function_exists('mb_substr')
+        ? mb_substr(trim($value), 0, $max)
+        : substr(trim($value), 0, $max);
+}
+
+/**
+ * Simple per-IP file rate limit. Returns false when the caller is over quota.
+ * Not bulletproof against a distributed flood, but it stops the single-script
+ * abuse these endpoints actually attract.
+ */
+function rate_limit_ok()
+{
+    $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+    if (!is_dir(RATE_LIMIT_DIR) && !@mkdir(RATE_LIMIT_DIR, 0700, true)) {
+        // Can't track state — fail open rather than break a working form.
+        return true;
+    }
+
+    $file = RATE_LIMIT_DIR . '/' . sha1($ip) . '.txt';
+    $now = time();
+    $hits = array();
+
+    if (is_readable($file)) {
+        $existing = @file_get_contents($file);
+        if ($existing !== false && $existing !== '') {
+            foreach (explode("\n", trim($existing)) as $line) {
+                $ts = (int) $line;
+                if ($ts > $now - RATE_LIMIT_WINDOW) {
+                    $hits[] = $ts;
+                }
+            }
+        }
+    }
+
+    if (count($hits) >= RATE_LIMIT_MAX) {
+        return false;
+    }
+
+    $hits[] = $now;
+    @file_put_contents($file, implode("\n", $hits), LOCK_EX);
+    return true;
+}

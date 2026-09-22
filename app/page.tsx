@@ -5,7 +5,6 @@ import ServiceGrid from "@/components/ServiceGrid";
 import WhatYouGet from "@/components/WhatYouGet";
 import Process from "@/components/Process";
 import Work from "@/components/Work";
-import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
@@ -49,7 +48,6 @@ export default function Home() {
         <WhatYouGet />
         <Process />
         <Work />
-        <Testimonials />
         <FAQ />
         <CTA />
         <Footer />

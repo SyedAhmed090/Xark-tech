@@ -74,7 +74,12 @@ export default async function CasePage({
         <header className="px-5 md:px-10">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">
-              Case study — {project.category} — {project.year}
+              {project.category} — {project.year}
+            </p>
+            {/* Stated before the title, not buried in the body: a reader must
+                not be able to mistake this for a paid client engagement. */}
+            <p className="eyebrow mb-6 inline-block rounded-full border border-ink/20 px-3 py-1.5 text-ink/60">
+              {project.kind}
             </p>
             {/* Floor is 2.25rem, not 3rem: single-word titles like "Meridian"
                 can't wrap, and at 3rem the ultra-wide display face overflowed
@@ -95,6 +100,14 @@ export default async function CasePage({
                 </li>
               ))}
             </ul>
+            {/* The prototype is the strongest evidence this project has —
+                it's a real build, not a mockup, so link it prominently. */}
+            <Link
+              href={project.demoHref}
+              className="eyebrow mt-8 inline-block rounded-full bg-brand px-6 py-3 text-paper transition-colors hover:bg-ink"
+            >
+              Open the prototype →
+            </Link>
           </Reveal>
         </header>
 

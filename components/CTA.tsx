@@ -1,5 +1,6 @@
 import ContactForm from "./ContactForm";
 import { LineReveal, Reveal } from "./Reveal";
+import { SITE } from "@/lib/site";
 
 export default function CTA() {
   return (
@@ -28,10 +29,10 @@ export default function CTA() {
               directly:
             </p>
             <a
-              href="mailto:hello@xarktech.com"
+              href={`mailto:${SITE.email}`}
               className="text-3xl transition-opacity hover:opacity-70 md:text-5xl"
             >
-              hello@xarktech.com
+              {SITE.email}
             </a>
           </div>
         </Reveal>

@@ -144,7 +144,7 @@ export const POSTS: Post[] = [
         kind: "p",
         text: [
           "Layers inside the agency become latency inside your project. Every account manager between you and the person doing the work is a place where a hard truth gets softened before it reaches you. This is why we ",
-          { text: "stay four people", href: "/journal/why-we-stay-four-people" },
+          { text: "stay small", href: "/journal/why-we-stay-small" },
           " — though the honest cost of that shape is that we book out a quarter ahead and cannot parallelize a large program. Ask about the shape; ask what it costs you.",
         ],
       },
@@ -740,24 +740,28 @@ export const POSTS: Post[] = [
     related: ["why-your-b2b-site-doesnt-rank", "design-systems-are-a-management-tool"],
   },
   {
-    slug: "why-we-stay-four-people",
-    title: "Why we stay four people",
-    dek: "Twelve years in, the most contrarian thing about our studio is the org chart. Here’s the math behind it.",
+    slug: "why-we-stay-small",
+    title: "Why we stay small",
+    dek: "The most contrarian thing about this studio is the org chart. Here’s the reasoning behind it.",
     date: "2026-01-20",
     displayDate: "January 2026",
-    readingTime: "7 min",
+    readingTime: "6 min",
+    // Copy is main's de-claimed rewrite (the "four people" and "twelve years"
+    // figures were unverifiable), carried into the structured block format the
+    // journal renderer actually reads — the merge had left it as the old flat
+    // body/pullQuote pair, which no longer renders.
     blocks: [
       {
         kind: "p",
-        text: "Agencies grow because revenue is a scoreboard and headcount looks like winning. We’ve watched peers scale from five to fifty, and the pattern is reliable: the founders stop designing, a management layer appears to coordinate the people who now do the work, and the thing clients originally paid for — senior judgment, applied directly — becomes the thing the org chart is designed to ration.",
+        text: "Agencies grow because revenue is a scoreboard and headcount looks like winning. The pattern is reliable enough to predict: the founders stop designing, a management layer appears to coordinate the people who now do the work, and the thing clients originally paid for — senior judgment, applied directly — becomes the thing the org chart is designed to ration.",
       },
       {
         kind: "p",
-        text: "We decided early that Xark would be a different shape: four senior people, no account layer, no bench. It costs us real money. We turn down more work than we take, and there are quarters where the pipeline makes that feel reckless. Twelve years of retention numbers say it isn’t.",
+        text: "Xark is deliberately a different shape: founder-led, no account layer, no bench. It costs real money. It means turning down more work than we take, and there are stretches where the pipeline makes that feel reckless.",
       },
       {
         kind: "p",
-        text: "The economics are simpler than they look. A fifty-person agency bills you for seniors and staffs you with juniors, because that spread is the margin. A four-person studio has no spread to arbitrage — the person you met in the sales call is the person in your Figma on Tuesday. Our margin is that we don’t hand off, so nothing is lost in translation, so the work is right earlier, so engagements run shorter than anyone budgets for.",
+        text: "The economics are simpler than they look. A fifty-person agency bills you for seniors and staffs you with juniors, because that spread is the margin. A studio this size has no spread to arbitrage — the person you met on the first call is the person in your Figma on Tuesday. The margin is that nothing is handed off, so nothing is lost in translation, so the work is right earlier.",
       },
       {
         kind: "quote",
@@ -769,11 +773,11 @@ export const POSTS: Post[] = [
       },
       {
         kind: "p",
-        text: "The honest downside: we are supply-constrained, permanently. We book a quarter or two out, we can’t parallelize big programs, and if you need a hundred hands, we’re the wrong studio and we’ll say so on the first call. That sentence — we’re the wrong studio — has probably built more trust than anything in our portfolio.",
+        text: "The honest downside: we are supply-constrained, permanently. We can’t parallelize big programs, and if you need a hundred hands, we’re the wrong studio and we’ll say so on the first call. That sentence — we’re the wrong studio — probably builds more trust than anything in the portfolio.",
       },
       {
         kind: "p",
-        text: "Four is not a stage we’re passing through. It’s the product.",
+        text: "Small is not a stage we’re passing through. It’s the product.",
       },
     ],
     related: ["how-to-choose-a-b2b-saas-design-agency", "design-retainer-vs-project-work"],

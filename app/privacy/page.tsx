@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { pageMeta } from "@/lib/site";
+import { SITE, pageMeta } from "@/lib/site";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
@@ -26,7 +26,7 @@ const SECTIONS = [
   },
   {
     title: "Your choices",
-    body: "You can email us directly instead of using the form. You can ask us to delete any correspondence at any time by writing to hello@xarktech.com, and we will.",
+    body: `You can email us directly instead of using the form. You can ask us to delete any correspondence at any time by writing to ${SITE.email}, and we will.`,
   },
   {
     title: "Changes",
@@ -42,7 +42,7 @@ export default function PrivacyPage() {
         <header className="px-5 md:px-10">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">Legal</p>
-            <h1 className="display text-[clamp(2rem,5.5vw,3.5rem)]">
+            <h1 className="display text-[clamp(2.5rem,8vw,7rem)]">
               Privacy policy
             </h1>
             <p className="mt-6 font-mono text-xs text-ink/50">

@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { Tick } from "./Hero";
-import { BUNDLES, bundleSaving, type Bundle } from "@/lib/services";
+import {
+  BUNDLES,
+  bundleListUsd,
+  bundleSaving,
+  type Bundle,
+} from "@/lib/services";
 
 const money = (n: number) => `$${n.toLocaleString("en-US")}`;
 
@@ -39,6 +44,7 @@ export default function BundleCards() {
 
 function BundleCard({ bundle }: { bundle: Bundle }) {
   const saving = bundleSaving(bundle);
+  const listUsd = bundleListUsd(bundle);
   const featured = bundle.featured;
 
   return (
@@ -64,7 +70,7 @@ function BundleCard({ bundle }: { bundle: Bundle }) {
             not an inflated anchor — the components are individually priced
             on the same site and a visitor can add them up. */}
         <span className="pb-1 text-sm text-muted line-through">
-          {money(bundle.listUsd)}
+          {money(listUsd)}
         </span>
       </div>
 

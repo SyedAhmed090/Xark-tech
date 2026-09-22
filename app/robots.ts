@@ -1,3 +1,7 @@
+// Static export: metadata routes must opt in explicitly or the build
+// aborts with "dynamic not configured". See next.config.ts.
+export const dynamic = "force-static";
+
 import type { MetadataRoute } from "next";
 import { SITE, absoluteUrl } from "@/lib/site";
 

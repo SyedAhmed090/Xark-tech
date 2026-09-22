@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { SITE } from "@/lib/site";
 
-/* Posts to /api/contact; if the backend isn't configured (501) it falls
-   back to composing in the visitor's mail client. */
+/* Posts to /api/contact.php, the PHP endpoint deployed alongside the static
+   export. If that endpoint is missing or PHP isn't executing (404/405/501),
+   it falls back to composing in the visitor's mail client rather than showing
+   a dead end — a misconfigured server should still let someone reach us. */
 export default function ContactForm({
   theme = "brand",
 }: {
@@ -14,16 +17,16 @@ export default function ContactForm({
   const [message, setMessage] = useState("");
   const [budget, setBudget] = useState("");
   const [status, setStatus] = useState<
-    "idle" | "sending" | "sent" | "error"
+    "idle" | "sending" | "sent" | "error" | "rate-limited"
   >("idle");
   const [honeypot, setHoneypot] = useState("");
 
-  const onBrand = theme === "brand";
-  const label = onBrand ? "text-paper/75" : "text-ink/60";
-  const field = onBrand
+  const onKlein = theme === "brand";
+  const label = onKlein ? "text-paper/75" : "text-ink/60";
+  const field = onKlein
     ? "border-paper/40 text-paper placeholder:text-paper/55 focus:border-paper"
     : "border-ink/25 text-ink placeholder:text-ink/45 focus:border-brand";
-  const button = onBrand
+  const button = onKlein
     ? "bg-paper text-ink hover:bg-ink hover:text-paper"
     : "bg-brand text-paper hover:bg-ink";
 
@@ -32,7 +35,7 @@ export default function ContactForm({
     setStatus("sending");
     let unconfigured = false;
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("/api/contact.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message, budget, company: honeypot }),
@@ -41,7 +44,17 @@ export default function ContactForm({
         setStatus("sent");
         return;
       }
-      unconfigured = res.status === 501;
+      // 429 is the rate limiter, and it means the endpoint is working — the
+      // visitor needs telling to wait, not a mail client.
+      if (res.status === 429) {
+        setStatus("rate-limited");
+        return;
+      }
+      // 404/405 mean the PHP file is absent or PHP isn't running; 501 is the
+      // old Next route's "not configured". All three are server-side gaps the
+      // visitor can't fix, so hand them a working alternative.
+      unconfigured =
+        res.status === 404 || res.status === 405 || res.status === 501;
     } catch {
       // network failure — treat like unconfigured and let email carry it
       unconfigured = true;
@@ -56,7 +69,7 @@ export default function ContactForm({
       const body = encodeURIComponent(
         `${message}${budgetLine}\n\n— ${name}${email ? ` (${email})` : ""}`
       );
-      window.location.href = `mailto:hello@xarktech.com?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:${SITE.email}?subject=${subject}&body=${body}`;
       return;
     }
     // The backend exists but the send failed — tell the visitor honestly
@@ -66,10 +79,10 @@ export default function ContactForm({
   if (status === "sent") {
     return (
       <div aria-live="polite">
-        <p className={`text-3xl md:text-4xl ${onBrand ? "text-paper" : "text-ink"}`}>
+        <p className={`text-3xl md:text-4xl ${onKlein ? "text-paper" : "text-ink"}`}>
           Got it — thank you.
         </p>
-        <p className={`mt-4 max-w-sm text-sm leading-relaxed ${onBrand ? "text-paper/70" : "text-ink/60"}`}>
+        <p className={`mt-4 max-w-sm text-sm leading-relaxed ${onKlein ? "text-paper/70" : "text-ink/60"}`}>
           Your note is in our inbox. A founder will reply within two business
           days.
         </p>
@@ -144,14 +157,30 @@ export default function ContactForm({
           onChange={(e) => setHoneypot(e.target.value)}
         />
       </label>
+      {status === "rate-limited" && (
+        <p
+          role="alert"
+          className={`text-sm ${onKlein ? "text-paper" : "text-ink"}`}
+        >
+          That’s a few messages in a short window — please wait a little
+          before sending another, or email us directly at{" "}
+          <a
+            href={`mailto:${SITE.email}`}
+            className="underline underline-offset-4"
+          >
+            {SITE.email}
+          </a>
+          .
+        </p>
+      )}
       {status === "error" && (
         <p
           role="alert"
-          className={`text-sm ${onBrand ? "text-paper" : "text-ink"}`}
+          className={`text-sm ${onKlein ? "text-paper" : "text-ink"}`}
         >
           That didn’t go through — please email us directly at{" "}
-          <a href="mailto:hello@xarktech.com" className="underline underline-offset-4">
-            hello@xarktech.com
+          <a href={`mailto:${SITE.email}`} className="underline underline-offset-4">
+            {SITE.email}
           </a>
           .
         </p>

@@ -1,0 +1,121 @@
+# Xark Tech — Apache configuration for the static export.
+#
+# Deployed to the document root (public_html) alongside the contents of out/.
+# Everything here replaces behaviour that next.config.ts used to provide via
+# headers(), which a static export cannot support. If you edit the CSP, edit
+# it here — there is no longer a copy in the Next config.
+
+# ---------------------------------------------------------------------------
+# Canonical host and HTTPS
+# ---------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Force HTTPS. HTTP_X_FORWARDED_PROTO is checked first because many cPanel
+  # stacks terminate TLS at a proxy, where HTTPS is not set on the backend.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # Collapse www to the bare domain, matching SITE.url in lib/site.ts.
+  # Serving both would split ranking signals across two hostnames.
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Security headers
+#
+# Ported from the securityHeaders array that used to live in next.config.ts.
+# The Vercel analytics origins are gone from the CSP because the Analytics
+# component was removed with the move off Vercel.
+# ---------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  # 'unsafe-inline' is required: Next inlines its bootstrap and the JSON-LD
+  # blocks are inline <script> tags. 'unsafe-eval' is required by three.js,
+  # which compiles shader and material code at runtime — dropping it breaks
+  # the homepage hero. Removing either needs a per-request nonce, which a
+  # static export cannot issue.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+
+  # Legacy clickjacking protection for browsers that ignore frame-ancestors.
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  Header always set X-DNS-Prefetch-Control "on"
+
+  # Only meaningful once HTTPS is confirmed working. If AutoSSL has not issued
+  # a certificate yet, comment this out — a browser that sees HSTS on a broken
+  # certificate will refuse the site for two years.
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+
+  # Don't advertise the stack.
+  Header unset X-Powered-By
+  Header always unset X-Powered-By
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Content types for Next's extensionless asset routes
+#
+# The export writes real PNGs with no file extension — /apple-icon and every
+# /<section>/<slug>/opengraph-image. Apache would serve these as
+# application/octet-stream and social scrapers would silently refuse to render
+# the cards, so the type is set explicitly.
+# ---------------------------------------------------------------------------
+<FilesMatch "^(apple-icon|opengraph-image|twitter-image|icon)$">
+  ForceType image/png
+  <IfModule mod_headers.c>
+    Header set Content-Type "image/png"
+  </IfModule>
+</FilesMatch>
+
+AddType application/manifest+json .webmanifest
+AddType image/svg+xml .svg
+
+# config.php is an include, never an entry point. Requesting it directly does
+# nothing today (it only defines constants and functions), but denying it keeps
+# that true if configuration is ever added that shouldn't be probed.
+<Files "config.php">
+  Require all denied
+</Files>
+
+# ---------------------------------------------------------------------------
+# Caching
+# ---------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  # Next's build output is content-hashed, so it can be cached indefinitely.
+  <FilesMatch "\.(js|css|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # HTML must revalidate or visitors keep seeing the previous deploy.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json image/svg+xml
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Routing
+#
+# The export uses trailingSlash: true, so every page is a directory with an
+# index.html and Apache's default DirectoryIndex resolves it. Only the 404
+# needs wiring up by hand.
+# ---------------------------------------------------------------------------
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+# Never list a directory that somehow lacks an index.
+Options -Indexes
+
+# Block dotfiles, but NOT /.well-known — AutoSSL and Let's Encrypt place
+# their challenge files there, and denying it silently breaks certificate
+# renewal a few weeks after launch, long after anyone would connect the two.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule "(^|/)\.(?!well-known(/|$))" - [F,L]
+</IfModule>

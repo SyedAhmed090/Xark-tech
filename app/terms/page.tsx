@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { pageMeta } from "@/lib/site";
+import { SITE, pageMeta } from "@/lib/site";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMeta({
 const SECTIONS = [
   {
     title: "This site",
-    body: "This website is operated by Xark Tech LLC, Austin, Texas. Its content — text, design, illustrations, and code — belongs to Xark Tech and may not be reproduced commercially without permission. Client names and project details are shown with permission or in anonymized, illustrative form.",
+    body: "This website is operated by Xark Tech LLC, Sheridan, Wyoming. Its content — text, design, illustrations, and code — belongs to Xark Tech and may not be reproduced commercially without permission. Client names and project details are shown with permission or in anonymized, illustrative form.",
   },
   {
     title: "No engagement without a contract",
@@ -30,7 +30,7 @@ const SECTIONS = [
   },
   {
     title: "Governing law",
-    body: "These terms are governed by the laws of the State of Texas. Questions about them can be sent to hello@xarktech.com.",
+    body: `These terms are governed by the laws of the State of Wyoming. Questions about them can be sent to ${SITE.email}.`,
   },
 ];
 
@@ -42,7 +42,7 @@ export default function TermsPage() {
         <header className="px-5 md:px-10">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">Legal</p>
-            <h1 className="display text-[clamp(2rem,5.5vw,3.5rem)]">
+            <h1 className="display text-[clamp(2.5rem,8vw,7rem)]">
               Terms of use
             </h1>
             <p className="mt-6 font-mono text-xs text-ink/50">

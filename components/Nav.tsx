@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   AnimatePresence,
@@ -9,12 +10,13 @@ import {
   useScroll,
 } from "framer-motion";
 import SwapText from "./SwapText";
+import { SITE } from "@/lib/site";
 
 const LINKS = [
-  { label: "Pricing", href: "/packages" },
-  { label: "Services", href: "/services" },
   { label: "Work", href: "/work" },
-  { label: "About", href: "/studio" },
+  { label: "Services", href: "/services" },
+  { label: "Packages", href: "/packages" },
+  { label: "Studio", href: "/studio" },
   { label: "Journal", href: "/journal" },
   { label: "Contact", href: "/contact" },
 ];
@@ -22,13 +24,22 @@ const LINKS = [
 function MobileMenu({ onClose }: { onClose: () => void }) {
   useEffect(() => {
     document.documentElement.style.overflow = "hidden";
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+
     return () => {
       document.documentElement.style.overflow = "";
+      document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [onClose]);
 
   return (
     <motion.div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Mobile navigation"
       className="fixed inset-0 z-[80] flex flex-col justify-between bg-ink px-5 pb-10 pt-24 text-paper"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -68,10 +79,10 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
         exit={{ opacity: 0 }}
         transition={{ delay: 0.4, duration: 0.4 }}
       >
-        <a href="mailto:hello@xarktech.com" className="eyebrow text-paper/70">
-          hello@xarktech.com
+        <a href={`mailto:${SITE.email}`} className="eyebrow text-paper/70">
+          {SITE.email}
         </a>
-        <p className="eyebrow text-paper/40">Austin, TX</p>
+        <p className="eyebrow text-paper/40">Sheridan, WY</p>
       </motion.div>
     </motion.div>
   );
@@ -99,16 +110,32 @@ export default function Nav() {
         <nav className="mx-auto flex max-w-[1600px] items-center justify-between px-5 py-4 md:px-10">
           <Link
             href="/"
+            aria-label="Xark Tech home"
             className={`display-tight text-lg tracking-tight transition-colors ${open ? "text-paper" : ""}`}
           >
-            XARK
-            <span className="font-mono text-xs align-super text-brand">®</span>
+            {/* public/logo.png is a true RGBA file. The previous asset
+                (portfolio/image.png) was a flattened screenshot with the image
+                editor's transparency checkerboard baked into the pixels, so the
+                header rendered a grey-and-white checked box behind the mark.
+                Keep any replacement transparent, or that returns. */}
+            <Image
+              src="/logo.png"
+              alt="Xark Tech"
+              width={878}
+              height={406}
+              priority
+              className={`h-10 w-auto object-contain ${open ? "invert" : ""}`}
+            />
           </Link>
 
           <ul className="hidden items-center gap-8 md:flex">
             {LINKS.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="group eyebrow text-ink/70">
+                <Link
+                  href={link.href}
+                  aria-label={link.label}
+                  className="group eyebrow text-ink/70"
+                >
                   <SwapText>{link.label}</SwapText>
                 </Link>
               </li>
@@ -117,15 +144,15 @@ export default function Nav() {
 
           <div className="flex items-center gap-3">
               <Link
-                href="/contact"
+                href="/#contact"
                 onClick={() => setOpen(false)}
                 className={`eyebrow inline-block rounded-full px-5 py-2.5 transition-colors ${
                   open
                     ? "bg-paper text-ink hover:bg-brand hover:text-paper"
-                    : "bg-brand text-white hover:bg-brand-dark"
+                    : "bg-ink text-paper hover:bg-brand"
                 }`}
               >
-                Get started
+                Start a project
               </Link>
             <button
               type="button"

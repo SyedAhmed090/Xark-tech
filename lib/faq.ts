@@ -11,14 +11,16 @@
  * assistant lifts when someone asks it what a small-business logo costs, so
  * each one leads with the number instead of burying it in a qualifier.
  */
+import { SITE } from "@/lib/site";
+
 export const FAQ_ITEMS = [
   {
     q: "How much does a logo cost?",
-    a: "Logos start at $99 for three original concepts and two revision rounds. $199 adds more concepts, unlimited revisions for two weeks, and a social profile set. $399 adds stationery and a colour and type system, and $799 covers a complete identity with brand guidelines. Every tier — including the $99 one — includes the full vector file set and full ownership.",
+    a: "Logos start at $99 for three original concepts and two revision rounds. $149 adds more concepts and revisions, $199 adds unlimited revisions for two weeks plus a social profile set, $249 covers an illustrated mark, $399 adds stationery and a colour and type system, and $899 is a complete identity with brand guidelines. Every tier — including the $99 one — includes the full vector file set and full ownership.",
   },
   {
     q: "How much does a small business website cost?",
-    a: "A three-page starter site is $399 and takes about a week. Most small businesses choose the $899 Business Site: six pages, a content system you can edit yourself, a blog, and your Google Business Profile set up. Larger sites with booking or quote capture are $1,499, and online stores start at $1,299.",
+    a: "A three-page starter site is $399 and takes about a week. Most small businesses choose the $799 Business Site: six pages, a content system you can edit yourself, a blog, and your Google Business Profile set up. A twelve-page site with booking or quote capture is $1,099, larger multi-location sites run to $2,499, and online stores start at $1,299.",
   },
   {
     q: "Do I own my logo and website?",
@@ -29,19 +31,19 @@ export const FAQ_ITEMS = [
     a: "Exactly what the package says, and we honour it. The $99 logo includes two revision rounds; $199 and above include unlimited revisions for fourteen days. We publish real numbers rather than advertising 'unlimited' and capping it in the contract.",
   },
   {
-    q: "How fast can you deliver?",
-    a: "Logos in three to five days. A starter site in seven days, a business site in ten, an online store in two to three weeks. We give you a delivery date when you submit your brief, and if a website misses its date your deposit comes back.",
+    q: "How long does a typical project take?",
+    a: "Logos take three to five days. A starter site is about a week, a business site ten days, and an online store two to three weeks. You get a delivery date when you submit your brief, not after.",
   },
   {
-    q: "Do I have to get on a call first?",
-    a: "No. Pick a package, fill in the brief, and work starts. The brief asks everything a call would — your business, your customers, what you like and what you don't. If you'd rather talk it through, chat is on every page and we answer in minutes during business hours.",
+    q: "Who actually works on our project?",
+    a: "A professional designer, briefed directly from what you write in the brief. Every concept is reviewed before it reaches you, and you deal with one point of contact throughout rather than being passed around.",
   },
   {
     q: "What happens after my site goes live?",
     a: "You own the site and the accounts, so you can walk away or manage it yourself. If you'd rather not, Website Care is $99 a month for updates, daily backups, security scanning, uptime monitoring and thirty minutes of edits. Business and Pro sites include the first months free. Cancel any time.",
   },
   {
-    q: "Can you help people find my business on Google?",
-    a: "Yes. Local SEO starts at $299 a month and covers your Google Business Profile, citation cleanup, fifteen target keywords and on-page work. We report on calls, directions and enquiries rather than keyword positions, because those are the numbers that pay your bills.",
+    q: "How do we start?",
+    a: `Pick a package and fill in the brief — it asks everything a call would, and work starts as soon as it lands. If you would rather talk first, chat is on every page during business hours, or email ${SITE.email}.`,
   },
 ];
