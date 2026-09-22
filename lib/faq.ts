@@ -11,6 +11,8 @@
  * assistant lifts when someone asks it what a small-business logo costs, so
  * each one leads with the number instead of burying it in a qualifier.
  */
+import { SITE } from "@/lib/site";
+
 export const FAQ_ITEMS = [
   {
     q: "How much does a logo cost?",
@@ -29,19 +31,19 @@ export const FAQ_ITEMS = [
     a: "Exactly what the package says, and we honour it. The $99 logo includes two revision rounds; $199 and above include unlimited revisions for fourteen days. We publish real numbers rather than advertising 'unlimited' and capping it in the contract.",
   },
   {
-    q: "How fast can you deliver?",
-    a: "Logos in three to five days. A starter site in seven days, a business site in ten, an online store in two to three weeks. We give you a delivery date when you submit your brief, and if a website misses its date your deposit comes back.",
+    q: "How long does a typical project take?",
+    a: "A brand and site together usually run 8–12 weeks. Product design is ongoing — engagements are booked a quarter at a time, with two-week working cycles inside them.",
   },
   {
-    q: "Do I have to get on a call first?",
-    a: "No. Pick a package, fill in the brief, and work starts. The brief asks everything a call would — your business, your customers, what you like and what you don't. If you'd rather talk it through, chat is on every page and we answer in minutes during business hours.",
+    q: "Who actually works on our project?",
+    a: "Whoever you meet on the first call is who does the work. Xark Tech is founder-led and deliberately small — we don’t sell you partners and staff you with juniors. When a project needs a specialist we bring in trusted collaborators and tell you exactly who is doing what.",
   },
   {
     q: "What happens after my site goes live?",
     a: "You own the site and the accounts, so you can walk away or manage it yourself. If you'd rather not, Website Care is $99 a month for updates, daily backups, security scanning, uptime monitoring and thirty minutes of edits. Business and Pro sites include the first months free. Cancel any time.",
   },
   {
-    q: "Can you help people find my business on Google?",
-    a: "Yes. Local SEO starts at $299 a month and covers your Google Business Profile, citation cleanup, fifteen target keywords and on-page work. We report on calls, directions and enquiries rather than keyword positions, because those are the numbers that pay your bills.",
+    q: "How do we start?",
+    a: `Email ${SITE.email} with a couple of lines about what you’re building. We’ll book a 30-minute intro call, and if it’s a fit you’ll have a scoped proposal within a week.`,
   },
 ];

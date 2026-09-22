@@ -2,21 +2,23 @@
 
 import { useState } from "react";
 import Magnetic from "./Magnetic";
+import { SITE } from "@/lib/site";
 
-/* Posts to /api/subscribe; if no mailing list is configured yet, says so
-   honestly instead of faking a success state. */
+/* Posts to /api/subscribe.php, the PHP endpoint deployed alongside the static
+   export. If that endpoint is missing or PHP isn't executing (404/405/501) it
+   says so honestly instead of faking a success state. */
 export default function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<
-    "idle" | "sending" | "sent" | "unconfigured" | "error"
+    "idle" | "sending" | "sent" | "unconfigured" | "rate-limited" | "error"
   >("idle");
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
     try {
-      const res = await fetch("/api/subscribe", {
+      const res = await fetch("/api/subscribe.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, company: honeypot }),
@@ -25,7 +27,17 @@ export default function NewsletterForm() {
         setStatus("sent");
         return;
       }
-      setStatus(res.status === 501 ? "unconfigured" : "error");
+      if (res.status === 429) {
+        setStatus("rate-limited");
+        return;
+      }
+      // 404/405 mean the PHP file is absent or PHP isn't running; 501 is the
+      // old Next route's "not configured".
+      setStatus(
+        res.status === 404 || res.status === 405 || res.status === 501
+          ? "unconfigured"
+          : "error"
+      );
     } catch {
       setStatus("error");
     }
@@ -79,15 +91,20 @@ export default function NewsletterForm() {
       {status === "unconfigured" && (
         <p className="mt-3 text-sm text-ink/50">
           Sign-ups aren’t wired up yet — email{" "}
-          <a href="mailto:hello@xarktech.com" className="underline underline-offset-4">
-            hello@xarktech.com
+          <a href={`mailto:${SITE.email}`} className="underline underline-offset-4">
+            {SITE.email}
           </a>{" "}
           and we’ll add you by hand.
         </p>
       )}
+      {status === "rate-limited" && (
+        <p role="alert" className="mt-3 text-sm text-ink/50">
+          That’s a few attempts in a short window — please try again shortly.
+        </p>
+      )}
       {status === "error" && (
         <p role="alert" className="mt-3 text-sm text-ink/50">
-          That didn’t go through — try again, or email hello@xarktech.com.
+          That didn’t go through — try again, or email {SITE.email}.
         </p>
       )}
     </div>

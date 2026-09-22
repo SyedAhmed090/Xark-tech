@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Newsreader, Spline_Sans_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import { SITE, absoluteUrl } from "@/lib/site";
 import { SERVICES } from "@/lib/services";
 import "./globals.css";
@@ -70,11 +69,20 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     locale: SITE.locale,
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Xark Tech — independent design agency for B2B software",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE.name} — ${SITE.tagline}`,
     description: SITE.shortDescription,
+    images: ["/opengraph-image"],
   },
 };
 
@@ -89,8 +97,8 @@ const JSON_LD = {
       name: SITE.name,
       description: SITE.shortDescription,
       url: SITE.url,
+      image: absoluteUrl("/opengraph-image"),
       email: SITE.email,
-      foundingDate: SITE.foundingDate,
       priceRange: "$$$",
       address: {
         "@type": "PostalAddress",
@@ -138,6 +146,7 @@ const JSON_LD = {
       url: SITE.url,
       name: SITE.name,
       description: SITE.shortDescription,
+      image: absoluteUrl("/opengraph-image"),
       publisher: { "@id": ORG_ID },
       inLanguage: "en-US",
     },
@@ -163,7 +172,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
         />
-        <Analytics />
       </body>
     </html>
   );

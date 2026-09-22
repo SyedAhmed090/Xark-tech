@@ -4,15 +4,8 @@ export type Package = {
   summary: string;
   /** Display price, e.g. "$199" or "$99 / month". */
   price: string;
-  /**
-   * Numeric price in USD. Kept alongside the display string so JSON-LD can
-   * emit a real Offer price — search engines can't parse "$99 / month", and
-   * a priced Offer is what makes a package eligible for rich results.
-   */
-  priceUsd: number;
-  /** Absent means one-time. "month" renders and bills as a subscription. */
-  interval?: "month";
-  /** Delivery window for one-time work, or the billing rhythm for retainers. */
+  /** Optional crossed-out list price used by promotional packages. */
+  originalPrice?: string;
   duration: string;
   /** Scope for this tier. Each tier is additive over the one before it. */
   includes: string[];

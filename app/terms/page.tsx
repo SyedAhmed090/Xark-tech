@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { pageMeta } from "@/lib/site";
+import { SITE, pageMeta } from "@/lib/site";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
@@ -16,7 +16,7 @@ export const metadata: Metadata = pageMeta({
 const SECTIONS = [
   {
     title: "This site",
-    body: "This website is operated by Xark Tech LLC, Austin, Texas. Its content — text, design, illustrations, and code — belongs to Xark Tech and may not be reproduced commercially without permission. Client names and project details are shown with permission or in anonymized, illustrative form.",
+    body: "This website is operated by Xark Tech LLC, Sheridan, Wyoming. Its content — text, design, illustrations, and code — belongs to Xark Tech and may not be reproduced commercially without permission. Client names and project details are shown with permission or in anonymized, illustrative form.",
   },
   {
     title: "No engagement without a contract",
@@ -32,7 +32,7 @@ const SECTIONS = [
   },
   {
     title: "Governing law",
-    body: "These terms are governed by the laws of the State of Texas. Questions about them can be sent to hello@xarktech.com.",
+    body: `These terms are governed by the laws of the State of Wyoming. Questions about them can be sent to ${SITE.email}.`,
   },
 ];
 

@@ -1,28 +1,14 @@
-import { ImageResponse } from "next/og";
-import { POSTS, getPost } from "@/lib/posts";
-
-// Static export: without generateStaticParams this route stays dynamic
-// and the build cannot emit it. Mirrors the sibling page.tsx so every
-// entry ships a social card.
+// Static export: metadata routes must opt in explicitly or the build
+// aborts with "dynamic not configured". See next.config.ts.
 export const dynamic = "force-static";
 
-export function generateStaticParams() {
-  return POSTS.map((p) => ({ slug: p.slug }));
-}
+import { ImageResponse } from "next/og";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "Xark Tech journal";
+export const alt = "Xark Tech — independent design agency for B2B software";
 
-/** Mirrors the work/[slug] card so shared links read as one family. Posts have
- *  no cover art, so the dek carries the card instead of an image. */
-export default async function Image({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const post = getPost((await params).slug);
-
+export default function Image() {
   return new ImageResponse(
     (
       <div
@@ -67,7 +53,7 @@ export default async function Image({
               letterSpacing: 3,
             }}
           >
-            Journal — {post?.displayDate ?? ""}
+            Independent design agency
           </div>
         </div>
 
@@ -84,25 +70,25 @@ export default async function Image({
           <div
             style={{
               display: "flex",
-              fontSize: post && post.title.length > 34 ? 64 : 82,
+              fontSize: 92,
               fontWeight: 800,
-              letterSpacing: -3,
-              lineHeight: 1.05,
+              letterSpacing: -4,
+              lineHeight: 1,
             }}
           >
-            {post?.title ?? "Xark Tech journal"}
+            We make software
           </div>
           <div
             style={{
               display: "flex",
-              fontSize: 26,
-              color: "#6b6a63",
-              marginTop: 22,
-              maxWidth: 900,
-              lineHeight: 1.3,
+              fontSize: 92,
+              fontWeight: 800,
+              letterSpacing: -4,
+              lineHeight: 1,
+              color: "#2016e8",
             }}
           >
-            {post?.dek ?? ""}
+            feel human.
           </div>
         </div>
 
@@ -115,7 +101,7 @@ export default async function Image({
             letterSpacing: 3,
           }}
         >
-          {post?.readingTime ?? ""} read — xarktech.com
+          Brand · Product · Web · Sheridan, Wyoming
         </div>
       </div>
     ),

@@ -4,14 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "next build && node scripts/prepare-deploy.mjs",
     "lint": "eslint"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
-    "@vercel/analytics": "^2.0.1",
     "framer-motion": "^12.42.2",
     "lenis": "^1.3.25",
     "next": "16.2.10",
