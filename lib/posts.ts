@@ -275,7 +275,7 @@ export const POSTS: Post[] = [
           "Those bands are what the market looks like in complex B2B, not a promise. Our own tiers and what is in each are on the ",
           { text: "packages page", href: "/packages" },
           ", and the eight-week process behind them is on ",
-          { text: "brand identity", href: "/services/brand-identity" },
+          { text: "brand identity", href: "/services/logo-design" },
           ".",
         ],
       },
@@ -357,7 +357,7 @@ export const POSTS: Post[] = [
         q: "Do we need a rebrand or just a new website?",
         a: [
           "If your positioning and story are right and the site simply fails to express them, buy a site — it is faster and less than half the disruption. If you cannot get three executives to describe the company the same way, a new site will just publish the confusion in better typography. That test decides it more reliably than any audit; ",
-          { text: "web design and build", href: "/services/web-design-build" },
+          { text: "web design and build", href: "/services/web-design" },
           " is the cheaper branch.",
         ],
       },
@@ -392,7 +392,7 @@ export const POSTS: Post[] = [
         kind: "p",
         text: [
           "Retainers are for a surface that never stops moving. Product design is the obvious case: a roadmap generates design work every sprint, quality drifts the moment nobody senior is watching, and the cost of re-onboarding an agency every quarter exceeds the cost of keeping one. Our ",
-          { text: "product design", href: "/services/product-design" },
+          { text: "product design", href: "/services/web-design" },
           " work is retained for exactly that reason, on a two-week design cycle with a weekly review.",
         ],
       },
@@ -646,7 +646,7 @@ export const POSTS: Post[] = [
         kind: "p",
         text: [
           "If you want the specific list for your site rather than the general one, we run this audit as the first phase of every ",
-          { text: "web design and build", href: "/services/web-design-build" },
+          { text: "web design and build", href: "/services/web-design" },
           " engagement, and we will tell you if the answer is that your site is fine and your problem is positioning. ",
           { text: "Send us the URL", href: "/contact" },
           ".",

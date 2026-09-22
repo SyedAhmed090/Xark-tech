@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/site";
 import Link from "next/link";
-import SmoothScroll from "@/components/SmoothScroll";
-import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
@@ -33,13 +31,12 @@ const NEXT_STEPS = [
 
 export default function ContactPage() {
   return (
-    <SmoothScroll>
-      <Cursor />
+    <>
       <Nav />
       <main id="main" className="pt-32">
         <header className="px-5 md:px-10">
           <Reveal>
-            <p className="eyebrow mb-4 text-klein">Contact</p>
+            <p className="eyebrow mb-4 text-brand">Contact</p>
             <h1 className="display text-[clamp(2.75rem,11vw,10rem)]">
               Say <span className="accent-word">hello</span>
             </h1>
@@ -59,22 +56,21 @@ export default function ContactPage() {
             <div className="flex flex-col gap-12">
               <BookingLink />
               <div>
-                <p className="eyebrow mb-4 text-klein">Prefer email?</p>
+                <p className="eyebrow mb-4 text-brand">Prefer email?</p>
                 <a
                   href="mailto:hello@xarktech.com"
-                  className="font-serif italic text-3xl text-ink transition-colors hover:text-klein md:text-4xl"
-                  data-hover
+                  className="text-3xl text-ink transition-colors hover:text-brand md:text-4xl"
                 >
                   hello@xarktech.com
                 </a>
               </div>
 
               <div>
-                <p className="eyebrow mb-6 text-klein">What happens next</p>
+                <p className="eyebrow mb-6 text-brand">What happens next</p>
                 <div className="hairline-t">
                   {NEXT_STEPS.map((step) => (
                     <div key={step.title} className="py-5 hairline-b">
-                      <h2 className="font-mono text-sm text-klein">
+                      <h2 className="font-mono text-sm text-brand">
                         {step.title}
                       </h2>
                       <p className="mt-2 text-ink/70">{step.detail}</p>
@@ -84,13 +80,13 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <p className="eyebrow mb-4 text-klein">Wondering about cost?</p>
+                <p className="eyebrow mb-4 text-brand">Wondering about cost?</p>
                 <p className="max-w-sm text-sm leading-relaxed text-ink/60">
                   Straight answers on pricing, timelines, and who does the work
                   are on the{" "}
                   <Link
                     href="/#faq"
-                    className="underline decoration-klein underline-offset-4 transition-colors hover:text-klein"
+                    className="underline decoration-brand underline-offset-4 transition-colors hover:text-brand"
                   >
                     homepage FAQ
                   </Link>
@@ -103,6 +99,6 @@ export default function ContactPage() {
 
         <Footer />
       </main>
-    </SmoothScroll>
+    </>
   );
 }

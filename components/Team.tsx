@@ -5,7 +5,7 @@ const TEAM = [
     name: "Syed Ahmed",
     role: "Founder & Creative Director",
     initials: "SA",
-    tone: "bg-klein text-paper",
+    tone: "bg-brand text-paper",
   },
   {
     name: "Maya Chen",
@@ -17,13 +17,13 @@ const TEAM = [
     name: "Jordan Blake",
     role: "Engineering Lead",
     initials: "JB",
-    tone: "bg-tint text-klein",
+    tone: "bg-tint text-brand",
   },
   {
     name: "Priya Nair",
     role: "Strategy Director",
     initials: "PN",
-    tone: "bg-stone/50 text-ink",
+    tone: "bg-tint text-ink",
   },
 ];
 
@@ -31,7 +31,7 @@ export default function Team() {
   return (
     <section id="team" className="px-5 py-24 hairline-t md:px-10 md:py-36">
       <Reveal>
-        <p className="eyebrow mb-4 text-klein">The people</p>
+        <p className="eyebrow mb-4 text-brand">The people</p>
         <h2 className="display-tight max-w-3xl text-4xl md:text-6xl">
           A senior team of four. No account layers, no juniors on your budget.
         </h2>
@@ -40,11 +40,11 @@ export default function Team() {
       <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {TEAM.map((person, i) => (
           <Reveal key={person.name} delay={i * 0.07}>
-            <div className="group" data-hover>
+            <div className="group">
               <div
                 className={`grain relative flex aspect-[3/4] items-end overflow-hidden rounded-sm p-6 transition-transform duration-500 ease-out group-hover:-translate-y-2 ${person.tone}`}
               >
-                <span className="font-serif italic text-[7rem] leading-none opacity-90 transition-transform duration-500 group-hover:scale-110">
+                <span className="text-[7rem] leading-none opacity-90 transition-transform duration-500 group-hover:scale-110">
                   {person.initials}
                 </span>
                 <span className="eyebrow absolute right-5 top-5 opacity-50">

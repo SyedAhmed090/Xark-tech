@@ -5,7 +5,7 @@ export default function CTA() {
   return (
     <section
       id="contact"
-      className="bg-klein px-5 py-28 text-paper md:px-10 md:py-40"
+      className="bg-brand px-5 py-28 text-paper md:px-10 md:py-40"
     >
       <h2 className="display text-[clamp(2.25rem,10.5vw,5rem)] md:text-[clamp(4rem,8.5vw,9rem)]">
         <LineReveal>Let’s make</LineReveal>
@@ -17,7 +17,7 @@ export default function CTA() {
 
       <div className="mt-16 grid gap-12 md:grid-cols-2 md:gap-20">
         <Reveal delay={0.2}>
-          <ContactForm theme="klein" />
+          <ContactForm theme="brand" />
         </Reveal>
 
         <Reveal delay={0.3}>
@@ -29,8 +29,7 @@ export default function CTA() {
             </p>
             <a
               href="mailto:hello@xarktech.com"
-              className="font-serif italic text-3xl transition-opacity hover:opacity-70 md:text-5xl"
-              data-hover
+              className="text-3xl transition-opacity hover:opacity-70 md:text-5xl"
             >
               hello@xarktech.com
             </a>

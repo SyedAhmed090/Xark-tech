@@ -1,4 +1,4 @@
-/* Slide-swap hover: the label rolls up and a klein copy rolls in.
+/* Slide-swap hover: the label rolls up and a brand copy rolls in.
    Put `group/swap` styling to work by hovering the wrapper itself or a
    parent with the `group` class. */
 export default function SwapText({
@@ -16,7 +16,7 @@ export default function SwapText({
         {children}
       </span>
       <span
-        className="absolute inset-0 block translate-y-full text-klein transition-transform duration-[450ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0"
+        className="absolute inset-0 block translate-y-full text-brand transition-transform duration-[450ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0"
         aria-hidden
       >
         {children}

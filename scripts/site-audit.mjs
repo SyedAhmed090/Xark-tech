@@ -1,34 +1,10 @@
 // Structural + functional audit: console errors, broken assets, link integrity,
 // heading hierarchy, duplicate ids, anchor targets, accessible names.
 import { chromium } from "playwright";
+import { routesFromSitemap } from "./routes.mjs";
 
 const BASE = process.env.AUDIT_BASE ?? "http://localhost:3000";
-const ROUTES = [
-  "/",
-  "/services",
-  "/packages",
-  "/work",
-  "/studio",
-  "/journal",
-  "/contact",
-  "/privacy",
-  "/terms",
-  "/services/brand-identity",
-  "/services/product-design",
-  "/services/web-design-build",
-  "/services/motion-3d",
-  "/work/meridian",
-  "/work/atlas-freight",
-  "/work/forma-studio",
-  "/work/loop-health",
-  "/journal/why-we-stay-four-people",
-  "/journal/motion-is-a-language-not-a-garnish",
-  "/journal/design-systems-are-a-management-tool",
-  "/journal/how-to-choose-a-b2b-saas-design-agency",
-  "/journal/what-a-b2b-software-rebrand-costs",
-  "/journal/design-retainer-vs-project-work",
-  "/journal/why-your-b2b-site-doesnt-rank",
-];
+const ROUTES = await routesFromSitemap(BASE);
 
 const browser = await chromium.launch();
 const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
@@ -96,9 +72,14 @@ for (const route of ROUTES) {
       else if (href.startsWith("/")) internal.push(href);
     }
 
-    // Anchor targets referenced on this page
-    const anchorRefs = [...document.querySelectorAll('a[href^="/#"], a[href^="#"]')].map((a) =>
-      a.getAttribute("href").replace(/^\/?#/, ""),
+    // Anchor targets referenced on this page.
+    //
+    // Only bare "#id" is same-page. "/#id" points at the *homepage* anchor,
+    // and resolving it against the current document reported every
+    // cross-page jump as broken — /contact linking to /#faq was flagged even
+    // though the homepage has that section.
+    const anchorRefs = [...document.querySelectorAll('a[href^="#"]')].map((a) =>
+      a.getAttribute("href").slice(1),
     );
     const missingAnchors = [...new Set(anchorRefs)].filter(
       (id) => id && !document.getElementById(id),

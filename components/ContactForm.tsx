@@ -1,14 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import Magnetic from "./Magnetic";
 
 /* Posts to /api/contact; if the backend isn't configured (501) it falls
    back to composing in the visitor's mail client. */
 export default function ContactForm({
-  theme = "klein",
+  theme = "brand",
 }: {
-  theme?: "klein" | "paper";
+  theme?: "brand" | "paper";
 }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,14 +18,14 @@ export default function ContactForm({
   >("idle");
   const [honeypot, setHoneypot] = useState("");
 
-  const onKlein = theme === "klein";
-  const label = onKlein ? "text-paper/75" : "text-ink/60";
-  const field = onKlein
+  const onBrand = theme === "brand";
+  const label = onBrand ? "text-paper/75" : "text-ink/60";
+  const field = onBrand
     ? "border-paper/40 text-paper placeholder:text-paper/55 focus:border-paper"
-    : "border-ink/25 text-ink placeholder:text-ink/45 focus:border-klein";
-  const button = onKlein
+    : "border-ink/25 text-ink placeholder:text-ink/45 focus:border-brand";
+  const button = onBrand
     ? "bg-paper text-ink hover:bg-ink hover:text-paper"
-    : "bg-klein text-paper hover:bg-ink";
+    : "bg-brand text-paper hover:bg-ink";
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,10 +66,10 @@ export default function ContactForm({
   if (status === "sent") {
     return (
       <div aria-live="polite">
-        <p className={`font-serif italic text-3xl md:text-4xl ${onKlein ? "text-paper" : "text-ink"}`}>
+        <p className={`text-3xl md:text-4xl ${onBrand ? "text-paper" : "text-ink"}`}>
           Got it — thank you.
         </p>
-        <p className={`mt-4 max-w-sm text-sm leading-relaxed ${onKlein ? "text-paper/70" : "text-ink/60"}`}>
+        <p className={`mt-4 max-w-sm text-sm leading-relaxed ${onBrand ? "text-paper/70" : "text-ink/60"}`}>
           Your note is in our inbox. A founder will reply within two business
           days.
         </p>
@@ -148,7 +147,7 @@ export default function ContactForm({
       {status === "error" && (
         <p
           role="alert"
-          className={`text-sm ${onKlein ? "text-paper" : "text-ink"}`}
+          className={`text-sm ${onBrand ? "text-paper" : "text-ink"}`}
         >
           That didn’t go through — please email us directly at{" "}
           <a href="mailto:hello@xarktech.com" className="underline underline-offset-4">
@@ -157,16 +156,13 @@ export default function ContactForm({
           .
         </p>
       )}
-      <Magnetic strength={0.25}>
         <button
           type="submit"
           disabled={status === "sending"}
           className={`eyebrow w-fit rounded-full px-9 py-5 transition-colors disabled:opacity-60 ${button}`}
-          data-hover
         >
           {status === "sending" ? "Sending…" : "Send inquiry →"}
         </button>
-      </Magnetic>
     </form>
   );
 }

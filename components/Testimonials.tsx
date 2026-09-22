@@ -39,7 +39,7 @@ export default function Testimonials() {
       <div className="px-5 md:px-10">
         <Reveal>
           <div className="mb-14 flex items-end justify-between">
-            <p className="eyebrow text-klein">What clients say</p>
+            <p className="eyebrow text-brand">What clients say</p>
             <p className="eyebrow hidden text-ink/40 md:block">Drag →</p>
           </div>
         </Reveal>
@@ -64,11 +64,11 @@ export default function Testimonials() {
                 key={q.name}
                 className="w-[82vw] shrink-0 select-none rounded-sm bg-paper p-8 md:w-[560px] md:p-12"
               >
-                <blockquote className="font-serif italic text-xl leading-snug text-ink md:text-2xl">
+                <blockquote className="text-xl leading-snug text-ink md:text-2xl">
                   “{q.quote}”
                 </blockquote>
                 <figcaption className="mt-8 flex items-center gap-3">
-                  <span className="h-px w-10 bg-klein" aria-hidden />
+                  <span className="h-px w-10 bg-brand" aria-hidden />
                   <span className="eyebrow text-ink/70">
                     {q.name} — {q.role}
                   </span>

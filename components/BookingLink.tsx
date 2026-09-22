@@ -1,4 +1,3 @@
-import Magnetic from "./Magnetic";
 
 /* Renders nothing unless NEXT_PUBLIC_CAL_LINK is set — no placeholder
    booking button pointing at a Cal.com account that doesn't exist yet. */
@@ -8,18 +7,15 @@ export default function BookingLink() {
 
   return (
     <div>
-      <p className="eyebrow mb-4 text-klein">Rather just talk?</p>
-      <Magnetic strength={0.2}>
+      <p className="eyebrow mb-4 text-brand">Rather just talk?</p>
         <a
           href={`https://cal.com/${calLink}`}
           target="_blank"
           rel="noreferrer"
-          className="eyebrow inline-block rounded-full bg-ink px-7 py-4 text-paper transition-colors hover:bg-klein"
-          data-hover
+          className="eyebrow inline-block rounded-full bg-ink px-7 py-4 text-paper transition-colors hover:bg-brand"
         >
           Book a 30-minute intro call →
         </a>
-      </Magnetic>
     </div>
   );
 }

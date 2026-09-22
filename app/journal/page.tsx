@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/site";
 import Link from "next/link";
-import SmoothScroll from "@/components/SmoothScroll";
-import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
@@ -18,13 +16,12 @@ export const metadata: Metadata = pageMeta({
 
 export default function JournalIndex() {
   return (
-    <SmoothScroll>
-      <Cursor />
+    <>
       <Nav />
       <main id="main" className="pt-32">
         <header className="grid gap-10 px-5 md:grid-cols-[2fr_1fr] md:gap-8 md:px-10">
           <Reveal>
-            <p className="eyebrow mb-4 text-klein">Journal</p>
+            <p className="eyebrow mb-4 text-brand">Journal</p>
             <h1 className="display text-[clamp(2.75rem,11vw,10rem)]">
               Notes from
               <br />
@@ -41,10 +38,9 @@ export default function JournalIndex() {
             <Link
               href={`/journal/${POSTS[0].slug}`}
               className="group block hairline-t pt-6"
-              data-hover
             >
               <p className="eyebrow mb-3 text-ink/50">Latest</p>
-              <h2 className="display-tight text-xl transition-colors group-hover:text-klein">
+              <h2 className="display-tight text-xl transition-colors group-hover:text-brand">
                 {POSTS[0].title}
               </h2>
               <p className="mt-2 font-mono text-xs text-ink/50">
@@ -69,13 +65,12 @@ export default function JournalIndex() {
                 <Link
                   href={`/journal/${post.slug}`}
                   className="group grid gap-3 py-10 hairline-b md:grid-cols-[auto_1fr_auto] md:items-baseline md:gap-12"
-                  data-hover
                 >
-                  <span className="font-mono text-xs text-klein">
+                  <span className="font-mono text-xs text-brand">
                     {post.displayDate}
                   </span>
                   <span>
-                    <h2 className="display-tight text-2xl transition-colors group-hover:text-klein md:text-4xl">
+                    <h2 className="display-tight text-2xl transition-colors group-hover:text-brand md:text-4xl">
                       {post.title}
                     </h2>
                     <p className="mt-3 max-w-xl text-ink/60">{post.dek}</p>
@@ -91,6 +86,6 @@ export default function JournalIndex() {
 
         <Footer />
       </main>
-    </SmoothScroll>
+    </>
   );
 }

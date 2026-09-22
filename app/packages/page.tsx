@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/site";
 import Link from "next/link";
-import SmoothScroll from "@/components/SmoothScroll";
-import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import Magnetic from "@/components/Magnetic";
 import Packages from "@/components/Packages";
 import { Reveal } from "@/components/Reveal";
 import { ENTRY_PRICE, SERVICES } from "@/lib/services";
@@ -19,14 +16,13 @@ export const metadata: Metadata = pageMeta({
 
 export default function PackagesPage() {
   return (
-    <SmoothScroll>
-      <Cursor />
+    <>
       <Nav />
       <main id="main" className="pt-32">
         <header className="grid gap-10 px-5 md:grid-cols-[2fr_1fr] md:gap-8 md:px-10">
           <Reveal>
-            <p className="eyebrow mb-4 text-klein">Packages</p>
-            <h1 className="display text-[clamp(2.5rem,9vw,9rem)]">
+            <p className="eyebrow mb-4 text-brand">Packages</p>
+            <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
               What it costs
               <br />
               <span className="accent-word">to work with us</span>
@@ -67,8 +63,7 @@ export default function PackagesPage() {
                 <li key={s.slug}>
                   <a
                     href={`#${s.slug}`}
-                    className="eyebrow inline-block rounded-full border border-ink/20 px-4 py-2 text-ink/70 transition-colors hover:border-klein hover:text-klein"
-                    data-hover
+                    className="eyebrow inline-block rounded-full border border-ink/20 px-4 py-2 text-ink/70 transition-colors hover:border-brand hover:text-brand"
                   >
                     {s.name} ↓
                   </a>
@@ -90,20 +85,23 @@ export default function PackagesPage() {
                   <h2 className="display-tight text-3xl md:text-5xl">
                     {service.name}
                   </h2>
-                  <p className="mt-4 max-w-xl font-serif italic text-lg text-ink/70">
+                  <p className="mt-3 max-w-xl leading-relaxed text-muted">
                     {service.tagline}
                   </p>
                 </div>
                 <Link
                   href={`/services/${service.slug}`}
-                  className="eyebrow inline-block shrink-0 py-1.5 text-klein transition-opacity hover:opacity-60"
-                  data-hover
+                  className="eyebrow inline-block shrink-0 py-1.5 text-brand transition-opacity hover:opacity-60"
                 >
                   Full service detail →
                 </Link>
               </div>
             </Reveal>
-            <Packages packages={service.packages} serviceName={service.name} />
+            <Packages
+              packages={service.packages}
+              serviceName={service.name}
+              serviceSlug={service.slug}
+            />
           </section>
         ))}
 
@@ -113,29 +111,26 @@ export default function PackagesPage() {
               <div>
                 <p className="eyebrow text-paper/50">Not sure which</p>
                 <h2 className="display-tight mt-4 max-w-2xl text-3xl md:text-5xl">
-                  Tell us the problem. We&rsquo;ll tell you the shape.
+                  Not sure which package? Just ask.
                 </h2>
                 <p className="mt-6 max-w-xl leading-relaxed text-paper/70">
-                  Most projects don&rsquo;t land neatly in one tier, and some
-                  need two services running together. A twenty-minute call is
-                  usually enough to scope it honestly.
+                  Tell us what your business does and what you need. We will
+                  point you at the right package — or tell you that a cheaper
+                  one covers it.
                 </p>
               </div>
-              <Magnetic>
                 <Link
                   href="/contact"
-                  className="eyebrow inline-block shrink-0 rounded-full bg-paper px-8 py-4 text-ink transition-colors hover:bg-klein hover:text-paper"
-                  data-hover
+                  className="eyebrow inline-block shrink-0 rounded-full bg-paper px-8 py-4 text-ink transition-colors hover:bg-brand hover:text-paper"
                 >
                   Start a conversation →
                 </Link>
-              </Magnetic>
             </div>
           </Reveal>
         </section>
 
         <Footer />
       </main>
-    </SmoothScroll>
+    </>
   );
 }

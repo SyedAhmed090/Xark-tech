@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/site";
 import Link from "next/link";
-import SmoothScroll from "@/components/SmoothScroll";
-import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Team from "@/components/Team";
-import Magnetic from "@/components/Magnetic";
 import { Reveal } from "@/components/Reveal";
 
 export const metadata: Metadata = pageMeta({
@@ -49,13 +46,12 @@ const AWARDS = [
 
 export default function StudioPage() {
   return (
-    <SmoothScroll>
-      <Cursor />
+    <>
       <Nav />
       <main id="main" className="pt-32">
         <header className="grid gap-10 px-5 md:grid-cols-[2fr_1fr] md:gap-8 md:px-10">
           <Reveal>
-            <p className="eyebrow mb-4 text-klein">The studio</p>
+            <p className="eyebrow mb-4 text-brand">The studio</p>
             <h1 className="display text-[clamp(2.75rem,10vw,10rem)]">
               Small by design,
               <br />
@@ -113,7 +109,7 @@ export default function StudioPage() {
 
         <section className="px-5 py-20 hairline-t md:px-10 md:py-28">
           <Reveal>
-            <p className="eyebrow mb-12 text-klein">What we believe</p>
+            <p className="eyebrow mb-12 text-brand">What we believe</p>
           </Reveal>
           <div className="grid gap-10 md:grid-cols-2 md:gap-x-20 md:gap-y-14">
             {VALUES.map((value, i) => (
@@ -143,10 +139,9 @@ export default function StudioPage() {
                   target="_blank"
                   rel="noreferrer"
                   className="group grid grid-cols-[auto_1fr_auto] items-baseline gap-6 border-b border-paper/15 py-5 md:gap-12"
-                  data-hover
                 >
-                  <span className="font-mono text-sm text-klein">{row.year}</span>
-                  <span className="display-tight text-lg transition-colors group-hover:text-klein md:text-2xl">
+                  <span className="font-mono text-sm text-brand">{row.year}</span>
+                  <span className="display-tight text-lg transition-colors group-hover:text-brand md:text-2xl">
                     {row.award} <span className="opacity-0 transition-opacity group-hover:opacity-100">↗</span>
                   </span>
                   <span className="font-mono text-xs text-paper/60">
@@ -164,21 +159,18 @@ export default function StudioPage() {
               Sound like people you’d want in your corner?
             </h2>
             <div className="mt-10">
-              <Magnetic>
                 <Link
                   href="/contact"
-                  className="eyebrow inline-block rounded-full bg-klein px-8 py-4 text-paper transition-colors hover:bg-ink"
-                  data-hover
+                  className="eyebrow inline-block rounded-full bg-brand px-8 py-4 text-paper transition-colors hover:bg-ink"
                 >
                   Start a conversation →
                 </Link>
-              </Magnetic>
             </div>
           </Reveal>
         </section>
 
         <Footer />
       </main>
-    </SmoothScroll>
+    </>
   );
 }

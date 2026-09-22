@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Magnetic from "./Magnetic";
 
 /* Posts to /api/subscribe; if no mailing list is configured yet, says so
    honestly instead of faking a success state. */
@@ -33,7 +32,7 @@ export default function NewsletterForm() {
 
   if (status === "sent") {
     return (
-      <p className="font-serif italic text-xl text-ink">
+      <p className="text-xl text-ink">
         You’re on the list — new essays land in your inbox.
       </p>
     );
@@ -52,7 +51,7 @@ export default function NewsletterForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@company.com"
-            className="border-b border-ink/25 bg-transparent py-3 text-lg text-ink outline-none transition-colors placeholder:text-ink/30 focus:border-klein"
+            className="border-b border-ink/25 bg-transparent py-3 text-lg text-ink outline-none transition-colors placeholder:text-ink/30 focus:border-brand"
           />
         </label>
         <label className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden>
@@ -65,16 +64,13 @@ export default function NewsletterForm() {
             onChange={(e) => setHoneypot(e.target.value)}
           />
         </label>
-        <Magnetic strength={0.2}>
           <button
             type="submit"
             disabled={status === "sending"}
-            className="eyebrow rounded-full bg-ink px-7 py-3.5 text-paper transition-colors hover:bg-klein disabled:opacity-60"
-            data-hover
+            className="eyebrow rounded-full bg-ink px-7 py-3.5 text-paper transition-colors hover:bg-brand disabled:opacity-60"
           >
             {status === "sending" ? "…" : "Subscribe →"}
           </button>
-        </Magnetic>
       </form>
       {status === "unconfigured" && (
         <p className="mt-3 text-sm text-ink/50">

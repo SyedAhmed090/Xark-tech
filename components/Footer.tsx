@@ -47,8 +47,8 @@ export default function Footer() {
     <footer className="bg-ink px-5 pb-10 pt-20 text-paper md:px-10">
       <div className="mb-14 flex items-center gap-3">
         <span className="relative flex h-2.5 w-2.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-klein opacity-60" />
-          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-klein" />
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
+          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-brand" />
         </span>
         <span className="eyebrow text-paper/70">
           Accepting Q4 2026 projects
@@ -59,7 +59,7 @@ export default function Footer() {
         <div>
           <p className="display text-5xl md:text-7xl">
             XARK
-            <span className="font-mono align-super text-lg text-klein">®</span>
+            <span className="font-mono align-super text-lg text-brand">®</span>
           </p>
           <p className="mt-6 max-w-sm text-sm leading-relaxed text-paper/60">
             Independent design agency. Based in Austin, Texas — working with

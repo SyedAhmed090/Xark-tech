@@ -11,7 +11,7 @@ export const metadata: Metadata = noindexPage("/demo/forma-studio");
 const PROJECTS = [
   { name: "Cedar Ridge House", year: "2025", tone: "bg-ink" },
   { name: "Marfa Pavilion", year: "2024", tone: "bg-[#8a6d3b]" },
-  { name: "Salt Flat Studio", year: "2024", tone: "bg-stone" },
+  { name: "Salt Flat Studio", year: "2024", tone: "bg-tint" },
 ];
 
 export default function FormaStudioDemo() {

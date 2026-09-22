@@ -8,14 +8,13 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
-import Magnetic from "./Magnetic";
 import SwapText from "./SwapText";
 
 const LINKS = [
-  { label: "Work", href: "/work" },
+  { label: "Pricing", href: "/packages" },
   { label: "Services", href: "/services" },
-  { label: "Packages", href: "/packages" },
-  { label: "Studio", href: "/studio" },
+  { label: "Work", href: "/work" },
+  { label: "About", href: "/studio" },
   { label: "Journal", href: "/journal" },
   { label: "Contact", href: "/contact" },
 ];
@@ -53,7 +52,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
                 <Link
                   href={link.href}
                   onClick={onClose}
-                  className="display block text-5xl transition-colors hover:text-klein"
+                  className="display block text-5xl transition-colors hover:text-brand"
                 >
                   {link.label}
                 </Link>
@@ -103,7 +102,7 @@ export default function Nav() {
             className={`display-tight text-lg tracking-tight transition-colors ${open ? "text-paper" : ""}`}
           >
             XARK
-            <span className="font-mono text-xs align-super text-klein">®</span>
+            <span className="font-mono text-xs align-super text-brand">®</span>
           </Link>
 
           <ul className="hidden items-center gap-8 md:flex">
@@ -117,19 +116,17 @@ export default function Nav() {
           </ul>
 
           <div className="flex items-center gap-3">
-            <Magnetic>
               <Link
-                href="/#contact"
+                href="/contact"
                 onClick={() => setOpen(false)}
                 className={`eyebrow inline-block rounded-full px-5 py-2.5 transition-colors ${
                   open
-                    ? "bg-paper text-ink hover:bg-klein hover:text-paper"
-                    : "bg-ink text-paper hover:bg-klein"
+                    ? "bg-paper text-ink hover:bg-brand hover:text-paper"
+                    : "bg-brand text-white hover:bg-brand-dark"
                 }`}
               >
-                Start a project
+                Get started
               </Link>
-            </Magnetic>
             <button
               type="button"
               aria-label={open ? "Close menu" : "Open menu"}

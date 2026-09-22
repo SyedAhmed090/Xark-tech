@@ -1,130 +1,88 @@
 import Link from "next/link";
-import Magnetic from "./Magnetic";
-import { Reveal } from "./Reveal";
-import type { Package } from "@/lib/services";
+import { Tick } from "./Hero";
+import { packageParam, type Package } from "@/lib/services";
 
 /**
- * Three-tier package ladder. Columns are divided by hairlines rather than
- * boxed into cards, so the block reads like the rest of the site's editorial
- * tables. The featured tier inverts to ink, matching the investment band.
- */
-/**
- * Spelled out rather than interpolated: Tailwind scans source for whole class
- * names, so a computed `md:grid-cols-${n}` is never emitted into the CSS.
+ * The package ladder, as cards rather than the old hairline-divided editorial
+ * columns. Cards are the convention this buyer already reads fluently from
+ * every other pricing page they are comparing against, and a boxed edge makes
+ * it obvious which features belong to which price.
+ *
+ * Tailwind scans source for whole class names, so a computed
+ * `lg:grid-cols-${n}` is never emitted — the column counts are spelled out.
  * Four-tier ladders drop to two columns on tablet so cells stay readable.
  */
 const COLUMNS: Record<number, string> = {
-  1: "md:grid-cols-1",
-  2: "md:grid-cols-2",
-  3: "md:grid-cols-3",
-  4: "md:grid-cols-2 lg:grid-cols-4",
+  1: "sm:grid-cols-1",
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-2 lg:grid-cols-3",
+  4: "sm:grid-cols-2 lg:grid-cols-4",
 };
 
 export default function Packages({
   packages,
   serviceName,
+  serviceSlug,
 }: {
   packages: Package[];
   serviceName: string;
+  serviceSlug?: string;
 }) {
-  // Always h3: on both surfaces the nearest ancestor heading is an h2 (the
-  // "Three ways to work with us" section, or the service name on /packages).
-  const TierName = "h3";
-
   return (
-    <div className={`hairline-t grid ${COLUMNS[packages.length] ?? COLUMNS[3]}`}>
-      {packages.map((pkg, i) => {
-        const dark = pkg.featured;
+    <ul className={`grid gap-4 ${COLUMNS[packages.length] ?? COLUMNS[3]}`}>
+      {packages.map((pkg) => {
+        const featured = pkg.featured;
         return (
-          <Reveal key={pkg.name} delay={i * 0.08} className="h-full">
-            <div
-              className={`flex h-full flex-col p-6 md:p-8 ${
-                dark ? "bg-ink text-paper" : "hairline-b md:border-b-0"
-              } ${i > 0 ? "md:border-l md:border-[color:var(--color-hairline)]" : ""}`}
-            >
-              <div className="flex items-baseline justify-between">
-                <TierName
-                  className={`eyebrow ${dark ? "text-paper" : "text-klein"}`}
-                >
-                  {pkg.name}
-                </TierName>
-                {dark && (
-                  <span className="eyebrow text-paper/50">Most chosen</span>
-                )}
-              </div>
+          <li
+            key={pkg.name}
+            className={`card relative flex flex-col p-6 ${
+              featured ? "border-brand ring-1 ring-brand" : ""
+            }`}
+          >
+            {featured && (
+              <span className="absolute -top-3 left-6 rounded-full bg-brand px-3 py-1 text-xs font-bold text-white">
+                Most chosen
+              </span>
+            )}
 
-              <p
-                className={`display mt-6 text-4xl md:text-5xl ${
-                  dark ? "text-paper" : ""
+            {/* h3: the nearest ancestor heading is always the section's h2. */}
+            <h3 className="display-tight text-lg">{pkg.name}</h3>
+
+            <p className="price mt-4 text-3xl">{pkg.price}</p>
+            <p className="mt-2 text-xs text-muted">{pkg.duration}</p>
+
+            <p className="mt-4 text-sm leading-relaxed text-muted">
+              {pkg.summary}
+            </p>
+
+            <ul className="mt-5 flex flex-col gap-2.5 border-t border-[color:var(--color-line)] pt-5">
+              {pkg.includes.map((item) => (
+                <li key={item} className="flex items-start gap-2.5 text-sm">
+                  <span className="mt-0.5">
+                    <Tick />
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-6 pt-1 md:mt-auto">
+              <Link
+                href={`/contact?package=${packageParam(serviceSlug ?? "", pkg.name)}`}
+                className={`btn w-full ${
+                  featured ? "btn-primary" : "btn-secondary"
                 }`}
               >
-                {pkg.price}
-              </p>
-
-              <p
-                className={`mt-3 font-mono text-sm ${
-                  dark ? "text-paper/60" : "text-ink/50"
-                }`}
-              >
-                {pkg.duration}
-              </p>
-
-              <p
-                className={`mt-5 font-serif italic text-lg leading-snug ${
-                  dark ? "text-paper/80" : "text-ink/70"
-                }`}
-              >
-                {pkg.summary}
-              </p>
-
-              <ul
-                className={`mt-8 ${
-                  dark ? "border-t border-paper/20" : "hairline-t"
-                }`}
-              >
-                {pkg.includes.map((item) => (
-                  <li
-                    key={item}
-                    className={`flex items-baseline gap-3 py-3 ${
-                      dark ? "border-b border-paper/20" : "hairline-b"
-                    }`}
-                  >
-                    <span
-                      className={`font-serif italic ${
-                        dark ? "text-paper/60" : "text-klein"
-                      }`}
-                      aria-hidden="true"
-                    >
-                      ✕
-                    </span>
-                    <span className="text-sm leading-relaxed">{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-8 pt-2 md:mt-auto">
-                <Magnetic>
-                  <Link
-                    href="/contact"
-                    className={`eyebrow inline-block rounded-full px-6 py-3 transition-colors ${
-                      dark
-                        ? "bg-paper text-ink hover:bg-klein hover:text-paper"
-                        : "border border-ink/20 text-ink/70 hover:border-klein hover:text-klein"
-                    }`}
-                    data-hover
-                  >
-                    <span className="sr-only">
-                      {serviceName} — {pkg.name}:{" "}
-                    </span>
-                    Enquire →
-                  </Link>
-                </Magnetic>
-              </div>
+                <span className="sr-only">
+                  {serviceName} — {pkg.name}:{" "}
+                </span>
+                Get started
+              </Link>
             </div>
-          </Reveal>
+          </li>
         );
       })}
-    </div>
+    </ul>
   );
 }
 
@@ -132,27 +90,33 @@ export default function Packages({
 export function PackagesSection({
   packages,
   serviceName,
+  serviceSlug,
 }: {
   packages: Package[];
   serviceName: string;
+  serviceSlug?: string;
 }) {
   return (
-    <section className="px-5 py-20 md:px-10 md:py-28">
-      <Reveal>
-        <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+    <section className="bg-surface px-5 py-16 md:px-10 md:py-24">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="eyebrow mb-4 text-klein">Packages</p>
-            <h2 className="display-tight max-w-xl text-3xl md:text-5xl">
-              Three ways to <span className="accent-word">work with us</span>
+            <p className="eyebrow text-brand">Packages</p>
+            <h2 className="display-tight mt-4 text-3xl md:text-4xl">
+              {serviceName} pricing
             </h2>
           </div>
-          <p className="max-w-sm leading-relaxed text-ink/60">
-            Every engagement starts with a conversation, not a checkout. These
-            are the shapes most {serviceName.toLowerCase()} projects take.
+          <p className="max-w-sm text-sm leading-relaxed text-muted">
+            Pick a package and fill in the brief. No call needed — though we
+            are on chat if you would rather ask first.
           </p>
         </div>
-      </Reveal>
-      <Packages packages={packages} serviceName={serviceName} />
+        <Packages
+          packages={packages}
+          serviceName={serviceName}
+          serviceSlug={serviceSlug}
+        />
+      </div>
     </section>
   );
 }

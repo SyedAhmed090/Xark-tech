@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import SmoothScroll from "@/components/SmoothScroll";
-import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import Magnetic from "@/components/Magnetic";
 import JsonLd from "@/components/JsonLd";
 import { Reveal } from "@/components/Reveal";
 import { ENTRY_PRICE, SERVICES } from "@/lib/services";
@@ -40,7 +37,7 @@ const LIST_SCHEMA = {
 
 export default function ServicesIndex() {
   return (
-    <SmoothScroll>
+    <>
       <JsonLd data={LIST_SCHEMA} />
       <JsonLd
         data={breadcrumbs([
@@ -48,13 +45,12 @@ export default function ServicesIndex() {
           { name: "Services", path: "/services" },
         ])}
       />
-      <Cursor />
       <Nav />
       <main id="main" className="pt-32">
         <header className="grid gap-10 px-5 md:grid-cols-[2fr_1fr] md:gap-8 md:px-10">
           <Reveal>
-            <p className="eyebrow mb-4 text-klein">Services</p>
-            <h1 className="display text-[clamp(2.25rem,9vw,9rem)]">
+            <p className="eyebrow mb-4 text-brand">Services</p>
+            <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
               Four things,
               <br />
               <span className="accent-word">done properly</span>
@@ -94,16 +90,15 @@ export default function ServicesIndex() {
                   <Link
                     href={`/services/${service.slug}`}
                     className="group grid gap-4 py-8 md:grid-cols-[auto_1fr_auto] md:items-baseline md:gap-10"
-                    data-hover
                   >
-                    <span className="font-mono text-sm text-klein">
+                    <span className="font-mono text-sm text-brand">
                       0{i + 1}
                     </span>
                     <span>
-                      <h3 className="display-tight text-2xl transition-colors group-hover:text-klein md:text-4xl">
+                      <h3 className="display-tight text-2xl transition-colors group-hover:text-brand md:text-4xl">
                         {service.name}
                       </h3>
-                      <span className="mt-3 block max-w-xl font-serif italic text-lg text-ink/70">
+                      <span className="mt-3 block max-w-xl text-lg text-ink/70">
                         {service.tagline}
                       </span>
                       <span className="mt-4 block max-w-2xl text-sm leading-relaxed text-ink/60">
@@ -137,21 +132,18 @@ export default function ServicesIndex() {
                   are on one page.
                 </p>
               </div>
-              <Magnetic>
                 <Link
                   href="/packages"
-                  className="eyebrow inline-block shrink-0 rounded-full bg-paper px-8 py-4 text-ink transition-colors hover:bg-klein hover:text-paper"
-                  data-hover
+                  className="eyebrow inline-block shrink-0 rounded-full bg-paper px-8 py-4 text-ink transition-colors hover:bg-brand hover:text-paper"
                 >
                   See packages &amp; pricing →
                 </Link>
-              </Magnetic>
             </div>
           </Reveal>
         </section>
 
         <Footer />
       </main>
-    </SmoothScroll>
+    </>
   );
 }

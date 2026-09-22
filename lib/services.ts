@@ -759,6 +759,38 @@ export const BUNDLES: Bundle[] = [
 ];
 
 /**
+ * Identifies a tier in the `?package=` parameter the brief form reads.
+ *
+ * "+" is spelled out rather than stripped: a naive slugify turns both "Care"
+ * and "Care+" into "care", so the two Website Care tiers collided and the
+ * brief arrived naming the wrong plan — silently, since a wrong-but-valid
+ * value looks exactly like a right one.
+ */
+export function packageParam(serviceSlug: string, tierName: string) {
+  const tier = tierName
+    .toLowerCase()
+    .replace(/\+/g, "-plus")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  return `${serviceSlug}-${tier}`;
+}
+
+/**
+ * Guards the rule above. Two tiers resolving to one parameter is invisible in
+ * the UI and only shows up as a production order for the wrong package, so it
+ * fails the build instead.
+ */
+for (const service of SERVICES) {
+  const params = service.packages.map((p) => packageParam(service.slug, p.name));
+  const duplicates = params.filter((p, i) => params.indexOf(p) !== i);
+  if (duplicates.length) {
+    throw new Error(
+      `Duplicate package parameter in "${service.slug}": ${[...new Set(duplicates)].join(", ")}`,
+    );
+  }
+}
+
+/**
  * Cheapest package anywhere on the site, formatted for display. Derived rather
  * than typed out: the entry price appears on several pages, and a hardcoded
  * copy is how the old "$20k" survived three price changes.

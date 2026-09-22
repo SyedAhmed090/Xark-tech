@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { pageMeta } from "@/lib/site";
 import Link from "next/link";
-import SmoothScroll from "@/components/SmoothScroll";
-import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import WorkTile from "@/components/WorkTile";
@@ -18,13 +16,12 @@ export const metadata: Metadata = pageMeta({
 
 export default function WorkIndex() {
   return (
-    <SmoothScroll>
-      <Cursor />
+    <>
       <Nav />
       <main id="main" className="pt-32">
         <header className="px-5 md:px-10">
           <Reveal>
-            <p className="eyebrow mb-4 text-klein">
+            <p className="eyebrow mb-4 text-brand">
               All work — {PROJECTS.length} case studies — 2024–2026
             </p>
             <h1 className="display text-[clamp(3rem,12vw,11rem)]">Work</h1>
@@ -55,8 +52,7 @@ export default function WorkIndex() {
             </h2>
             <Link
               href="/contact"
-              className="eyebrow mt-10 inline-block rounded-full bg-klein px-8 py-4 text-paper transition-colors hover:bg-ink"
-              data-hover
+              className="eyebrow mt-10 inline-block rounded-full bg-brand px-8 py-4 text-paper transition-colors hover:bg-ink"
             >
               Start a project →
             </Link>
@@ -65,6 +61,6 @@ export default function WorkIndex() {
 
         <Footer />
       </main>
-    </SmoothScroll>
+    </>
   );
 }
