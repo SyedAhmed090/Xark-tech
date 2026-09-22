@@ -24,6 +24,10 @@ const ROUTES = [
   "/journal/why-we-stay-four-people",
   "/journal/motion-is-a-language-not-a-garnish",
   "/journal/design-systems-are-a-management-tool",
+  "/journal/how-to-choose-a-b2b-saas-design-agency",
+  "/journal/what-a-b2b-software-rebrand-costs",
+  "/journal/design-retainer-vs-project-work",
+  "/journal/why-your-b2b-site-doesnt-rank",
 ];
 
 const browser = await chromium.launch();
