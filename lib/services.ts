@@ -3,6 +3,8 @@ export type Package = {
   /** One line on who this tier is for — sits under the name. */
   summary: string;
   price: string;
+  /** Optional crossed-out list price used by promotional packages. */
+  originalPrice?: string;
   duration: string;
   /** Scope for this tier. Each tier is additive over the one before it. */
   includes: string[];

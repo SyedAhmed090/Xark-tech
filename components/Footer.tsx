@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import SwapText from "./SwapText";
 import { SITE } from "@/lib/site";
@@ -17,12 +18,12 @@ const SITEMAP = [
 // Social profiles come from SITE.socials, which is empty until real profile
 // URLs exist — the previous hardcoded list pointed at platform homepages.
 
-function AustinClock() {
+function LocationClock() {
   const [time, setTime] = useState("");
 
   useEffect(() => {
     const fmt = new Intl.DateTimeFormat("en-US", {
-      timeZone: "America/Chicago",
+      timeZone: "America/Denver",
       hour: "2-digit",
       minute: "2-digit",
       second: "2-digit",
@@ -37,7 +38,7 @@ function AustinClock() {
 
   return (
     <span className="font-mono text-xs tabular-nums text-paper/60">
-      Austin, TX — {time || "··:··:··"}
+      {SITE.address.locality}, {SITE.address.region} — {time || "··:··:··"}
     </span>
   );
 }
@@ -57,12 +58,17 @@ export default function Footer() {
 
       <div className="grid gap-12 md:grid-cols-[2fr_1fr_1fr]">
         <div>
-          <p className="display text-5xl md:text-7xl">
-            XARK
-            <span className="font-mono align-super text-lg text-klein">®</span>
-          </p>
+          {/* invert turns the black mark white for the dark footer — which
+              only works because logo.png is genuinely transparent. */}
+          <Image
+            src="/logo.png"
+            alt="Xark Tech"
+            width={878}
+            height={406}
+            className="h-20 w-auto object-contain invert md:h-24"
+          />
           <p className="mt-6 max-w-sm text-sm leading-relaxed text-paper/60">
-            Independent design agency. Based in Austin, Texas — working with
+            Independent design studio. Based in Sheridan, Wyoming — working with
             teams across the United States and worldwide.
           </p>
         </div>
@@ -76,6 +82,7 @@ export default function Footer() {
               <li key={link.href}>
                 <Link
                   href={link.href}
+                  aria-label={link.label}
                   className="group inline-block py-1.5 text-sm text-paper/80"
                 >
                   <SwapText>{link.label}</SwapText>
@@ -96,8 +103,14 @@ export default function Footer() {
                 {SITE.email}
               </a>
             </li>
-            <li className="py-1.5 text-sm text-paper/60">
-              {SITE.address.locality}, {SITE.address.region}
+            <li className="py-1.5 text-sm leading-relaxed text-paper/60">
+              <address className="not-italic">
+                <span className="block">{SITE.address.street}</span>
+                <span className="block">
+                  {SITE.address.locality}, {SITE.address.region}{" "}
+                  {SITE.address.postalCode}
+                </span>
+              </address>
             </li>
             {SITE.phone && (
               <li>
@@ -150,7 +163,7 @@ export default function Footer() {
             Terms
           </Link>
         </p>
-        <AustinClock />
+        <LocationClock />
       </div>
     </footer>
   );

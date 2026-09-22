@@ -12,7 +12,7 @@ import { PROJECTS } from "@/lib/projects";
 export const metadata: Metadata = pageMeta({
   title: "Work",
   description:
-    "Selected case studies from Xark Tech: brand, product, and web for complex B2B software in fintech, healthcare, and logistics.",
+    "Self-initiated concept projects from Xark Tech: brand, product, and web for complex B2B software in fintech, healthcare, and logistics. Each one built as a working prototype.",
   path: "/work",
 });
 
@@ -25,14 +25,14 @@ export default function WorkIndex() {
         <header className="px-5 md:px-10">
           <Reveal>
             <p className="eyebrow mb-4 text-klein">
-              All work — {PROJECTS.length} case studies — 2024–2026
+              All work — {PROJECTS.length} concept projects — 2024–2026
             </p>
             <h1 className="display text-[clamp(3rem,12vw,11rem)]">Work</h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/70">
               Mostly complex B2B software — fintech, healthcare, logistics —
-              plus the occasional detour worth taking. Every engagement here
-              shipped. Each case covers the challenge, the approach, and what
-              changed — the numbers included.
+              plus the occasional detour worth taking. These are self-initiated
+              concept projects: each one designed and then actually built, so
+              you can open the prototype rather than take our word for it.
             </p>
           </Reveal>
         </header>

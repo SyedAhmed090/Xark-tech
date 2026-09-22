@@ -244,7 +244,7 @@ export default async function PostPage({
               <p className="mt-12 flex items-center gap-3">
                 <span className="h-px w-10 bg-klein" aria-hidden />
                 <span className="eyebrow text-ink/60">
-                  The Xark Tech team — Austin, TX
+                  The Xark Tech team — Sheridan, WY
                 </span>
               </p>
             </Reveal>

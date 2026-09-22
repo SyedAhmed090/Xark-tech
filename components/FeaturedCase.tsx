@@ -51,26 +51,26 @@ function PinnedPanels() {
               {meridian.cover}
             </div>
             <p className="hidden max-w-xs text-paper/60 lg:block">
-              Ten interface patterns replaced forty screens’ worth of one-offs
-              — documented in a system the team ships against weekly.
+              Ten interface patterns cover the whole surface — documented as a
+              working component set, not a static mockup.
             </p>
           </div>
 
           <div className="flex h-svh w-screen shrink-0 flex-col justify-center px-10">
             <p className="display text-[clamp(4rem,16vw,16rem)] text-klein">
-              +34%
+              10
             </p>
             <p className="eyebrow mt-4 text-paper/60">
-              Activation rate after the redesign
+              Interface patterns across the whole product
             </p>
           </div>
 
           <div className="flex h-svh w-screen shrink-0 flex-col justify-center px-10">
             <blockquote className="max-w-3xl font-serif italic text-2xl leading-snug text-paper md:text-4xl">
-              “Sales demos now start with the design.”
+              “Dense doesn’t have to mean hostile.”
             </blockquote>
             <p className="eyebrow mt-6 text-paper/50">
-              Dana Whitfield — CEO, Meridian
+              The question the concept set out to answer
             </p>
             <div className="mt-12">
               <ReadCaseButton />
@@ -102,17 +102,17 @@ function StackedPanels() {
         </div>
       </Reveal>
       <Reveal>
-        <p className="display text-[22vw] text-klein">+34%</p>
+        <p className="display text-[22vw] text-klein">10</p>
         <p className="eyebrow mt-3 text-paper/60">
-          Activation rate after the redesign
+          Interface patterns across the whole product
         </p>
       </Reveal>
       <Reveal>
         <blockquote className="font-serif italic text-2xl leading-snug text-paper">
-          “Sales demos now start with the design.”
+          “Dense doesn’t have to mean hostile.”
         </blockquote>
         <p className="eyebrow mt-5 text-paper/50">
-          Dana Whitfield — CEO, Meridian
+          The question the concept set out to answer
         </p>
         <div className="mt-10">
           <ReadCaseButton />

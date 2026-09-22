@@ -1,29 +1,18 @@
 import { Reveal } from "./Reveal";
+import { SITE } from "@/lib/site";
 
+/**
+ * Only the founder is listed. The previous version named three additional
+ * designers who could not be verified; inventing colleagues misrepresents who
+ * a client would actually be working with, which is the one thing this section
+ * exists to answer. Add real people to TEAM and the grid below scales to them.
+ */
 const TEAM = [
   {
-    name: "Syed Ahmed",
+    name: SITE.founder,
     role: "Founder & Creative Director",
     initials: "SA",
     tone: "bg-klein text-paper",
-  },
-  {
-    name: "Maya Chen",
-    role: "Head of Design",
-    initials: "MC",
-    tone: "bg-ink text-paper",
-  },
-  {
-    name: "Jordan Blake",
-    role: "Engineering Lead",
-    initials: "JB",
-    tone: "bg-tint text-klein",
-  },
-  {
-    name: "Priya Nair",
-    role: "Strategy Director",
-    initials: "PN",
-    tone: "bg-stone/50 text-ink",
   },
 ];
 
@@ -33,11 +22,11 @@ export default function Team() {
       <Reveal>
         <p className="eyebrow mb-4 text-klein">The people</p>
         <h2 className="display-tight max-w-3xl text-4xl md:text-6xl">
-          A senior team of four. No account layers, no juniors on your budget.
+          Founder-led. The person you meet is the person doing the work.
         </h2>
       </Reveal>
 
-      <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-16 grid gap-10 md:grid-cols-[minmax(0,18rem)_1fr] md:gap-16">
         {TEAM.map((person, i) => (
           <Reveal key={person.name} delay={i * 0.07}>
             <div className="group" data-hover>
@@ -56,6 +45,24 @@ export default function Team() {
             </div>
           </Reveal>
         ))}
+
+        <Reveal delay={0.12} className="md:pt-6">
+          <p className="max-w-xl text-xl leading-relaxed text-ink/80 md:text-2xl">
+            No account layer, no handoff to juniors, no big reveal at the end.
+          </p>
+          <p className="mt-6 max-w-xl leading-relaxed text-ink/70">
+            Xark Tech is deliberately small. Every engagement is run by the
+            person who scoped it, which keeps decisions fast and the work
+            consistent from first call to launch. When a project needs a
+            specialist — an illustrator, a copywriter, an engineer — we bring in
+            trusted collaborators and tell you exactly who is doing what.
+          </p>
+          <p className="mt-6 max-w-xl leading-relaxed text-ink/70">
+            The trade-off is honest: we take on fewer projects at a time. If the
+            timing doesn&rsquo;t work, we&rsquo;ll say so on the first call
+            rather than stretch and under-deliver.
+          </p>
+        </Reveal>
       </div>
     </section>
   );

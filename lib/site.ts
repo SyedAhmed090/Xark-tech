@@ -10,26 +10,27 @@ export const SITE = {
   url: "https://xarktech.com",
   name: "Xark Tech",
   tagline: "We make software feel human",
-  email: "hello@xarktech.com",
+  email: "info@xarktech.com",
   description:
-    "Xark Tech is an independent design agency in Austin, TX, focused on complex B2B software — fintech, healthcare, logistics. Brand identity, product design, and web experiences.",
+    "Xark Tech is an independent design studio in Sheridan, WY, focused on complex B2B software — fintech, healthcare, logistics. Brand identity, product design, and web experiences.",
   /** Shorter variant for social cards, where long text is truncated. */
   shortDescription:
-    "Independent design agency in Austin, TX, focused on complex B2B software — fintech, healthcare, logistics.",
-  foundingDate: "2014",
+    "Independent design studio in Sheridan, WY, focused on complex B2B software — fintech, healthcare, logistics.",
+  /**
+   * No foundingDate: the previous value (2014) was not verified, and an
+   * unverifiable date asserted in JSON-LD is a claim to search engines rather
+   * than decoration. Add a real one here and the layout emits it again.
+   */
   founder: "Syed Ahmed",
   locale: "en_US",
   address: {
-    locality: "Austin",
-    region: "TX",
+    locality: "Sheridan",
+    region: "WY",
     country: "US",
-    /** TODO(launch): street address — omitted from schema while null. */
-    street: null as string | null,
-    /** TODO(launch): postal code — omitted from schema while null. */
-    postalCode: null as string | null,
+    street: "30 N Gould St Ste R",
+    postalCode: "82801",
   },
-  /** TODO(launch): phone in E.164 (e.g. +1-512-555-0100) — omitted while null. */
-  phone: null as string | null,
+  phone: "+13074009487" as string | null,
   /**
    * Verified profile URLs for JSON-LD `sameAs` and the footer. Deliberately
    * empty: the previous values pointed at platform homepages rather than real

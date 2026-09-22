@@ -4,9 +4,8 @@ import { Reveal } from "./Reveal";
 import type { Package } from "@/lib/services";
 
 /**
- * Three-tier package ladder. Columns are divided by hairlines rather than
- * boxed into cards, so the block reads like the rest of the site's editorial
- * tables. The featured tier inverts to ink, matching the investment band.
+ * A conventional pricing-card structure translated into Xark's editorial
+ * system: hairlines, oversized pricing, and one Klein-blue recommendation.
  */
 export default function Packages({
   packages,
@@ -15,75 +14,112 @@ export default function Packages({
   packages: Package[];
   serviceName: string;
 }) {
-  // Always h3: on both surfaces the nearest ancestor heading is an h2 (the
-  // "Three ways to work with us" section, or the service name on /packages).
   const TierName = "h3";
 
   return (
-    <div className="hairline-t grid md:grid-cols-3">
+    <div className="grid gap-px border border-[color:var(--color-hairline)] bg-[color:var(--color-hairline)] md:grid-cols-3">
       {packages.map((pkg, i) => {
-        const dark = pkg.featured;
+        const featured = pkg.featured;
+
         return (
           <Reveal key={pkg.name} delay={i * 0.08} className="h-full">
-            <div
-              className={`flex h-full flex-col p-6 md:p-8 ${
-                dark ? "bg-ink text-paper" : "hairline-b md:border-b-0"
-              } ${i > 0 ? "md:border-l md:border-[color:var(--color-hairline)]" : ""}`}
+            <article
+              className={`relative flex h-full flex-col p-6 md:min-h-[39rem] md:p-8 ${
+                featured ? "bg-klein text-paper" : "bg-paper text-ink"
+              }`}
             >
-              <div className="flex items-baseline justify-between">
-                <TierName
-                  className={`eyebrow ${dark ? "text-paper" : "text-klein"}`}
+              <div className="flex min-h-6 items-center justify-between gap-4">
+                <span
+                  className={`font-mono text-xs ${
+                    featured ? "text-paper/55" : "text-ink/35"
+                  }`}
+                  aria-hidden="true"
                 >
-                  {pkg.name}
-                </TierName>
-                {dark && (
-                  <span className="eyebrow text-paper/50">Most chosen</span>
-                )}
+                  0{i + 1}
+                </span>
+                {featured ? (
+                  <span className="eyebrow rounded-full border border-paper/30 px-3 py-1 text-paper">
+                    Recommended
+                  </span>
+                ) : null}
+              </div>
+
+              <TierName
+                className={`display-tight mt-8 text-2xl ${
+                  featured ? "text-paper" : "text-ink"
+                }`}
+              >
+                {pkg.name}
+              </TierName>
+
+              <div className="mt-7 flex flex-wrap items-end gap-x-4 gap-y-1">
+                <p
+                  className={`display text-[clamp(2.4rem,4vw,4.5rem)] ${
+                    featured ? "text-paper" : "text-klein"
+                  }`}
+                >
+                  {pkg.price}
+                </p>
+                {pkg.originalPrice ? (
+                  <p
+                    className={`pb-1 font-mono text-sm line-through ${
+                      featured ? "text-paper/50" : "text-ink/40"
+                    }`}
+                  >
+                    {pkg.originalPrice}
+                  </p>
+                ) : null}
               </div>
 
               <p
-                className={`display mt-6 text-4xl md:text-5xl ${
-                  dark ? "text-paper" : ""
+                className={`mt-3 font-mono text-xs uppercase tracking-[0.12em] ${
+                  featured ? "text-paper/60" : "text-ink/45"
                 }`}
               >
-                {pkg.price}
-              </p>
-
-              <p
-                className={`mt-3 font-mono text-sm ${
-                  dark ? "text-paper/60" : "text-ink/50"
-                }`}
-              >
-                {pkg.duration}
+                Typical timeline / {pkg.duration}
               </p>
 
               <p
                 className={`mt-5 font-serif italic text-lg leading-snug ${
-                  dark ? "text-paper/80" : "text-ink/70"
+                  featured ? "text-paper/80" : "text-ink/70"
                 }`}
               >
                 {pkg.summary}
               </p>
 
               <ul
-                className={`mt-8 ${
-                  dark ? "border-t border-paper/20" : "hairline-t"
+                className={`mt-8 border-t ${
+                  featured ? "border-paper/25" : "border-ink/15"
                 }`}
               >
                 {pkg.includes.map((item) => (
                   <li
                     key={item}
-                    className={`flex items-baseline gap-3 py-3 ${
-                      dark ? "border-b border-paper/20" : "hairline-b"
+                    className={`flex gap-3 border-b py-3 ${
+                      featured ? "border-paper/20" : "border-ink/10"
                     }`}
                   >
                     <span
-                      className={`font-serif italic ${
-                        dark ? "text-paper/60" : "text-klein"
+                      className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border ${
+                        featured
+                          ? "border-paper/45 text-paper"
+                          : "border-klein/40 text-klein"
                       }`}
                       aria-hidden="true"
                     >
-                      ✕
+                      <svg
+                        viewBox="0 0 12 12"
+                        className="h-2.5 w-2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="m2.25 6.2 2.1 2.05 5.4-5"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
                     </span>
                     <span className="text-sm leading-relaxed">{item}</span>
                   </li>
@@ -94,21 +130,22 @@ export default function Packages({
                 <Magnetic>
                   <Link
                     href="/contact"
-                    className={`eyebrow inline-block rounded-full px-6 py-3 transition-colors ${
-                      dark
-                        ? "bg-paper text-ink hover:bg-klein hover:text-paper"
-                        : "border border-ink/20 text-ink/70 hover:border-klein hover:text-klein"
+                    className={`eyebrow inline-flex items-center gap-4 rounded-full px-6 py-3.5 transition-colors ${
+                      featured
+                        ? "bg-paper text-ink hover:bg-ink hover:text-paper"
+                        : "bg-ink text-paper hover:bg-klein"
                     }`}
                     data-hover
                   >
                     <span className="sr-only">
-                      {serviceName} — {pkg.name}:{" "}
+                      {serviceName} &mdash; {pkg.name}:{" "}
                     </span>
-                    Enquire →
+                    Choose {pkg.name}
+                    <span aria-hidden="true">&rarr;</span>
                   </Link>
                 </Magnetic>
               </div>
-            </div>
+            </article>
           </Reveal>
         );
       })}
@@ -135,8 +172,8 @@ export function PackagesSection({
             </h2>
           </div>
           <p className="max-w-sm leading-relaxed text-ink/60">
-            Every engagement starts with a conversation, not a checkout. These
-            are the shapes most {serviceName.toLowerCase()} projects take.
+            Clear scope, a visible starting price, and enough flexibility to
+            shape the right {serviceName.toLowerCase()} engagement together.
           </p>
         </div>
       </Reveal>

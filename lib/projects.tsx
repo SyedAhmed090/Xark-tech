@@ -182,13 +182,23 @@ export type Project = {
   name: string;
   category: string;
   year: string;
+  /** Shown as a badge so the reader is never left guessing whether this
+   *  was a paid client engagement. Every project here is self-initiated. */
+  kind: string;
+  /** The working prototype under app/demo — the actual artifact. */
+  demoHref: string;
   cover: ReactNode;
   tint: string;
   summary: string;
   services: string[];
+  /** The brief the studio set itself, not a client's reported situation. */
   challenge: string;
   approach: string;
+  /** What the prototype demonstrates. Never a business result: these are
+   *  concept projects with no deployment, so there is nothing to measure. */
   outcome: string;
+  /** Design facts about the artifact, consistent with `approach` above.
+   *  Deliberately not outcome metrics — see the note in the README. */
   stats: { value: string; label: string }[];
   artifacts: { caption: string; panel: ReactNode }[];
 };
@@ -199,20 +209,22 @@ export const PROJECTS: Project[] = [
     name: "Meridian",
     category: "Fintech — brand & platform",
     year: "2025",
+    kind: "Self-initiated concept project",
+    demoHref: "/demo/meridian",
     cover: <PhotoCover slug="meridian" alt="Meridian treasury dashboard on a laptop screen" />,
     summary:
-      "A treasury platform for mid-market CFOs that looked like a science project and needed to feel like an institution.",
+      "A treasury platform for mid-market CFOs, designed to read like an institution rather than a science project.",
     services: ["Brand identity", "Product design", "Design system"],
     challenge:
-      "Meridian's engineering-led team had built genuinely differentiated treasury tooling, but the product read as a prototype: fourteen shades of gray, three navigation patterns, and a brand that photographed badly next to hundred-year-old banks in procurement decks.",
+      "The brief we set ourselves: mid-market treasury tools tend to be engineering-led and look it — fourteen shades of gray, three navigation patterns, and a brand that photographs badly next to hundred-year-old banks in a procurement deck. Can a treasury product read as credible without going beige?",
     approach:
-      "We rebuilt the identity around the idea of a fixed reference line — the meridian — and carried it into the product as a single, disciplined layout grid. Ten interface patterns replaced forty screens' worth of one-offs, documented in a Figma-and-code design system the team ships against weekly.",
+      "We built the identity around a fixed reference line — the meridian — and carried it into the product as a single, disciplined layout grid. Ten interface patterns cover the whole surface, documented as a working component set rather than a static mockup.",
     outcome:
-      "The rebrand launched alongside the redesigned platform in one release. Sales demos now open with the product instead of apologizing for it, and the design system has held through two quarters of feature work without a single new pattern.",
+      "The result is a prototype you can open and use: cash position, forecasting and approvals, all built against the same ten patterns. It exists to test one idea — that a dense financial interface can also be a calm one.",
     stats: [
-      { value: "+34%", label: "Activation rate after redesign" },
-      { value: "10", label: "Interface patterns replacing 40+ screens" },
-      { value: "2×", label: "Faster feature delivery against the system" },
+      { value: "10", label: "Interface patterns across the product" },
+      { value: "1", label: "Layout grid every screen hangs from" },
+      { value: "3", label: "Core flows built end to end" },
     ],
     tint: "#2016e8",
     artifacts: [
@@ -221,11 +233,11 @@ export const PROJECTS: Project[] = [
         panel: <MeridianWireframe />,
       },
       {
-        caption: "Ten patterns, documented in Figma and code, replacing forty screens of one-offs.",
+        caption: "Ten patterns, documented as a working component set.",
         panel: <MeridianSystem />,
       },
       {
-        caption: "The shipped platform — cash view, forecasting, and approvals.",
+        caption: "The prototype — cash view, forecasting, and approvals.",
         panel: <PhotoCover slug="meridian" alt="Meridian treasury dashboard on a laptop screen" />,
       },
     ],
@@ -235,25 +247,27 @@ export const PROJECTS: Project[] = [
     name: "Loop Health",
     category: "Healthcare — patient app",
     year: "2025",
+    kind: "Self-initiated concept project",
+    demoHref: "/demo/loop-health",
     cover: <PhotoCover slug="loop-health" alt="Loop Health check-in screen held in hand" />,
     summary:
-      "A patient app for a chronic-care clinic network, redesigned around the moments between appointments.",
-    services: ["UX research", "Product design", "Motion"],
+      "A patient app for chronic care, designed around the moments between appointments.",
+    services: ["Product design", "Accessibility", "Motion"],
     challenge:
-      "Loop's app was built for the clinic, not the patient: appointment-first navigation, clinical language, and a daily check-in flow that took eleven taps. Patients over 60 — most of the user base — abandoned it within two weeks.",
+      "The brief we set ourselves: chronic-care apps are usually built for the clinic rather than the patient — appointment-first navigation, clinical language, and daily check-ins that run to a dozen taps. The people who depend on them most are often over 60. What would the same app look like designed for them first?",
     approach:
-      "We shadowed patients through twelve in-home research sessions, then rebuilt the app around the check-in as the front door: one screen, two taps, type large enough to read without glasses. Micro-animations confirm every action so patients never wonder whether something worked.",
+      "We rebuilt the app around the check-in as the front door: one screen, two taps, type large enough to read without glasses. Micro-animations confirm every action, so nothing leaves the patient wondering whether it worked.",
     outcome:
-      "Daily check-in completion doubled in the first month after launch, and support calls about the app dropped by half. The clinic network is rolling the design out across all nine locations.",
+      "The prototype is a working app: check-in, medications and messages, sized and paced for readers over sixty. It is a design argument about who an interface should treat as its default user.",
     stats: [
-      { value: "2×", label: "Daily check-in completion" },
-      { value: "11 → 2", label: "Taps to complete a check-in" },
-      { value: "−52%", label: "App-related support calls" },
+      { value: "2", label: "Taps to complete a daily check-in" },
+      { value: "3", label: "Screens the whole app lives in" },
+      { value: "1", label: "Front door: the daily check-in" },
     ],
     tint: "#0f8a5f",
     artifacts: [
       {
-        caption: "Paper prototypes from twelve in-home research sessions with patients.",
+        caption: "Paper prototypes exploring the check-in as the app's front door.",
         panel: <LoopWireframe />,
       },
       {
@@ -261,7 +275,7 @@ export const PROJECTS: Project[] = [
         panel: <LoopSystem />,
       },
       {
-        caption: "Check-in, medications, and messages — the three screens patients live in.",
+        caption: "Check-in, medications, and messages — the three screens the app lives in.",
         panel: <PhotoCover slug="loop-health" alt="Loop Health check-in screen held in hand" />,
       },
     ],
@@ -271,20 +285,22 @@ export const PROJECTS: Project[] = [
     name: "Forma Studio",
     category: "Architecture — portfolio site",
     year: "2024",
+    kind: "Self-initiated concept project",
+    demoHref: "/demo/forma-studio",
     cover: <PhotoCover slug="forma-studio" alt="Forma Studio homepage on a laptop in a studio" />,
     summary:
-      "A portfolio site for an architecture studio whose buildings deserved better than a squarespace template.",
+      "A portfolio site for an architecture practice, built like one of its buildings.",
     services: ["Web design", "Development", "Motion & 3D"],
     challenge:
-      "Forma's work — quiet, structural, obsessive about light — was trapped in a generic grid template that made every project look the same size. Award juries and prospective clients saw thumbnails, not buildings.",
+      "The brief we set ourselves: architecture portfolios flatten everything into a uniform grid, so every project reads the same size and the work stops behaving like architecture. Can a website carry structure the way a building does?",
     approach:
-      "We designed the site like one of their buildings: a strict structural grid that individual projects break out of at full bleed. Scroll-driven reveals pace each case study like a walkthrough, and a WebGL light study on the homepage shifts with the visitor's local time of day.",
+      "We designed the site around a strict structural grid that individual projects break out of at full bleed. Scroll-driven reveals pace each case study like a walkthrough, and a WebGL light study on the homepage shifts with the visitor's local time of day.",
     outcome:
-      "The site launched two weeks before award season. Forma was shortlisted for two national prizes that year, and the partners now send the site link instead of a PDF portfolio.",
+      "The prototype is explorable end to end: a structural grid, deliberate full-bleed breakouts, and a light study that tracks the time of day wherever you happen to be sitting.",
     stats: [
-      { value: "3.1 min", label: "Average time on case studies" },
-      { value: "2", label: "National award shortlists that season" },
-      { value: "100", label: "Lighthouse performance score" },
+      { value: "1", label: "Structural grid, broken deliberately" },
+      { value: "WebGL", label: "Light study driven by local time" },
+      { value: "Full-bleed", label: "Breakouts for individual projects" },
     ],
     tint: "#8a6d3b",
     artifacts: [
@@ -307,25 +323,27 @@ export const PROJECTS: Project[] = [
     name: "Atlas Freight",
     category: "Logistics — product design",
     year: "2024",
+    kind: "Self-initiated concept project",
+    demoHref: "/demo/atlas-freight",
     cover: <PhotoCover slug="atlas-freight" alt="Atlas Freight dispatch board on a monitor" />,
     summary:
-      "A dispatch platform redesigned for the people who actually use it: dispatchers working three screens at 5 a.m.",
-    services: ["UX research", "Product design", "Design system"],
+      "A dispatch platform designed for the people who actually use it: dispatchers working three screens at 5 a.m.",
+    services: ["Product design", "Design system", "Interaction"],
     challenge:
-      "Atlas's dispatch tool had grown a decade of features with no design oversight. Dispatchers kept paper notes to track what the software couldn't show them, and training a new hire took six weeks.",
+      "The brief we set ourselves: dispatch tools accumulate a decade of features with no design oversight, until the people using them keep paper notes to track what the software can't show. What if the day's exceptions were the interface, instead of something you go hunting for?",
     approach:
-      "We sat in dispatch centers across three time zones before touching a screen. The redesign put the day's exceptions — late loads, empty miles, driver hours — on one board, with everything else a keystroke away. Dense, keyboard-first, built for expert users rather than demo audiences.",
+      "The design puts the day's exceptions — late loads, empty miles, driver hours — on one board, with everything else a keystroke away. Dense, keyboard-first, built for expert users rather than demo audiences.",
     outcome:
-      "The paper notes disappeared within a month of rollout. New-dispatcher training dropped from six weeks to two, and Atlas's retention team now uses the product as a selling point in renewal conversations.",
+      "The prototype is a working dispatch board: exceptions first, keyboard navigation throughout, and detail views one keystroke from the day view. Built for the 5 a.m. shift rather than the sales demo.",
     stats: [
-      { value: "6 → 2", label: "Weeks to train a new dispatcher" },
-      { value: "−18%", label: "Empty miles across the network" },
-      { value: "94%", label: "Daily active use among dispatchers" },
+      { value: "3", label: "Exception types on one board" },
+      { value: "1", label: "Keystroke from board to detail" },
+      { value: "Keyboard", label: "First-class navigation, not an add-on" },
     ],
     tint: "#c2410c",
     artifacts: [
       {
-        caption: "The exceptions board, sketched with dispatchers across three time zones.",
+        caption: "The exceptions board, sketched as the primary interface.",
         panel: <AtlasWireframe />,
       },
       {
