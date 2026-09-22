@@ -10,7 +10,12 @@ import Magnetic from "@/components/Magnetic";
 import { PackagesSection } from "@/components/Packages";
 import { Reveal } from "@/components/Reveal";
 import JsonLd from "@/components/JsonLd";
-import { SERVICES, getService, type Service } from "@/lib/services";
+import {
+  SERVICES,
+  getService,
+  type Package,
+  type Service,
+} from "@/lib/services";
 import { PROJECTS } from "@/lib/projects";
 import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta } from "@/lib/site";
 
@@ -32,30 +37,24 @@ export async function generateMetadata({
   });
 }
 
-/** Parses "$35k" / "$50k / month" into a plain number for schema offers. */
-function priceValue(price: string) {
-  const match = price.match(/\$([\d.]+)k/i);
-  return match ? Number(match[1]) * 1000 : undefined;
-}
-
-/** True for retainer pricing like "$50k / month". */
-function isMonthly(price: string) {
-  return /month/i.test(price);
-}
-
 /**
  * A bare `price` on an Offer reads as a one-time charge. Retainers must use a
  * UnitPriceSpecification with a billing period, or search engines advertise a
  * monthly fee as if it were the total project cost.
+ *
+ * Reads `priceUsd` and `interval` off the package rather than parsing the
+ * display string: the string is written for humans ("$99", "From $3,499",
+ * "$199 / month") and any parser over it fails silently — dropping the price
+ * from the Offer entirely, which is worse than no schema at all.
  */
-function offerPricing(price: string) {
-  const value = priceValue(price);
-  if (value === undefined) return {};
-  if (!isMonthly(price)) return { price: value, priceCurrency: "USD" };
+function offerPricing(pkg: Package) {
+  if (pkg.interval !== "month") {
+    return { price: pkg.priceUsd, priceCurrency: "USD" };
+  }
   return {
     priceSpecification: {
       "@type": "UnitPriceSpecification",
-      price: value,
+      price: pkg.priceUsd,
       priceCurrency: "USD",
       unitText: "MONTH",
       billingDuration: 1,
@@ -65,9 +64,7 @@ function offerPricing(price: string) {
 }
 
 function serviceSchema(service: Service) {
-  const prices = service.packages
-    .map((p) => priceValue(p.price))
-    .filter((n): n is number => typeof n === "number");
+  const prices = service.packages.map((p) => p.priceUsd);
 
   return {
     "@context": "https://schema.org",
@@ -85,14 +82,14 @@ function serviceSchema(service: Service) {
       highPrice: Math.max(...prices),
       offerCount: service.packages.length,
       // Makes the retainer case explicit at the aggregate level too.
-      ...(service.packages.some((p) => isMonthly(p.price))
-        ? { description: `${service.name} is retained monthly, billed quarterly.` }
+      ...(service.packages.some((p) => p.interval === "month")
+        ? { description: `${service.name} is billed monthly, cancel anytime.` }
         : {}),
       offers: service.packages.map((pkg) => ({
         "@type": "Offer",
         name: `${service.name} — ${pkg.name}`,
         description: pkg.summary,
-        ...offerPricing(pkg.price),
+        ...offerPricing(pkg),
         url: absoluteUrl(`/services/${service.slug}`),
         availability: "https://schema.org/InStock",
       })),

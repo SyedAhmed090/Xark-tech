@@ -7,6 +7,18 @@ import type { Package } from "@/lib/services";
  * A conventional pricing-card structure translated into Xark's editorial
  * system: hairlines, oversized pricing, and one Klein-blue recommendation.
  */
+/**
+ * Spelled out rather than interpolated: Tailwind scans source for whole class
+ * names, so a computed `md:grid-cols-${n}` is never emitted into the CSS.
+ * Four-tier ladders drop to two columns on tablet so cells stay readable.
+ */
+const COLUMNS: Record<number, string> = {
+  1: "md:grid-cols-1",
+  2: "md:grid-cols-2",
+  3: "md:grid-cols-3",
+  4: "md:grid-cols-2 lg:grid-cols-4",
+};
+
 export default function Packages({
   packages,
   serviceName,

@@ -127,10 +127,11 @@ export default function ContactForm({
           className={`border-b bg-transparent py-3 text-lg outline-none transition-colors ${field}`}
         >
           <option value="">Not sure yet</option>
-          <option value="Under $25k">Under $25k</option>
-          <option value="$25k–75k">$25k–75k</option>
-          <option value="$75k–150k">$75k–150k</option>
-          <option value="$150k+">$150k+</option>
+          <option value="Under $500">Under $500</option>
+          <option value="$500–1,500">$500–1,500</option>
+          <option value="$1,500–3,000">$1,500–3,000</option>
+          <option value="$3,000+">$3,000+</option>
+          <option value="Monthly plan">Monthly plan</option>
         </select>
       </label>
       <label className="flex flex-col gap-2">

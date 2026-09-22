@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import Magnetic from "@/components/Magnetic";
 import JsonLd from "@/components/JsonLd";
 import { Reveal } from "@/components/Reveal";
-import { SERVICES } from "@/lib/services";
+import { ENTRY_PRICE, SERVICES } from "@/lib/services";
 import { PROJECTS } from "@/lib/projects";
 import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta } from "@/lib/site";
 
@@ -75,7 +75,7 @@ export default function ServicesIndex() {
               </div>
               <div className="flex items-baseline justify-between py-4 hairline-b">
                 <span className="eyebrow text-ink/50">Entry point</span>
-                <span className="font-mono text-sm">$20k</span>
+                <span className="font-mono text-sm">{ENTRY_PRICE}</span>
               </div>
               <div className="flex items-baseline justify-between py-4 hairline-b">
                 <span className="eyebrow text-ink/50">Cases shown</span>
