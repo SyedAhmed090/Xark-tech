@@ -16,11 +16,11 @@ import { SITE } from "@/lib/site";
 export const FAQ_ITEMS = [
   {
     q: "How much does a logo cost?",
-    a: "Logos start at $99 for three original concepts and two revision rounds. $199 adds more concepts, unlimited revisions for two weeks, and a social profile set. $399 adds stationery and a colour and type system, and $799 covers a complete identity with brand guidelines. Every tier — including the $99 one — includes the full vector file set and full ownership.",
+    a: "Logos start at $99 for three original concepts and two revision rounds. $149 adds more concepts and revisions, $199 adds unlimited revisions for two weeks plus a social profile set, $249 covers an illustrated mark, $399 adds stationery and a colour and type system, and $899 is a complete identity with brand guidelines. Every tier — including the $99 one — includes the full vector file set and full ownership.",
   },
   {
     q: "How much does a small business website cost?",
-    a: "A three-page starter site is $399 and takes about a week. Most small businesses choose the $899 Business Site: six pages, a content system you can edit yourself, a blog, and your Google Business Profile set up. Larger sites with booking or quote capture are $1,499, and online stores start at $1,299.",
+    a: "A three-page starter site is $399 and takes about a week. Most small businesses choose the $799 Business Site: six pages, a content system you can edit yourself, a blog, and your Google Business Profile set up. A twelve-page site with booking or quote capture is $1,099, larger multi-location sites run to $2,499, and online stores start at $1,299.",
   },
   {
     q: "Do I own my logo and website?",
@@ -32,11 +32,11 @@ export const FAQ_ITEMS = [
   },
   {
     q: "How long does a typical project take?",
-    a: "A brand and site together usually run 8–12 weeks. Product design is ongoing — engagements are booked a quarter at a time, with two-week working cycles inside them.",
+    a: "Logos take three to five days. A starter site is about a week, a business site ten days, and an online store two to three weeks. You get a delivery date when you submit your brief, not after.",
   },
   {
     q: "Who actually works on our project?",
-    a: "Whoever you meet on the first call is who does the work. Xark Tech is founder-led and deliberately small — we don’t sell you partners and staff you with juniors. When a project needs a specialist we bring in trusted collaborators and tell you exactly who is doing what.",
+    a: "A professional designer, briefed directly from what you write in the brief. Every concept is reviewed before it reaches you, and you deal with one point of contact throughout rather than being passed around.",
   },
   {
     q: "What happens after my site goes live?",
@@ -44,6 +44,6 @@ export const FAQ_ITEMS = [
   },
   {
     q: "How do we start?",
-    a: `Email ${SITE.email} with a couple of lines about what you’re building. We’ll book a 30-minute intro call, and if it’s a fit you’ll have a scoped proposal within a week.`,
+    a: `Pick a package and fill in the brief — it asks everything a call would, and work starts as soon as it lands. If you would rather talk first, chat is on every page during business hours, or email ${SITE.email}.`,
   },
 ];

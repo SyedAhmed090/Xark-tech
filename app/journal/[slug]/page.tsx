@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import SmoothScroll from "@/components/SmoothScroll";
-import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
@@ -94,7 +92,7 @@ function faqSchema(post: Post) {
 }
 
 const LINK_CLASS =
-  "text-klein underline decoration-klein/40 underline-offset-4 transition-colors hover:decoration-klein";
+  "text-brand underline decoration-brand/40 underline-offset-4 transition-colors hover:decoration-brand";
 
 /** Authored text with its inline links resolved. */
 function Runs({ text }: { text: Rich }) {
@@ -104,7 +102,7 @@ function Runs({ text }: { text: Rich }) {
         typeof run === "string" ? (
           run
         ) : (
-          <Link key={i} href={run.href} className={LINK_CLASS} data-hover>
+          <Link key={i} href={run.href} className={LINK_CLASS}>
             {run.text}
           </Link>
         ),
@@ -136,7 +134,7 @@ function BodyBlock({ block }: { block: Block }) {
         <List
           className={`mb-7 space-y-3 pl-6 text-lg leading-relaxed text-ink/80 ${
             block.ordered ? "list-decimal" : "list-disc"
-          } marker:text-klein`}
+          } marker:text-brand`}
         >
           {block.items.map((item, i) => (
             <li key={i} className="pl-1">
@@ -148,7 +146,7 @@ function BodyBlock({ block }: { block: Block }) {
     }
     case "quote":
       return (
-        <blockquote className="my-14 border-l-2 border-klein pl-8 font-serif text-2xl leading-snug italic text-ink md:text-3xl">
+        <blockquote className="my-14 border-l-2 border-brand pl-8 font-serif text-2xl leading-snug italic text-ink md:text-3xl">
           {block.text}
         </blockquote>
       );
@@ -168,7 +166,7 @@ export default async function PostPage({
   const faqs = post.faqs ?? [];
 
   return (
-    <SmoothScroll>
+    <>
       <JsonLd data={postSchema(post)} />
       {faqs.length > 0 && <JsonLd data={faqSchema(post)} />}
       <JsonLd
@@ -178,13 +176,12 @@ export default async function PostPage({
           { name: post.title, path: `/journal/${post.slug}` },
         ])}
       />
-      <Cursor />
       <Nav />
       <main id="main" className="pt-32">
         <article className="px-5 md:px-10">
           <header className="mx-auto max-w-4xl">
             <Reveal>
-              <p className="eyebrow mb-4 text-klein">
+              <p className="eyebrow mb-4 text-brand">
                 Journal — {post.displayDate} — {post.readingTime}
               </p>
               <h1 className="display-tight text-[clamp(2.25rem,6vw,5.5rem)]">
@@ -219,8 +216,7 @@ export default async function PostPage({
                             WCAG 2.2 target size does not apply. */}
                         <Link
                           href={`#${heading.id}`}
-                          className="inline-block py-1.5 text-ink/70 transition-colors hover:text-klein"
-                          data-hover
+                          className="inline-block py-1.5 text-ink/70 transition-colors hover:text-brand"
                         >
                           {heading.text}
                         </Link>
@@ -242,7 +238,7 @@ export default async function PostPage({
 
             <Reveal>
               <p className="mt-12 flex items-center gap-3">
-                <span className="h-px w-10 bg-klein" aria-hidden />
+                <span className="h-px w-10 bg-brand" aria-hidden />
                 <span className="eyebrow text-ink/60">
                   The Xark Tech team — Sheridan, WY
                 </span>
@@ -280,7 +276,7 @@ export default async function PostPage({
         <section className="px-5 hairline-t md:px-10">
           <Reveal>
             <div className="mx-auto max-w-3xl py-12 md:py-16">
-              <p className="eyebrow mb-5 text-klein">Enjoyed this?</p>
+              <p className="eyebrow mb-5 text-brand">Enjoyed this?</p>
               <NewsletterForm />
             </div>
           </Reveal>
@@ -289,16 +285,15 @@ export default async function PostPage({
         {related.length > 0 && (
           <section className="px-5 py-16 hairline-t md:px-10 md:py-24">
             <Reveal>
-              <p className="eyebrow mb-4 text-klein">Read next</p>
+              <p className="eyebrow mb-4 text-brand">Read next</p>
               <div className="space-y-8">
                 {related.map((next) => (
                   <Link
                     key={next.slug}
                     href={`/journal/${next.slug}`}
                     className="group block"
-                    data-hover
                   >
-                    <h2 className="display-tight text-3xl transition-colors group-hover:text-klein md:text-5xl">
+                    <h2 className="display-tight text-3xl transition-colors group-hover:text-brand md:text-5xl">
                       {next.title} →
                     </h2>
                     <p className="mt-3 max-w-xl text-ink/60">{next.dek}</p>
@@ -307,7 +302,7 @@ export default async function PostPage({
               </div>
               <Link
                 href="/journal"
-                className="eyebrow mt-10 inline-block py-1.5 text-ink/60 transition-colors hover:text-klein"
+                className="eyebrow mt-10 inline-block py-1.5 text-ink/60 transition-colors hover:text-brand"
               >
                 ← All notes
               </Link>
@@ -317,6 +312,6 @@ export default async function PostPage({
 
         <Footer />
       </main>
-    </SmoothScroll>
+    </>
   );
 }

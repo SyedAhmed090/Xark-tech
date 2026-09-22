@@ -1,10 +1,9 @@
 // Tablet-width overflow plus WCAG AA contrast sampling on real rendered text.
 import { chromium } from "playwright";
+import { routesFromSitemap } from "./routes.mjs";
 
 const BASE = process.env.AUDIT_BASE ?? "http://localhost:3000";
-const ROUTES = ["/", "/services", "/packages", "/work", "/studio", "/journal", "/contact",
-  "/services/brand-identity", "/work/meridian", "/journal/why-we-stay-four-people",
-  "/journal/why-your-b2b-site-doesnt-rank"];
+const ROUTES = await routesFromSitemap(BASE);
 const WIDTHS = [768, 834, 1024];
 
 const browser = await chromium.launch();
@@ -15,7 +14,19 @@ for (const w of WIDTHS) {
   for (const r of ROUTES) {
     await page.goto(BASE + r, { waitUntil: "networkidle", timeout: 90_000 });
     await page.waitForTimeout(500);
-    const o = await page.evaluate((vw) => document.documentElement.scrollWidth - vw, w);
+    // scrollWidth alone over-reports: a deliberately clipped drag carousel
+    // inflates it by the width of its off-screen slides while the page stays
+    // unscrollable. What actually harms a visitor is being able to scroll
+    // sideways, so confirm that before calling it overflow.
+    const o = await page.evaluate((vw) => {
+      const excess = document.documentElement.scrollWidth - vw;
+      if (excess <= 0) return 0;
+      const before = window.scrollX;
+      window.scrollTo(excess + 100, window.scrollY);
+      const moved = window.scrollX > before;
+      window.scrollTo(before, window.scrollY);
+      return moved ? excess : 0;
+    }, w);
     if (o > 0) console.log(`  ${w}px ${r}: OVERFLOW +${o}px`);
   }
   await page.close();

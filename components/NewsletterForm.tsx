@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Magnetic from "./Magnetic";
 import { SITE } from "@/lib/site";
 
 /* Posts to /api/subscribe.php, the PHP endpoint deployed alongside the static
@@ -23,8 +22,23 @@ export default function NewsletterForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, company: honeypot }),
       });
-      if (res.ok) {
+      // Only our own JSON counts as success. Where PHP isn't executing, Apache
+      // serves subscribe.php as a static file with status 200, and trusting
+      // res.ok would tell someone they're subscribed when nothing was stored.
+      let payload: { ok?: boolean } | null = null;
+      try {
+        payload = await res.json();
+      } catch {
+        payload = null;
+      }
+
+      if (res.ok && payload?.ok === true) {
         setStatus("sent");
+        return;
+      }
+      if (res.ok) {
+        // 200 without our JSON — the endpoint isn't running as PHP.
+        setStatus("unconfigured");
         return;
       }
       if (res.status === 429) {
@@ -45,7 +59,7 @@ export default function NewsletterForm() {
 
   if (status === "sent") {
     return (
-      <p className="font-serif italic text-xl text-ink">
+      <p className="text-xl text-ink">
         You’re on the list — new essays land in your inbox.
       </p>
     );
@@ -64,7 +78,7 @@ export default function NewsletterForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@company.com"
-            className="border-b border-ink/25 bg-transparent py-3 text-lg text-ink outline-none transition-colors placeholder:text-ink/30 focus:border-klein"
+            className="border-b border-ink/25 bg-transparent py-3 text-lg text-ink outline-none transition-colors placeholder:text-ink/30 focus:border-brand"
           />
         </label>
         <label className="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden>
@@ -77,16 +91,13 @@ export default function NewsletterForm() {
             onChange={(e) => setHoneypot(e.target.value)}
           />
         </label>
-        <Magnetic strength={0.2}>
           <button
             type="submit"
             disabled={status === "sending"}
-            className="eyebrow rounded-full bg-ink px-7 py-3.5 text-paper transition-colors hover:bg-klein disabled:opacity-60"
-            data-hover
+            className="eyebrow rounded-full bg-ink px-7 py-3.5 text-paper transition-colors hover:bg-brand disabled:opacity-60"
           >
             {status === "sending" ? "…" : "Subscribe →"}
           </button>
-        </Magnetic>
       </form>
       {status === "unconfigured" && (
         <p className="mt-3 text-sm text-ink/50">

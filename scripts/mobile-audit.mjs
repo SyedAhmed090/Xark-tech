@@ -1,27 +1,10 @@
 // Mobile audit: horizontal overflow, tap-target sizes, and font legibility
 // across every indexable route at three phone widths.
 import { chromium } from "playwright";
+import { routesFromSitemap } from "./routes.mjs";
 
 const BASE = process.env.AUDIT_BASE ?? "http://localhost:3000";
-const ROUTES = [
-  "/",
-  "/services",
-  "/packages",
-  "/work",
-  "/studio",
-  "/journal",
-  "/contact",
-  "/privacy",
-  "/terms",
-  "/services/brand-identity",
-  "/services/product-design",
-  "/services/web-design-build",
-  "/services/motion-3d",
-  "/work/meridian",
-  "/journal/why-we-stay-four-people",
-  "/journal/why-your-b2b-site-doesnt-rank",
-  "/journal/what-a-b2b-software-rebrand-costs",
-];
+const ROUTES = await routesFromSitemap(BASE);
 const VIEWPORTS = [
   { name: "iPhone SE", width: 375, height: 667 },
   { name: "iPhone 14", width: 390, height: 844 },

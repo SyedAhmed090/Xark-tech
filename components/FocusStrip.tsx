@@ -8,10 +8,10 @@ import { Reveal } from "./Reveal";
  */
 const FOCUS = [
   { name: "Fintech", className: "display-tight text-xl" },
-  { name: "Healthcare", className: "font-serif italic text-2xl" },
+  { name: "Healthcare", className: "text-2xl" },
   { name: "LOGISTICS", className: "font-mono text-lg tracking-[0.3em]" },
   { name: "B2B platforms", className: "display text-lg" },
-  { name: "design systems", className: "font-serif italic text-2xl lowercase" },
+  { name: "design systems", className: "text-2xl lowercase" },
   { name: "BRAND & IDENTITY", className: "font-mono text-sm tracking-[0.2em]" },
   { name: "Motion", className: "display-tight text-xl" },
   { name: "3D & WEBGL", className: "display text-base tracking-[0.15em]" },

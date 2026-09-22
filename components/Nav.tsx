@@ -9,7 +9,6 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
-import Magnetic from "./Magnetic";
 import SwapText from "./SwapText";
 import { SITE } from "@/lib/site";
 
@@ -64,7 +63,7 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
                 <Link
                   href={link.href}
                   onClick={onClose}
-                  className="display block text-5xl transition-colors hover:text-klein"
+                  className="display block text-5xl transition-colors hover:text-brand"
                 >
                   {link.label}
                 </Link>
@@ -144,19 +143,17 @@ export default function Nav() {
           </ul>
 
           <div className="flex items-center gap-3">
-            <Magnetic>
               <Link
                 href="/#contact"
                 onClick={() => setOpen(false)}
                 className={`eyebrow inline-block rounded-full px-5 py-2.5 transition-colors ${
                   open
-                    ? "bg-paper text-ink hover:bg-klein hover:text-paper"
-                    : "bg-ink text-paper hover:bg-klein"
+                    ? "bg-paper text-ink hover:bg-brand hover:text-paper"
+                    : "bg-ink text-paper hover:bg-brand"
                 }`}
               >
                 Start a project
               </Link>
-            </Magnetic>
             <button
               type="button"
               aria-label={open ? "Close menu" : "Open menu"}

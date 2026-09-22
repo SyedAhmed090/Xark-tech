@@ -27,32 +27,15 @@ if (!rate_limit_ok()) {
     respond(429, array('ok' => false, 'reason' => 'rate-limited'));
 }
 
-$dir = dirname(SUBSCRIBERS_FILE);
-if (!is_dir($dir) && !@mkdir($dir, 0700, true)) {
+$stored = append_row(
+    SUBSCRIBERS_FILE,
+    array('email', 'subscribed_at', 'ip'),
+    array($email, gmdate('c'), $_SERVER['REMOTE_ADDR'] ?? '')
+);
+
+if (!$stored) {
     respond(500, array('ok' => false, 'reason' => 'storage-unavailable'));
 }
-
-$handle = @fopen(SUBSCRIBERS_FILE, 'a');
-if ($handle === false) {
-    respond(500, array('ok' => false, 'reason' => 'storage-unavailable'));
-}
-
-// Exclusive lock: two simultaneous signups would otherwise interleave writes
-// and corrupt a row.
-if (flock($handle, LOCK_EX)) {
-    if (ftell($handle) === 0) {
-        fputcsv($handle, array('email', 'subscribed_at', 'ip'));
-    }
-    fputcsv($handle, array(
-        $email,
-        gmdate('c'),
-        $_SERVER['REMOTE_ADDR'] ?? '',
-    ));
-    fflush($handle);
-    flock($handle, LOCK_UN);
-}
-fclose($handle);
-@chmod(SUBSCRIBERS_FILE, 0600);
 
 // Best-effort notification. A failure here doesn't fail the request — the
 // address is already stored, which is the part that matters.

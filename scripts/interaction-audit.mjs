@@ -102,7 +102,7 @@ const log = (s) => console.log(s);
 // ---------- 4. Newsletter form ----------
 {
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
-  await page.goto(`${BASE}/journal/why-we-stay-four-people`, { waitUntil: "networkidle" });
+  await page.goto(`${BASE}/journal/why-we-stay-small`, { waitUntil: "networkidle" });
   await page.waitForTimeout(600);
   log("\n== Newsletter form ==");
   const email = page.locator('input[type="email"]').first();

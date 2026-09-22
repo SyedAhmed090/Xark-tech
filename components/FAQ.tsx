@@ -25,11 +25,10 @@ function Item({
         aria-expanded={open}
         aria-controls={panelId}
         className="flex w-full items-center justify-between gap-6 py-7 text-left"
-        data-hover
       >
         <span className="display-tight text-xl md:text-2xl">{item.q}</span>
         <motion.span
-          className="font-serif italic text-3xl text-klein"
+          className="text-3xl text-brand"
           animate={{ rotate: open ? 45 : 0 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           aria-hidden
@@ -63,7 +62,7 @@ export default function FAQ() {
       <div className="grid gap-12 md:grid-cols-[1fr_2fr] md:gap-20">
         <div className="md:sticky md:top-28 md:self-start">
           <Reveal>
-            <p className="eyebrow mb-4 text-klein">Before you email</p>
+            <p className="eyebrow mb-4 text-brand">Before you email</p>
             <h2 className="display-tight text-4xl md:text-5xl">
               The questions everyone asks first.
             </h2>

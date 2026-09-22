@@ -23,7 +23,7 @@ export default function WorkTile({
 
   return (
     <Reveal delay={(index % 2) * 0.08} className={index % 2 === 1 ? "md:mt-24" : ""}>
-      <Link href={`/work/${project.slug}`} className="group block" data-hover>
+      <Link href={`/work/${project.slug}`} className="group block">
         <div
           ref={ref}
           className="relative aspect-[4/5] overflow-hidden rounded-sm transition-[clip-path] duration-500 ease-out [clip-path:inset(0_0_0_0)] group-hover:[clip-path:inset(2.5%_2.5%_2.5%_2.5%)]"

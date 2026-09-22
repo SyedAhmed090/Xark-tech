@@ -9,15 +9,14 @@ export default function Work() {
       <Reveal>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="eyebrow mb-4 text-klein">Selected work</p>
+            <p className="eyebrow mb-4 text-brand">Selected work</p>
             <h2 className="display-tight max-w-2xl text-4xl md:text-6xl">
               Concept projects, built not mocked up
             </h2>
           </div>
           <Link
             href="/work"
-            className="eyebrow inline-block py-1.5 text-ink/60 transition-colors hover:text-klein"
-            data-hover
+            className="eyebrow inline-block py-1.5 text-ink/60 transition-colors hover:text-brand"
           >
             All work →
           </Link>

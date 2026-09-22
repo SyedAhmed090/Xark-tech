@@ -26,7 +26,7 @@ export default function NotFound() {
         <h1 className="display text-[clamp(3.5rem,18vw,13rem)] leading-none">
           404
         </h1>
-        <p className="mt-6 font-serif italic text-2xl text-paper/70 md:text-3xl">
+        <p className="mt-6 text-2xl text-paper/70 md:text-3xl">
           This page shipped without us.
         </p>
         <p className="mt-3 max-w-md text-sm leading-relaxed text-paper/50">
@@ -42,7 +42,6 @@ export default function NotFound() {
                 <Link
                   href={route.href}
                   className="group flex items-baseline justify-between gap-6 py-4"
-                  data-hover
                 >
                   <span className="display-tight text-xl transition-colors group-hover:text-paper/60 md:text-2xl">
                     {route.label}
@@ -59,8 +58,7 @@ export default function NotFound() {
         <div className="mt-12">
           <Link
             href="/"
-            className="eyebrow inline-block rounded-full bg-paper px-8 py-4 text-ink transition-colors hover:bg-klein hover:text-paper"
-            data-hover
+            className="eyebrow inline-block rounded-full bg-paper px-8 py-4 text-ink transition-colors hover:bg-brand hover:text-paper"
           >
             ← Back to the homepage
           </Link>

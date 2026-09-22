@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { SITE, pageMeta } from "@/lib/site";
-import SmoothScroll from "@/components/SmoothScroll";
-import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
@@ -38,13 +36,12 @@ const SECTIONS = [
 
 export default function PrivacyPage() {
   return (
-    <SmoothScroll>
-      <Cursor />
+    <>
       <Nav />
       <main id="main" className="pt-32">
         <header className="px-5 md:px-10">
           <Reveal>
-            <p className="eyebrow mb-4 text-klein">Legal</p>
+            <p className="eyebrow mb-4 text-brand">Legal</p>
             <h1 className="display text-[clamp(2.5rem,8vw,7rem)]">
               Privacy policy
             </h1>
@@ -65,6 +62,6 @@ export default function PrivacyPage() {
         </div>
         <Footer />
       </main>
-    </SmoothScroll>
+    </>
   );
 }

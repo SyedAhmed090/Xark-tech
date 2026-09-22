@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import SmoothScroll from "@/components/SmoothScroll";
-import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
@@ -62,7 +60,7 @@ export default async function CasePage({
     PROJECTS[(PROJECTS.findIndex((p) => p.slug === project.slug) + 1) % PROJECTS.length];
 
   return (
-    <SmoothScroll>
+    <>
       <JsonLd data={caseStudySchema(project)} />
       <JsonLd
         data={breadcrumbs([
@@ -71,12 +69,11 @@ export default async function CasePage({
           { name: project.name, path: `/work/${project.slug}` },
         ])}
       />
-      <Cursor />
       <Nav />
       <main id="main" className="pt-32">
         <header className="px-5 md:px-10">
           <Reveal>
-            <p className="eyebrow mb-4 text-klein">
+            <p className="eyebrow mb-4 text-brand">
               {project.category} — {project.year}
             </p>
             {/* Stated before the title, not buried in the body: a reader must
@@ -107,8 +104,7 @@ export default async function CasePage({
                 it's a real build, not a mockup, so link it prominently. */}
             <Link
               href={project.demoHref}
-              className="eyebrow mt-8 inline-block rounded-full bg-klein px-6 py-3 text-paper transition-colors hover:bg-ink"
-              data-hover
+              className="eyebrow mt-8 inline-block rounded-full bg-brand px-6 py-3 text-paper transition-colors hover:bg-ink"
             >
               Open the prototype →
             </Link>
@@ -138,7 +134,7 @@ export default async function CasePage({
 
         <section className="px-5 pb-24 md:px-10 md:pb-32">
           <Reveal>
-            <p className="eyebrow mb-10 text-klein">Inside the process</p>
+            <p className="eyebrow mb-10 text-brand">Inside the process</p>
           </Reveal>
           <div className="flex flex-col gap-16">
             {project.artifacts.map((artifact, i) => (
@@ -148,7 +144,7 @@ export default async function CasePage({
                     {artifact.panel}
                   </div>
                   <figcaption className="mt-4 flex items-baseline gap-3">
-                    <span className="font-mono text-xs text-klein">
+                    <span className="font-mono text-xs text-brand">
                       0{i + 1}
                     </span>
                     <span className="max-w-md text-sm text-ink/60">
@@ -174,16 +170,16 @@ export default async function CasePage({
 
         <section className="px-5 py-24 md:px-10 md:py-32">
           <Reveal>
-            <p className="eyebrow mb-4 text-klein">Next case</p>
-            <Link href={`/work/${next.slug}`} className="group block" data-hover>
-              <h2 className="display-tight text-4xl transition-colors group-hover:text-klein md:text-7xl">
+            <p className="eyebrow mb-4 text-brand">Next case</p>
+            <Link href={`/work/${next.slug}`} className="group block">
+              <h2 className="display-tight text-4xl transition-colors group-hover:text-brand md:text-7xl">
                 {next.name} →
               </h2>
               <p className="mt-3 text-ink/60">{next.category}</p>
             </Link>
             <Link
               href="/work"
-              className="eyebrow mt-12 inline-block py-1.5 text-ink/60 transition-colors hover:text-klein"
+              className="eyebrow mt-12 inline-block py-1.5 text-ink/60 transition-colors hover:text-brand"
             >
               ← All work
             </Link>
@@ -192,6 +188,6 @@ export default async function CasePage({
 
         <Footer />
       </main>
-    </SmoothScroll>
+    </>
   );
 }

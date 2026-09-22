@@ -144,7 +144,7 @@ export const POSTS: Post[] = [
         kind: "p",
         text: [
           "Layers inside the agency become latency inside your project. Every account manager between you and the person doing the work is a place where a hard truth gets softened before it reaches you. This is why we ",
-          { text: "stay four people", href: "/journal/why-we-stay-four-people" },
+          { text: "stay small", href: "/journal/why-we-stay-small" },
           " — though the honest cost of that shape is that we book out a quarter ahead and cannot parallelize a large program. Ask about the shape; ask what it costs you.",
         ],
       },
@@ -275,7 +275,7 @@ export const POSTS: Post[] = [
           "Those bands are what the market looks like in complex B2B, not a promise. Our own tiers and what is in each are on the ",
           { text: "packages page", href: "/packages" },
           ", and the eight-week process behind them is on ",
-          { text: "brand identity", href: "/services/brand-identity" },
+          { text: "brand identity", href: "/services/logo-design" },
           ".",
         ],
       },
@@ -357,7 +357,7 @@ export const POSTS: Post[] = [
         q: "Do we need a rebrand or just a new website?",
         a: [
           "If your positioning and story are right and the site simply fails to express them, buy a site — it is faster and less than half the disruption. If you cannot get three executives to describe the company the same way, a new site will just publish the confusion in better typography. That test decides it more reliably than any audit; ",
-          { text: "web design and build", href: "/services/web-design-build" },
+          { text: "web design and build", href: "/services/web-design" },
           " is the cheaper branch.",
         ],
       },
@@ -392,7 +392,7 @@ export const POSTS: Post[] = [
         kind: "p",
         text: [
           "Retainers are for a surface that never stops moving. Product design is the obvious case: a roadmap generates design work every sprint, quality drifts the moment nobody senior is watching, and the cost of re-onboarding an agency every quarter exceeds the cost of keeping one. Our ",
-          { text: "product design", href: "/services/product-design" },
+          { text: "product design", href: "/services/web-design" },
           " work is retained for exactly that reason, on a two-week design cycle with a weekly review.",
         ],
       },
@@ -646,7 +646,7 @@ export const POSTS: Post[] = [
         kind: "p",
         text: [
           "If you want the specific list for your site rather than the general one, we run this audit as the first phase of every ",
-          { text: "web design and build", href: "/services/web-design-build" },
+          { text: "web design and build", href: "/services/web-design" },
           " engagement, and we will tell you if the answer is that your site is fine and your problem is positioning. ",
           { text: "Send us the URL", href: "/contact" },
           ".",
@@ -746,15 +746,39 @@ export const POSTS: Post[] = [
     date: "2026-01-20",
     displayDate: "January 2026",
     readingTime: "6 min",
-    pullQuote:
-      "Every layer between the client and the person doing the work is a place where truth goes to be softened.",
-    body: [
-      "Agencies grow because revenue is a scoreboard and headcount looks like winning. The pattern is reliable enough to predict: the founders stop designing, a management layer appears to coordinate the people who now do the work, and the thing clients originally paid for — senior judgment, applied directly — becomes the thing the org chart is designed to ration.",
-      "Xark is deliberately a different shape: founder-led, no account layer, no bench. It costs real money. It means turning down more work than we take, and there are stretches where the pipeline makes that feel reckless.",
-      "The economics are simpler than they look. A fifty-person agency bills you for seniors and staffs you with juniors, because that spread is the margin. A studio this size has no spread to arbitrage — the person you met on the first call is the person in your Figma on Tuesday. The margin is that nothing is handed off, so nothing is lost in translation, so the work is right earlier.",
-      "Staying small also disciplines the work itself. With no juniors to absorb busywork, we can’t afford processes that generate artifacts instead of decisions. Every deliverable has to move the project or it doesn’t get made. Clients sometimes miss the theater — the big deck, the fifteen-person kickoff — for about two weeks. Then they notice they’ve shipped.",
-      "The honest downside: we are supply-constrained, permanently. We can’t parallelize big programs, and if you need a hundred hands, we’re the wrong studio and we’ll say so on the first call. That sentence — we’re the wrong studio — probably builds more trust than anything in the portfolio.",
-      "Small is not a stage we’re passing through. It’s the product.",
+    // Copy is main's de-claimed rewrite (the "four people" and "twelve years"
+    // figures were unverifiable), carried into the structured block format the
+    // journal renderer actually reads — the merge had left it as the old flat
+    // body/pullQuote pair, which no longer renders.
+    blocks: [
+      {
+        kind: "p",
+        text: "Agencies grow because revenue is a scoreboard and headcount looks like winning. The pattern is reliable enough to predict: the founders stop designing, a management layer appears to coordinate the people who now do the work, and the thing clients originally paid for — senior judgment, applied directly — becomes the thing the org chart is designed to ration.",
+      },
+      {
+        kind: "p",
+        text: "Xark is deliberately a different shape: founder-led, no account layer, no bench. It costs real money. It means turning down more work than we take, and there are stretches where the pipeline makes that feel reckless.",
+      },
+      {
+        kind: "p",
+        text: "The economics are simpler than they look. A fifty-person agency bills you for seniors and staffs you with juniors, because that spread is the margin. A studio this size has no spread to arbitrage — the person you met on the first call is the person in your Figma on Tuesday. The margin is that nothing is handed off, so nothing is lost in translation, so the work is right earlier.",
+      },
+      {
+        kind: "quote",
+        text: "Every layer between the client and the person doing the work is a place where truth goes to be softened.",
+      },
+      {
+        kind: "p",
+        text: "Staying small also disciplines the work itself. With no juniors to absorb busywork, we can’t afford processes that generate artifacts instead of decisions. Every deliverable has to move the project or it doesn’t get made. Clients sometimes miss the theater — the big deck, the fifteen-person kickoff — for about two weeks. Then they notice they’ve shipped.",
+      },
+      {
+        kind: "p",
+        text: "The honest downside: we are supply-constrained, permanently. We can’t parallelize big programs, and if you need a hundred hands, we’re the wrong studio and we’ll say so on the first call. That sentence — we’re the wrong studio — probably builds more trust than anything in the portfolio.",
+      },
+      {
+        kind: "p",
+        text: "Small is not a stage we’re passing through. It’s the product.",
+      },
     ],
     related: ["how-to-choose-a-b2b-saas-design-agency", "design-retainer-vs-project-work"],
   },

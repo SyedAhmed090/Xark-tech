@@ -35,6 +35,13 @@ const CONTACT_FROM_NAME = 'Xark website';
  */
 const SUBSCRIBERS_FILE = __DIR__ . '/../../xark-data/subscribers.csv';
 
+/**
+ * Every contact submission is appended here before mail is attempted, so an
+ * inquiry survives a mail failure. Mail is the notification; this file is the
+ * record. Kept outside public_html — it contains what people wrote to you.
+ */
+const INQUIRIES_FILE = __DIR__ . '/../../xark-data/inquiries.csv';
+
 /** Rate-limit state. Also kept outside the document root. */
 const RATE_LIMIT_DIR = __DIR__ . '/../../xark-data/ratelimit';
 
@@ -68,6 +75,38 @@ function send_mail($to, $subject, $body, array $headers)
         return 'sent-plain';
     }
     return false;
+}
+
+/**
+ * Append one row to a CSV outside the document root, creating the directory
+ * and header row on first use. Returns true if the row was written.
+ *
+ * Shared by the inquiry log and the subscriber list. Takes an exclusive lock
+ * because two simultaneous submissions would otherwise interleave writes and
+ * corrupt a row.
+ */
+function append_row($path, array $header, array $row)
+{
+    $dir = dirname($path);
+    if (!is_dir($dir) && !@mkdir($dir, 0700, true)) {
+        return false;
+    }
+    $handle = @fopen($path, 'a');
+    if ($handle === false) {
+        return false;
+    }
+    $written = false;
+    if (flock($handle, LOCK_EX)) {
+        if (ftell($handle) === 0) {
+            fputcsv($handle, $header);
+        }
+        $written = fputcsv($handle, $row) !== false;
+        fflush($handle);
+        flock($handle, LOCK_UN);
+    }
+    fclose($handle);
+    @chmod($path, 0600);
+    return $written;
 }
 
 /** Send a JSON response and stop. */

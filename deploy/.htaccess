@@ -64,14 +64,20 @@
 # the cards, so the type is set explicitly.
 # ---------------------------------------------------------------------------
 <FilesMatch "^(apple-icon|opengraph-image|twitter-image|icon)$">
-  ForceType image/png
+  <IfModule mod_mime.c>
+    ForceType image/png
+  </IfModule>
+  # Belt and braces: if ForceType is unavailable, the header still sets the
+  # type, and social scrapers only read the header.
   <IfModule mod_headers.c>
     Header set Content-Type "image/png"
   </IfModule>
 </FilesMatch>
 
-AddType application/manifest+json .webmanifest
-AddType image/svg+xml .svg
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType image/svg+xml .svg
+</IfModule>
 
 # config.php is an include, never an entry point. Requesting it directly does
 # nothing today (it only defines constants and functions), but denying it keeps
@@ -109,8 +115,13 @@ AddType image/svg+xml .svg
 DirectoryIndex index.html
 ErrorDocument 404 /404.html
 
-# Never list a directory that somehow lacks an index.
-Options -Indexes
+# NOTE: `Options -Indexes` deliberately omitted. Where a host's AllowOverride
+# does not grant Options, that single line makes Apache return 500 for every
+# request — the whole site, not just directory listings — and no <IfModule>
+# guard can prevent it, because the failure is a permission to use the
+# directive rather than a missing module. Every directory in the export has an
+# index.html, so there is nothing to list. Add it back only if you have
+# confirmed the host allows it.
 
 # Block dotfiles, but NOT /.well-known — AutoSSL and Let's Encrypt place
 # their challenge files there, and denying it silently breaks certificate

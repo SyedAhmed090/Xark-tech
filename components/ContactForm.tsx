@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Magnetic from "./Magnetic";
 import { SITE } from "@/lib/site";
 
 /* Posts to /api/contact.php, the PHP endpoint deployed alongside the static
@@ -9,9 +8,9 @@ import { SITE } from "@/lib/site";
    it falls back to composing in the visitor's mail client rather than showing
    a dead end — a misconfigured server should still let someone reach us. */
 export default function ContactForm({
-  theme = "klein",
+  theme = "brand",
 }: {
-  theme?: "klein" | "paper";
+  theme?: "brand" | "paper";
 }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,14 +21,14 @@ export default function ContactForm({
   >("idle");
   const [honeypot, setHoneypot] = useState("");
 
-  const onKlein = theme === "klein";
+  const onKlein = theme === "brand";
   const label = onKlein ? "text-paper/75" : "text-ink/60";
   const field = onKlein
     ? "border-paper/40 text-paper placeholder:text-paper/55 focus:border-paper"
-    : "border-ink/25 text-ink placeholder:text-ink/45 focus:border-klein";
+    : "border-ink/25 text-ink placeholder:text-ink/45 focus:border-brand";
   const button = onKlein
     ? "bg-paper text-ink hover:bg-ink hover:text-paper"
-    : "bg-klein text-paper hover:bg-ink";
+    : "bg-brand text-paper hover:bg-ink";
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,20 +40,39 @@ export default function ContactForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message, budget, company: honeypot }),
       });
-      if (res.ok) {
+      // A 200 is not proof of anything on its own. If PHP isn't executing,
+      // Apache serves contact.php as a static file — status 200, body full of
+      // PHP source — and trusting res.ok alone would show the visitor a
+      // success message for a message that was never sent. Only our own JSON
+      // counts as delivery.
+      let payload: { ok?: boolean } | null = null;
+      try {
+        payload = await res.json();
+      } catch {
+        payload = null;
+      }
+
+      if (res.ok && payload?.ok === true) {
         setStatus("sent");
         return;
       }
+      // 200 but not our JSON: the endpoint isn't running as PHP. Nothing the
+      // visitor can do, so hand them the mail client rather than a lie.
+      if (res.ok) {
+        unconfigured = true;
+      }
       // 429 is the rate limiter, and it means the endpoint is working — the
       // visitor needs telling to wait, not a mail client.
-      if (res.status === 429) {
+      if (!unconfigured && res.status === 429) {
         setStatus("rate-limited");
         return;
       }
       // 404/405 mean the PHP file is absent or PHP isn't running; 501 is the
       // old Next route's "not configured". All three are server-side gaps the
-      // visitor can't fix, so hand them a working alternative.
-      unconfigured =
+      // visitor can't fix, so hand them a working alternative. Note ||= — a
+      // plain assignment here would clear the flag set by the 200-but-not-JSON
+      // case above.
+      unconfigured ||=
         res.status === 404 || res.status === 405 || res.status === 501;
     } catch {
       // network failure — treat like unconfigured and let email carry it
@@ -80,7 +98,7 @@ export default function ContactForm({
   if (status === "sent") {
     return (
       <div aria-live="polite">
-        <p className={`font-serif italic text-3xl md:text-4xl ${onKlein ? "text-paper" : "text-ink"}`}>
+        <p className={`text-3xl md:text-4xl ${onKlein ? "text-paper" : "text-ink"}`}>
           Got it — thank you.
         </p>
         <p className={`mt-4 max-w-sm text-sm leading-relaxed ${onKlein ? "text-paper/70" : "text-ink/60"}`}>
@@ -186,16 +204,13 @@ export default function ContactForm({
           .
         </p>
       )}
-      <Magnetic strength={0.25}>
         <button
           type="submit"
           disabled={status === "sending"}
           className={`eyebrow w-fit rounded-full px-9 py-5 transition-colors disabled:opacity-60 ${button}`}
-          data-hover
         >
           {status === "sending" ? "Sending…" : "Send inquiry →"}
         </button>
-      </Magnetic>
     </form>
   );
 }

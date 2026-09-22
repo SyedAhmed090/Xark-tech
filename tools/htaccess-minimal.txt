@@ -1,0 +1,21 @@
+# MINIMAL .htaccess — troubleshooting fallback only.
+#
+# Use this ONLY if the full deploy/.htaccess makes the site return a
+# 500 Internal Server Error. Rename it to .htaccess in public_html.
+#
+# It contains nothing that can fail: every directive is either core Apache
+# with no AllowOverride requirement, or wrapped in a module guard. No
+# rewrites, no headers, no MIME overrides.
+#
+# WHAT YOU LOSE while running this:
+#   - all security headers (CSP, HSTS, X-Frame-Options, Referrer-Policy)
+#   - the HTTPS and www redirects
+#   - image/png content type on the extensionless social-card routes,
+#     so link previews will not render
+#
+# So this is a diagnostic step, not a destination. Once the site loads with
+# this in place, put the full .htaccess back one section at a time to find
+# which block your host rejects, then tell me which one it was.
+
+DirectoryIndex index.html
+ErrorDocument 404 /404.html

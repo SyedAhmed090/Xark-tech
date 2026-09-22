@@ -31,7 +31,7 @@ export default function MeridianDemo() {
     <div className="flex h-[1000px] w-[1600px] bg-paper font-sans text-ink">
       <aside className="flex w-64 shrink-0 flex-col bg-ink px-6 py-8 text-paper">
         <div className="mb-12 flex items-center gap-2">
-          <div className="h-3 w-3 rounded-full bg-klein" />
+          <div className="h-3 w-3 rounded-full bg-brand" />
           <span className="font-mono text-sm tracking-wide">MERIDIAN</span>
         </div>
         <nav className="flex flex-col gap-1">
@@ -39,7 +39,7 @@ export default function MeridianDemo() {
             <div
               key={item.label}
               className={`rounded-md px-4 py-3 text-sm ${
-                item.active ? "bg-klein text-paper" : "text-paper/50"
+                item.active ? "bg-brand text-paper" : "text-paper/50"
               }`}
             >
               {item.label}
@@ -79,7 +79,7 @@ export default function MeridianDemo() {
             <p className="mt-2 text-3xl font-medium">$463.3K</p>
             <p className="mt-1 text-xs text-ink/40">5 items awaiting sign-off</p>
           </div>
-          <div className="rounded-xl bg-klein p-6 text-paper shadow-sm">
+          <div className="rounded-xl bg-brand p-6 text-paper shadow-sm">
             <p className="text-xs text-paper/60">90-day forecast</p>
             <p className="mt-2 text-3xl font-medium">$18.6M</p>
             <p className="mt-1 text-xs text-paper/60">Confidence: high</p>
@@ -95,7 +95,7 @@ export default function MeridianDemo() {
             {CASH_BARS.map((h, i) => (
               <div
                 key={i}
-                className={`flex-1 rounded-t ${i === 10 ? "bg-klein" : "bg-ink/15"}`}
+                className={`flex-1 rounded-t ${i === 10 ? "bg-brand" : "bg-ink/15"}`}
                 style={{ height: `${h}%` }}
               />
             ))}
@@ -127,7 +127,7 @@ export default function MeridianDemo() {
               <span
                 className={`w-fit rounded-full px-3 py-1 text-xs ${
                   row.status === "Needs review"
-                    ? "bg-klein/10 text-klein"
+                    ? "bg-brand/10 text-brand"
                     : row.status === "Scheduled"
                       ? "bg-[#0f8a5f]/10 text-[#0f8a5f]"
                       : "bg-ink/5 text-ink/40"

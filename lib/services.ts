@@ -4,8 +4,22 @@ export type Package = {
   summary: string;
   /** Display price, e.g. "$199" or "$99 / month". */
   price: string;
-  /** Optional crossed-out list price used by promotional packages. */
-  originalPrice?: string;
+  /**
+   * Numeric price in USD. Kept alongside the display string so JSON-LD can
+   * emit a real Offer price — search engines can't parse "$99 / month", and
+   * a priced Offer is what makes a package eligible for rich results.
+   */
+  priceUsd: number;
+  /** Absent means one-time. "month" renders and bills as a subscription. */
+  interval?: "month";
+  /**
+   * Deliberately no `originalPrice`. The promotional catalogue this ladder
+   * absorbed carried a crossed-out list price on every tier, which is the
+   * discount theatre the rest of the site is positioned against — a permanent
+   * "was" price that was never charged is not a saving, and it undercuts the
+   * one thing we ask buyers to trust: that the number is the number. Bundles
+   * do show a saving, but against the real sum of tiers sold on this site.
+   */
   duration: string;
   /** Scope for this tier. Each tier is additive over the one before it. */
   includes: string[];
@@ -46,8 +60,13 @@ export type Bundle = {
   summary: string;
   price: string;
   priceUsd: number;
-  /** Sum of the component tiers bought separately — shown as the saving. */
-  listUsd: number;
+  /**
+   * The tiers this bundle is made of, by service slug and tier name. The list
+   * price is summed from these rather than typed out, because a hand-written
+   * total silently goes stale the moment a component tier is repriced — which
+   * it already did once, leaving every advertised saving wrong.
+   */
+  components: { service: string; tier: string; months?: number }[];
   duration: string;
   includes: string[];
   briefType: Service["briefType"];
@@ -106,6 +125,20 @@ export const SERVICES: Service[] = [
         ],
       },
       {
+        name: "Startup",
+        summary:
+          "A little more range to choose from, and room to change your mind.",
+        price: "$149",
+        priceUsd: 149,
+        duration: "3 days",
+        includes: [
+          "Everything in Starter",
+          "4 original concepts",
+          "5 revision rounds",
+          "Two designers on the brief",
+        ],
+      },
+      {
         name: "Business",
         summary:
           "The one most clients pick — the logo plus the pieces you need the week after.",
@@ -120,6 +153,20 @@ export const SERVICES: Service[] = [
           "Colour, black and reversed versions",
           "Social profile and cover set",
           "One-page usage guide",
+        ],
+      },
+      {
+        name: "Illustrated",
+        summary:
+          "A drawn mark — a character, crest or scene — when a wordmark won't carry it.",
+        price: "$249",
+        priceUsd: 249,
+        duration: "5–7 days",
+        includes: [
+          "Everything in Business",
+          "2 custom illustrated concepts",
+          "Hand-drawn detail work",
+          "Simplified version for small sizes",
         ],
       },
       {
@@ -142,8 +189,8 @@ export const SERVICES: Service[] = [
         name: "Complete Identity",
         summary:
           "For a rebrand, or a business that needs to look established from day one.",
-        price: "$799",
-        priceUsd: 799,
+        price: "$899",
+        priceUsd: 899,
         duration: "10–14 days",
         includes: [
           "Everything in Brand Kit",
@@ -210,8 +257,8 @@ export const SERVICES: Service[] = [
         name: "Business Site",
         summary:
           "The standard small-business site — pages for every service, plus a blog.",
-        price: "$899",
-        priceUsd: 899,
+        price: "$799",
+        priceUsd: 799,
         duration: "10 days",
         featured: true,
         includes: [
@@ -228,8 +275,8 @@ export const SERVICES: Service[] = [
         name: "Pro Site",
         summary:
           "More pages, booking or quote capture, and a proper speed and SEO pass.",
-        price: "$1,499",
-        priceUsd: 1499,
+        price: "$1,099",
+        priceUsd: 1099,
         duration: "14 days",
         includes: [
           "Everything in Business",
@@ -242,11 +289,42 @@ export const SERVICES: Service[] = [
         ],
       },
       {
+        name: "Advanced Site",
+        summary:
+          "More pages, written for you, and the integrations a busy business needs.",
+        price: "$1,699",
+        priceUsd: 1699,
+        duration: "18 days",
+        includes: [
+          "Everything in Pro",
+          "18 pages",
+          "Copywriting for every page",
+          "CRM or email-marketing integration",
+          "Multi-step enquiry forms",
+        ],
+      },
+      {
+        name: "Corporate Site",
+        summary:
+          "Multiple locations or service areas, each with its own page that ranks.",
+        price: "$2,499",
+        priceUsd: 2499,
+        duration: "25 days",
+        includes: [
+          "Everything in Advanced",
+          "30 pages",
+          "Location and service-area pages",
+          "Advanced schema markup",
+          "Staff or team directory",
+          "6 months of Website Care included",
+        ],
+      },
+      {
         name: "Custom Build",
         summary:
           "Portals, integrations, or anything that needs to talk to another system.",
-        price: "From $3,499",
-        priceUsd: 3499,
+        price: "From $3,999",
+        priceUsd: 3999,
         duration: "Quoted",
         includes: [
           "Everything in Pro",
@@ -699,9 +777,12 @@ export const BUNDLES: Bundle[] = [
     name: "Open for Business",
     summary:
       "Everything a new business needs to open its doors: a logo, a site, and a Google listing that shows up.",
-    price: "$899",
-    priceUsd: 899,
-    listUsd: 1098,
+    price: "$849",
+    priceUsd: 849,
+    components: [
+      { service: "logo-design", tier: "Business" },
+      { service: "web-design", tier: "Business Site" },
+    ],
     duration: "14 days",
     featured: true,
     briefType: "website",
@@ -720,7 +801,11 @@ export const BUNDLES: Bundle[] = [
       "A brand and a working shop, from nothing to taking your first order.",
     price: "$2,299",
     priceUsd: 2299,
-    listUsd: 2795,
+    components: [
+      { service: "logo-design", tier: "Business" },
+      { service: "ecommerce", tier: "Online Store" },
+      { service: "website-care", tier: "Care+", months: 3 },
+    ],
     duration: "21 days",
     briefType: "website",
     includes: [
@@ -736,20 +821,57 @@ export const BUNDLES: Bundle[] = [
     name: "Complete Brand Launch",
     summary:
       "For a rebrand or a serious launch — the full identity, a twelve-page site, and three months of getting found.",
-    price: "$2,199",
-    priceUsd: 2199,
-    listUsd: 3092,
+    price: "$1,999",
+    priceUsd: 1999,
+    components: [
+      { service: "logo-design", tier: "Brand Kit" },
+      { service: "web-design", tier: "Pro Site" },
+      { service: "website-care", tier: "Care", months: 3 },
+      { service: "local-seo", tier: "Local Starter", months: 3 },
+    ],
     duration: "21 days",
     briefType: "website",
     includes: [
       "Brand Kit — logo, colour and type system, stationery",
-      "Pro Site — 12 pages, copywriting, booking system",
+      "Pro Site — 12 pages, booking system, speed and SEO pass",
       "3 months of Website Care",
       "3 months of Local SEO",
       "Google Business Profile and Search Console",
     ],
   },
 ];
+
+/**
+ * Identifies a tier in the `?package=` parameter the brief form reads.
+ *
+ * "+" is spelled out rather than stripped: a naive slugify turns both "Care"
+ * and "Care+" into "care", so the two Website Care tiers collided and the
+ * brief arrived naming the wrong plan — silently, since a wrong-but-valid
+ * value looks exactly like a right one.
+ */
+export function packageParam(serviceSlug: string, tierName: string) {
+  const tier = tierName
+    .toLowerCase()
+    .replace(/\+/g, "-plus")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  return `${serviceSlug}-${tier}`;
+}
+
+/**
+ * Guards the rule above. Two tiers resolving to one parameter is invisible in
+ * the UI and only shows up as a production order for the wrong package, so it
+ * fails the build instead.
+ */
+for (const service of SERVICES) {
+  const params = service.packages.map((p) => packageParam(service.slug, p.name));
+  const duplicates = params.filter((p, i) => params.indexOf(p) !== i);
+  if (duplicates.length) {
+    throw new Error(
+      `Duplicate package parameter in "${service.slug}": ${[...new Set(duplicates)].join(", ")}`,
+    );
+  }
+}
 
 /**
  * Cheapest package anywhere on the site, formatted for display. Derived rather
@@ -768,7 +890,33 @@ export function getBundle(slug: string) {
   return BUNDLES.find((b) => b.slug === slug);
 }
 
+/** What the bundle's parts cost bought separately on this same site. */
+export function bundleListUsd(bundle: Bundle) {
+  return bundle.components.reduce((total, part) => {
+    const service = getService(part.service);
+    const tier = service?.packages.find((p) => p.name === part.tier);
+    if (!tier) {
+      throw new Error(
+        `Bundle "${bundle.slug}" references missing tier ${part.service}/${part.tier}`,
+      );
+    }
+    return total + tier.priceUsd * (part.months ?? 1);
+  }, 0);
+}
+
 /** Saving on a bundle versus buying the tiers separately. */
 export function bundleSaving(bundle: Bundle) {
-  return bundle.listUsd - bundle.priceUsd;
+  return bundleListUsd(bundle) - bundle.priceUsd;
+}
+
+/**
+ * Every bundle must actually save money, or the struck-through list price is
+ * a lie. Checked at module load so it fails the build, not the customer.
+ */
+for (const bundle of BUNDLES) {
+  if (bundleSaving(bundle) <= 0) {
+    throw new Error(
+      `Bundle "${bundle.slug}" is not cheaper than its parts (${bundleListUsd(bundle)} vs ${bundle.priceUsd})`,
+    );
+  }
 }

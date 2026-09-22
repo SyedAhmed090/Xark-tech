@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import SmoothScroll from "@/components/SmoothScroll";
-import Cursor from "@/components/Cursor";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import WorkTile from "@/components/WorkTile";
-import Magnetic from "@/components/Magnetic";
 import { PackagesSection } from "@/components/Packages";
 import { Reveal } from "@/components/Reveal";
+import { Tick } from "@/components/Hero";
 import JsonLd from "@/components/JsonLd";
 import {
   SERVICES,
@@ -109,7 +107,7 @@ export default async function ServicePage({
   const others = SERVICES.filter((s) => s.slug !== service.slug);
 
   return (
-    <SmoothScroll>
+    <>
       <JsonLd data={serviceSchema(service)} />
       <JsonLd
         data={breadcrumbs([
@@ -118,16 +116,15 @@ export default async function ServicePage({
           { name: service.name, path: `/services/${service.slug}` },
         ])}
       />
-      <Cursor />
       <Nav />
       <main id="main" className="pt-32">
         <header className="grid gap-10 px-5 md:grid-cols-[2fr_1fr] md:gap-8 md:px-10">
           <Reveal>
-            <p className="eyebrow mb-4 text-klein">Service</p>
-            <h1 className="display text-[clamp(2.75rem,9vw,9rem)]">
+            <p className="eyebrow mb-4 text-brand">Service</p>
+            <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
               {service.name}
             </h1>
-            <p className="mt-6 max-w-xl font-serif italic text-2xl text-ink/80 md:text-3xl">
+            <p className="mt-5 max-w-2xl text-xl leading-relaxed text-muted md:text-2xl">
               {service.tagline}
             </p>
             <p className="mt-6 max-w-2xl leading-relaxed text-ink/70">
@@ -157,26 +154,26 @@ export default async function ServicePage({
 
         <section className="mx-auto grid gap-16 px-5 py-20 md:grid-cols-2 md:gap-20 md:px-10 md:py-28">
           <Reveal>
-            <h2 className="eyebrow mb-8 text-klein">What you get</h2>
+            <h2 className="eyebrow mb-8 text-brand">What you get</h2>
             <ul className="hairline-t">
               {service.deliverables.map((d) => (
                 <li
                   key={d}
                   className="flex items-baseline gap-4 py-4 hairline-b"
                 >
-                  <span className="font-serif italic text-klein">✕</span>
-                  <span className="display-tight text-lg md:text-xl">{d}</span>
+                  <Tick />
+                  <span className="font-medium">{d}</span>
                 </li>
               ))}
             </ul>
           </Reveal>
 
           <Reveal delay={0.1}>
-            <h2 className="eyebrow mb-8 text-klein">How it runs</h2>
+            <h2 className="eyebrow mb-8 text-brand">How it runs</h2>
             <div className="flex flex-col gap-8">
               {service.rhythm.map((step) => (
                 <div key={step.title}>
-                  <h3 className="font-mono text-sm text-klein">{step.title}</h3>
+                  <h3 className="font-mono text-sm text-brand">{step.title}</h3>
                   <p className="mt-2 leading-relaxed text-ink/70">
                     {step.detail}
                   </p>
@@ -189,6 +186,7 @@ export default async function ServicePage({
         <PackagesSection
           packages={service.packages}
           serviceName={service.name}
+          serviceSlug={service.slug}
         />
 
         <section className="bg-ink px-5 py-16 text-paper md:px-10 md:py-20">
@@ -208,15 +206,12 @@ export default async function ServicePage({
                   </p>
                 </div>
               </div>
-              <Magnetic>
                 <Link
                   href="/contact"
-                  className="eyebrow inline-block rounded-full bg-paper px-8 py-4 text-ink transition-colors hover:bg-klein hover:text-paper"
-                  data-hover
+                  className="eyebrow inline-block rounded-full bg-paper px-8 py-4 text-ink transition-colors hover:bg-brand hover:text-paper"
                 >
                   Start a conversation →
                 </Link>
-              </Magnetic>
             </div>
           </Reveal>
         </section>
@@ -224,7 +219,7 @@ export default async function ServicePage({
         {related.length > 0 && (
           <section className="px-5 py-20 md:px-10 md:py-28">
             <Reveal>
-              <p className="eyebrow mb-10 text-klein">
+              <p className="eyebrow mb-10 text-brand">
                 {service.name} in the wild
               </p>
             </Reveal>
@@ -244,8 +239,7 @@ export default async function ServicePage({
                 <li key={s.slug}>
                   <Link
                     href={`/services/${s.slug}`}
-                    className="eyebrow inline-block rounded-full border border-ink/20 px-4 py-2 text-ink/70 transition-colors hover:border-klein hover:text-klein"
-                    data-hover
+                    className="eyebrow inline-block rounded-full border border-ink/20 px-4 py-2 text-ink/70 transition-colors hover:border-brand hover:text-brand"
                   >
                     {s.name} →
                   </Link>
@@ -257,6 +251,6 @@ export default async function ServicePage({
 
         <Footer />
       </main>
-    </SmoothScroll>
+    </>
   );
 }
