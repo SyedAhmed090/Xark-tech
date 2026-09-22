@@ -38,6 +38,22 @@ export const SITE = {
    * Add real profile URLs here and both surfaces pick them up.
    */
   socials: [] as { label: string; href: string }[],
+  /**
+   * tawk.to live chat. Both values come from the embed snippet tawk gives you:
+   * Administration → Channels → Chat Widget shows a URL of the form
+   * https://embed.tawk.to/<propertyId>/<widgetId>.
+   *
+   * Empty means no widget renders at all — see components/Chat.tsx. These are
+   * public identifiers, not secrets: they appear in the page source of every
+   * site running tawk, which is why they live here rather than in an env var
+   * a static export could not read at runtime anyway.
+   */
+  chat: {
+    /** TODO(launch): tawk.to property id. */
+    propertyId: "",
+    /** TODO(launch): tawk.to widget id, usually "default". */
+    widgetId: "",
+  },
 } as const;
 
 /** Absolute URL for a site-relative path. */

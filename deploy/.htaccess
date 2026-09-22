@@ -31,12 +31,22 @@
 # component was removed with the move off Vercel.
 # ---------------------------------------------------------------------------
 <IfModule mod_headers.c>
-  # 'unsafe-inline' is required: Next inlines its bootstrap and the JSON-LD
-  # blocks are inline <script> tags. 'unsafe-eval' is required by three.js,
-  # which compiles shader and material code at runtime — dropping it breaks
-  # the homepage hero. Removing either needs a per-request nonce, which a
-  # static export cannot issue.
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+  # 'unsafe-inline' is still required: Next inlines its bootstrap and the
+  # JSON-LD blocks are inline <script> tags. Removing it needs a per-request
+  # nonce, which a static export cannot issue.
+  #
+  # 'unsafe-eval' has been DROPPED. It was only ever there for three.js, which
+  # compiled shader and material code at runtime for the old homepage hero.
+  # That hero is gone, so the allowance is pure attack surface — it lets any
+  # injected string become executable code. If a future dependency needs it,
+  # prefer replacing the dependency.
+  #
+  # The tawk.to origins power the live chat widget. They are scoped to that
+  # vendor rather than opened globally: chat needs to load a script, open a
+  # websocket, and inject its own iframe and styles, and each of those is
+  # granted explicitly. wss: is required or the widget connects but never
+  # receives a message.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://embed.tawk.to https://*.tawk.to; style-src 'self' 'unsafe-inline' https://embed.tawk.to https://*.tawk.to; img-src 'self' data: blob: https://*.tawk.to https://tawk.link; font-src 'self' data: https://embed.tawk.to https://*.tawk.to; connect-src 'self' https://*.tawk.to wss://*.tawk.to; frame-src https://*.tawk.to; worker-src 'self' blob:; media-src 'self' https://*.tawk.to; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
 
   # Legacy clickjacking protection for browsers that ignore frame-ancestors.
   Header always set X-Frame-Options "DENY"

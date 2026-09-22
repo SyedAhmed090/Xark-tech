@@ -92,7 +92,7 @@ function BundleCard({ bundle }: { bundle: Bundle }) {
 
       <div className="mt-7 pt-1 md:mt-auto">
         <Link
-          href={`/contact?package=${bundle.slug}`}
+          href={`/brief?package=${bundle.slug}`}
           className={`btn w-full ${featured ? "btn-primary" : "btn-secondary"}`}
         >
           <span className="sr-only">{bundle.name}: </span>

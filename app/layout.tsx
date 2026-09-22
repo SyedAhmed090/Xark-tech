@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Archivo, Newsreader, Spline_Sans_Mono } from "next/font/google";
 import { SITE, absoluteUrl } from "@/lib/site";
 import { SERVICES } from "@/lib/services";
+import Chat from "@/components/Chat";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -163,7 +164,7 @@ export default function RootLayout({
       lang="en"
       className={`${archivo.variable} ${newsreader.variable} ${splineMono.variable} h-full antialiased`}
     >
-      <body className="has-custom-cursor min-h-full flex flex-col bg-paper text-ink">
+      <body className="min-h-full flex flex-col bg-paper text-ink">
         <a href="#main" className="skip-link">
           Skip to content
         </a>
@@ -172,6 +173,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
         />
+        <Chat />
       </body>
     </html>
   );

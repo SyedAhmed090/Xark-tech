@@ -68,7 +68,7 @@ export default function Packages({
 
             <div className="mt-6 pt-1 md:mt-auto">
               <Link
-                href={`/contact?package=${packageParam(serviceSlug ?? "", pkg.name)}`}
+                href={`/brief?package=${packageParam(serviceSlug ?? "", pkg.name)}`}
                 className={`btn w-full ${
                   featured ? "btn-primary" : "btn-secondary"
                 }`}

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { SITE } from "@/lib/site";
+import { mailtoFallback, submitJson } from "@/lib/submitForm";
 
 /* Posts to /api/contact.php, the PHP endpoint deployed alongside the static
    export. If that endpoint is missing or PHP isn't executing (404/405/501),
@@ -33,66 +34,32 @@ export default function ContactForm({
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
-    let unconfigured = false;
-    try {
-      const res = await fetch("/api/contact.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message, budget, company: honeypot }),
-      });
-      // A 200 is not proof of anything on its own. If PHP isn't executing,
-      // Apache serves contact.php as a static file — status 200, body full of
-      // PHP source — and trusting res.ok alone would show the visitor a
-      // success message for a message that was never sent. Only our own JSON
-      // counts as delivery.
-      let payload: { ok?: boolean } | null = null;
-      try {
-        payload = await res.json();
-      } catch {
-        payload = null;
-      }
 
-      if (res.ok && payload?.ok === true) {
-        setStatus("sent");
-        return;
-      }
-      // 200 but not our JSON: the endpoint isn't running as PHP. Nothing the
-      // visitor can do, so hand them the mail client rather than a lie.
-      if (res.ok) {
-        unconfigured = true;
-      }
-      // 429 is the rate limiter, and it means the endpoint is working — the
-      // visitor needs telling to wait, not a mail client.
-      if (!unconfigured && res.status === 429) {
-        setStatus("rate-limited");
-        return;
-      }
-      // 404/405 mean the PHP file is absent or PHP isn't running; 501 is the
-      // old Next route's "not configured". All three are server-side gaps the
-      // visitor can't fix, so hand them a working alternative. Note ||= — a
-      // plain assignment here would clear the flag set by the 200-but-not-JSON
-      // case above.
-      unconfigured ||=
-        res.status === 404 || res.status === 405 || res.status === 501;
-    } catch {
-      // network failure — treat like unconfigured and let email carry it
-      unconfigured = true;
-    }
-    if (unconfigured) {
-      // No backend yet — compose in the visitor's mail app instead
-      setStatus("idle");
-      const subject = encodeURIComponent(
-        `Project inquiry${name ? ` from ${name}` : ""}`
-      );
-      const budgetLine = budget ? `\nBudget: ${budget}` : "";
-      const body = encodeURIComponent(
-        `${message}${budgetLine}\n\n— ${name}${email ? ` (${email})` : ""}`
-      );
-      window.location.href = `mailto:${SITE.email}?subject=${subject}&body=${body}`;
-      return;
-    }
-    // The backend exists but the send failed — tell the visitor honestly
-    setStatus("error");
+    const result = await submitJson("/api/contact.php", {
+      name,
+      email,
+      message,
+      budget,
+      company: honeypot,
+    });
+
+    if (result === "sent") return setStatus("sent");
+    if (result === "rate-limited") return setStatus("rate-limited");
+    if (result === "error") return setStatus("error");
+
+    // Server-side gap the visitor can't fix — hand them their mail client
+    // rather than a dead end.
+    setStatus("idle");
+    mailtoFallback(
+      SITE.email,
+      `Project inquiry${name ? ` from ${name}` : ""}`,
+      `${message}${budget ? `
+Budget: ${budget}` : ""}
+
+— ${name}${
+        email ? ` (${email})` : ""
+      }`,
+    );
   };
 
   if (status === "sent") {

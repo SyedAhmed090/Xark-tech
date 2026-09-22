@@ -858,19 +858,67 @@ export function packageParam(serviceSlug: string, tierName: string) {
   return `${serviceSlug}-${tier}`;
 }
 
+/** What the brief form needs to know about whatever the buyer clicked. */
+export type SelectedPackage = {
+  param: string;
+  /** Shown back to the buyer so they can see what they're briefing. */
+  label: string;
+  price: string;
+  duration: string;
+  briefType: Service["briefType"];
+};
+
 /**
- * Guards the rule above. Two tiers resolving to one parameter is invisible in
- * the UI and only shows up as a production order for the wrong package, so it
- * fails the build instead.
+ * Every orderable thing, keyed by the `?package=` value its button carries.
+ *
+ * Tiers and bundles share one parameter namespace because they share one
+ * brief form, so they are built into one map — which also means a collision
+ * between a bundle slug and a tier parameter is caught below rather than
+ * quietly resolving to whichever was defined first.
  */
+const PACKAGE_INDEX: Map<string, SelectedPackage> = new Map();
+
 for (const service of SERVICES) {
-  const params = service.packages.map((p) => packageParam(service.slug, p.name));
-  const duplicates = params.filter((p, i) => params.indexOf(p) !== i);
-  if (duplicates.length) {
+  for (const tier of service.packages) {
+    const param = packageParam(service.slug, tier.name);
+    if (PACKAGE_INDEX.has(param)) {
+      throw new Error(
+        `Duplicate package parameter "${param}" — two orderable items would send the same brief.`,
+      );
+    }
+    PACKAGE_INDEX.set(param, {
+      param,
+      label: `${service.name} — ${tier.name}`,
+      price: tier.price,
+      duration: tier.duration,
+      briefType: service.briefType,
+    });
+  }
+}
+
+for (const bundle of BUNDLES) {
+  if (PACKAGE_INDEX.has(bundle.slug)) {
     throw new Error(
-      `Duplicate package parameter in "${service.slug}": ${[...new Set(duplicates)].join(", ")}`,
+      `Bundle "${bundle.slug}" collides with a package parameter — the brief could not tell them apart.`,
     );
   }
+  PACKAGE_INDEX.set(bundle.slug, {
+    param: bundle.slug,
+    label: bundle.name,
+    price: bundle.price,
+    duration: bundle.duration,
+    briefType: bundle.briefType,
+  });
+}
+
+/** Resolves a `?package=` value back to what the buyer clicked. */
+export function findPackage(param: string | null | undefined) {
+  return param ? PACKAGE_INDEX.get(param) : undefined;
+}
+
+/** Every orderable item, for the brief form's fallback picker. */
+export function allPackages() {
+  return [...PACKAGE_INDEX.values()];
 }
 
 /**

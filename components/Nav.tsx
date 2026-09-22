@@ -13,10 +13,10 @@ import SwapText from "./SwapText";
 import { SITE } from "@/lib/site";
 
 const LINKS = [
-  { label: "Work", href: "/work" },
+  { label: "Pricing", href: "/packages" },
   { label: "Services", href: "/services" },
-  { label: "Packages", href: "/packages" },
-  { label: "Studio", href: "/studio" },
+  { label: "Work", href: "/work" },
+  { label: "About", href: "/studio" },
   { label: "Journal", href: "/journal" },
   { label: "Contact", href: "/contact" },
 ];
@@ -123,7 +123,7 @@ export default function Nav() {
               alt="Xark Tech"
               width={878}
               height={406}
-              priority
+              preload
               className={`h-10 w-auto object-contain ${open ? "invert" : ""}`}
             />
           </Link>
@@ -144,15 +144,15 @@ export default function Nav() {
 
           <div className="flex items-center gap-3">
               <Link
-                href="/#contact"
+                href="/brief"
                 onClick={() => setOpen(false)}
                 className={`eyebrow inline-block rounded-full px-5 py-2.5 transition-colors ${
                   open
                     ? "bg-paper text-ink hover:bg-brand hover:text-paper"
-                    : "bg-ink text-paper hover:bg-brand"
+                    : "bg-brand text-white hover:bg-brand-dark"
                 }`}
               >
-                Start a project
+                Get started
               </Link>
             <button
               type="button"

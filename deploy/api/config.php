@@ -42,6 +42,13 @@ const SUBSCRIBERS_FILE = __DIR__ . '/../../xark-data/subscribers.csv';
  */
 const INQUIRIES_FILE = __DIR__ . '/../../xark-data/inquiries.csv';
 
+/**
+ * Project briefs. Separate from inquiries because they are a different kind of
+ * record: a brief is the work order production builds from, and it is the one
+ * thing on this site whose loss costs a sale that had already been won.
+ */
+const BRIEFS_FILE = __DIR__ . '/../../xark-data/briefs.csv';
+
 /** Rate-limit state. Also kept outside the document root. */
 const RATE_LIMIT_DIR = __DIR__ . '/../../xark-data/ratelimit';
 
