@@ -2,7 +2,17 @@ export type Package = {
   name: string;
   /** One line on who this tier is for — sits under the name. */
   summary: string;
+  /** Display price, e.g. "$199" or "$99 / month". */
   price: string;
+  /**
+   * Numeric price in USD. Kept alongside the display string so JSON-LD can
+   * emit a real Offer price — search engines can't parse "$99 / month", and
+   * a priced Offer is what makes a package eligible for rich results.
+   */
+  priceUsd: number;
+  /** Absent means one-time. "month" renders and bills as a subscription. */
+  interval?: "month";
+  /** Delivery window for one-time work, or the billing rhythm for retainers. */
   duration: string;
   /** Scope for this tier. Each tier is additive over the one before it. */
   includes: string[];
@@ -20,329 +30,752 @@ export type Service = {
   duration: string;
   /** Entry price — matches the first package tier. */
   price: string;
+  /**
+   * Which intake form a purchase routes to. There is no checkout: the buyer
+   * fills the brief for what they bought and it arrives by email, which is
+   * also how the production team gets its instructions.
+   */
+  briefType: "logo" | "website" | "general";
   packages: Package[];
   related: string[]; // project slugs
 };
 
+/**
+ * A bundle is the same work sold as one decision instead of three. New
+ * businesses don't know they need a logo *and* a site *and* a Google profile
+ * until someone tells them, so the bundles carry the homepage and the
+ * individual services exist for people who already know what they want.
+ */
+export type Bundle = {
+  slug: string;
+  name: string;
+  /** The job the buyer is actually hiring this to do. */
+  summary: string;
+  price: string;
+  priceUsd: number;
+  /** Sum of the component tiers bought separately — shown as the saving. */
+  listUsd: number;
+  duration: string;
+  includes: string[];
+  briefType: Service["briefType"];
+  featured?: boolean;
+};
+
 export const SERVICES: Service[] = [
   {
-    slug: "brand-identity",
-    name: "Brand identity",
-    tagline: "A point of view your market can’t unsee.",
+    slug: "logo-design",
+    name: "Logo & brand identity",
+    tagline: "A logo you own outright, in every file you'll ever need.",
     description:
-      "Positioning, naming, and a visual system built to survive contact with the real world — pitch decks, app stores, trade-show booths, and the group chat where your customers talk about you. We design identities for companies that ship software, so everything works on a screen first.",
+      "Most cheap logo services hand you a low-resolution JPEG and charge extra for the files a printer, sign-maker, or app store will actually accept. We don't. Every tier — including the $99 one — ships the full vector set: AI, EPS, SVG, PDF, PNG and JPG, in colour, black, and reversed. You own all of it, and there is no fee to remove our name from anything.",
     deliverables: [
-      "Positioning & messaging",
-      "Naming",
-      "Logo & visual identity",
-      "Type & color systems",
-      "Voice & tone guidelines",
-      "Launch asset kit",
+      "Original logo concepts",
+      "Full vector file set (AI, EPS, SVG, PDF)",
+      "Web formats (PNG, JPG, favicon)",
+      "Colour, black and reversed versions",
+      "Usage guide",
+      "Full ownership, no credit fee",
     ],
     rhythm: [
       {
-        title: "Weeks 1–2",
+        title: "Day 1",
         detail:
-          "Stakeholder interviews, competitor teardown, and a positioning workshop. We leave with the one sentence everything else must serve.",
+          "You fill in the logo brief — business, audience, what you like and what you can't stand. No call required unless you want one.",
       },
       {
-        title: "Weeks 3–5",
+        title: "Days 2–3",
         detail:
-          "Two identity directions, tested against real applications — your product UI, your deck, your social — never on a blank artboard.",
+          "Concepts come back. You pick a direction and tell us what to change, in plain language.",
       },
       {
-        title: "Weeks 6–8",
+        title: "Days 4–5",
         detail:
-          "The chosen direction built out into a full system with guidelines your team and vendors can actually follow.",
+          "Revisions, then the final file pack lands in your inbox with everything unlocked.",
       },
     ],
-    duration: "6–8 weeks",
-    price: "From $35k",
+    duration: "3–5 days",
+    price: "From $99",
+    briefType: "logo",
     packages: [
       {
-        name: "Essential",
+        name: "Starter",
         summary:
-          "One product, one market. The identity you need to launch and look credible.",
-        price: "$35k",
-        duration: "6 weeks",
+          "A new business that needs a real logo today, not a placeholder.",
+        price: "$99",
+        priceUsd: 99,
+        duration: "3 days",
         includes: [
-          "Positioning & messaging",
-          "Logo & core visual identity",
-          "Type & color systems",
+          "3 original concepts",
+          "2 revision rounds",
+          "Full vector file set — AI, EPS, SVG, PDF",
+          "Web formats and favicon",
+          "Full ownership",
+        ],
+      },
+      {
+        name: "Business",
+        summary:
+          "The one most clients pick — the logo plus the pieces you need the week after.",
+        price: "$199",
+        priceUsd: 199,
+        duration: "4 days",
+        featured: true,
+        includes: [
+          "Everything in Starter",
+          "6 original concepts",
+          "Unlimited revisions for 14 days",
+          "Colour, black and reversed versions",
+          "Social profile and cover set",
           "One-page usage guide",
         ],
       },
       {
-        name: "Studio",
+        name: "Brand Kit",
         summary:
-          "The full system, tested against every place your brand actually shows up.",
-        price: "$60k",
-        duration: "8–10 weeks",
-        featured: true,
+          "A logo plus the print and identity basics, so everything matches.",
+        price: "$399",
+        priceUsd: 399,
+        duration: "5–7 days",
         includes: [
-          "Everything in Essential",
-          "Naming & verbal identity",
-          "Voice & tone guidelines",
+          "Everything in Business",
+          "10 original concepts",
+          "Colour and typography system",
+          "Business card, letterhead and envelope",
+          "Email signature",
+          "Icon set",
+        ],
+      },
+      {
+        name: "Complete Identity",
+        summary:
+          "For a rebrand, or a business that needs to look established from day one.",
+        price: "$799",
+        priceUsd: 799,
+        duration: "10–14 days",
+        includes: [
+          "Everything in Brand Kit",
+          "Unlimited concepts",
+          "Tagline and naming support",
+          "Brand guidelines PDF",
           "Launch asset kit",
-          "Two identity directions, applied to real surfaces",
-        ],
-      },
-      {
-        name: "Partner",
-        summary:
-          "For companies rebranding a portfolio, or entering a second market.",
-        price: "$95k",
-        duration: "12 weeks +",
-        includes: [
-          "Everything in Studio",
-          "Sub-brand & product naming architecture",
-          "Motion identity",
-          "Photography & illustration direction",
-          "Two quarters of brand stewardship",
-        ],
-      },
-    ],
-    related: ["meridian", "forma-studio"],
-  },
-  {
-    slug: "product-design",
-    name: "Product design",
-    tagline: "Interfaces designed around how people actually work.",
-    description:
-      "Research, interface design, and design systems for B2B software teams in fintech, healthcare, and logistics — embedded in your rituals, shipping against your sprints. One senior pod, one workstream: we design with your engineers, not at them, and we test with real users before anything is declared done.",
-    deliverables: [
-      "UX research & user interviews",
-      "Journey mapping",
-      "Interface design",
-      "Prototyping & usability testing",
-      "Design systems (Figma + code)",
-      "Engineering handoff & QA",
-    ],
-    rhythm: [
-      {
-        title: "Every two weeks",
-        detail:
-          "A working cycle: research or design goal set Monday, tested prototype or shipped screens by Friday of week two.",
-      },
-      {
-        title: "Every Friday",
-        detail:
-          "A working session in your Figma — not a presentation. You see the thinking mid-flight and steer early.",
-      },
-      {
-        title: "Every quarter",
-        detail:
-          "A step back: what shipped, what the metrics say, and what the next quarter's design bets should be.",
-      },
-    ],
-    duration: "Quarterly commitments",
-    price: "From $50k / month",
-    packages: [
-      {
-        name: "Essential",
-        summary:
-          "One senior designer embedded in one workstream, for a single quarter.",
-        price: "$50k / month",
-        duration: "One quarter",
-        includes: [
-          "Interface design against your sprints",
-          "Fortnightly working cycles",
-          "Figma library maintained as we go",
-          "Engineering handoff & QA",
-        ],
-      },
-      {
-        name: "Studio",
-        summary:
-          "A senior pod — design plus research — running two quarters with your team.",
-        price: "$75k / month",
-        duration: "Two quarters",
-        featured: true,
-        includes: [
-          "Everything in Essential",
-          "UX research & user interviews",
-          "Journey mapping",
-          "Prototyping & usability testing",
-          "Quarterly design-bet review",
-        ],
-      },
-      {
-        name: "Partner",
-        summary:
-          "We own design for the product. Annual commitment, multiple workstreams.",
-        price: "$110k / month",
-        duration: "Annual",
-        includes: [
-          "Everything in Studio",
-          "Multiple parallel workstreams",
-          "Design system in Figma + code",
-          "Standing research cadence",
-          "Roadmap input at the exec table",
-        ],
-      },
-    ],
-    related: ["loop-health", "atlas-freight"],
-  },
-  {
-    slug: "web-design-build",
-    name: "Web design & build",
-    tagline: "Sites that load fast, rank well, and convert.",
-    description:
-      "Marketing sites, e-commerce, and editorial platforms — designed and engineered under one roof so nothing gets lost in a handoff. Performance budgets from day one, a CMS your team will actually use, and the animation restraint to stay fast.",
-    deliverables: [
-      "Site strategy & information architecture",
-      "Design & art direction",
-      "Next.js / Astro development",
-      "CMS integration",
-      "Performance & technical SEO",
-      "Analytics & launch support",
-    ],
-    rhythm: [
-      {
-        title: "Weeks 1–3",
-        detail:
-          "Architecture, content model, and design direction — approved against real copy, not lorem ipsum.",
-      },
-      {
-        title: "Weeks 4–8",
-        detail:
-          "Design and build run in parallel. A staging link exists from week four; you watch the site come alive, page by page.",
-      },
-      {
-        title: "Weeks 9–12",
-        detail:
-          "Content load, QA across devices, performance pass, and launch — with a care plan so it stays fast after we leave.",
-      },
-    ],
-    duration: "8–12 weeks",
-    price: "From $45k",
-    packages: [
-      {
-        name: "Essential",
-        summary:
-          "A marketing site that loads fast and says the right thing. Up to eight pages.",
-        price: "$45k",
-        duration: "8 weeks",
-        includes: [
-          "Site strategy & information architecture",
-          "Design & art direction",
-          "Next.js build, up to 8 pages",
-          "Performance budget & technical SEO",
-        ],
-      },
-      {
-        name: "Studio",
-        summary:
-          "The full site, with a CMS your team will actually use and content we help load.",
-        price: "$70k",
-        duration: "10–12 weeks",
-        featured: true,
-        includes: [
-          "Everything in Essential",
-          "CMS integration & editor training",
-          "Unlimited page templates",
-          "Motion & interaction design",
-          "Analytics & launch support",
-        ],
-      },
-      {
-        name: "Partner",
-        summary:
-          "E-commerce or editorial platforms, plus a care plan so it stays fast after launch.",
-        price: "$110k",
-        duration: "12 weeks + care plan",
-        includes: [
-          "Everything in Studio",
-          "E-commerce or editorial platform build",
-          "Localization & multi-region setup",
-          "Ongoing performance monitoring",
-          "Two quarters of iteration",
+          "Animated logo for social and video",
         ],
       },
     ],
     related: ["forma-studio", "meridian"],
   },
   {
-    slug: "motion-3d",
-    name: "Motion & 3D",
-    tagline: "The layer that makes digital feel alive.",
+    slug: "web-design",
+    name: "Website design & build",
+    tagline: "A site that loads fast, ranks, and asks for the sale.",
     description:
-      "Micro-interactions, WebGL, product films, and launch assets. Motion is a language, not a garnish — we use it to explain, to confirm, and occasionally to show off, always inside a performance budget.",
+      "Built on a content system you can update yourself, so you're never paying us to change a phone number. Every build ships mobile-first, tested on real devices, with the technical SEO already in place — page titles, descriptions, structured data, sitemap and Google Search Console connected before you go live. Hosting and domain guidance included; you own the accounts.",
     deliverables: [
-      "Interaction & motion design",
-      "WebGL / Three.js experiences",
-      "Product launch films",
-      "Social & campaign assets",
-      "Lottie / Rive animation libraries",
-      "Motion guidelines & tokens",
+      "Custom design, mobile-first",
+      "Content management system",
+      "Contact and lead capture forms",
+      "On-page and technical SEO",
+      "Google Business Profile setup",
+      "Analytics and Search Console",
+    ],
+    rhythm: [
+      {
+        title: "Days 1–2",
+        detail:
+          "Website brief in, sitemap and page plan agreed. You send content, or we write it.",
+      },
+      {
+        title: "Days 3–6",
+        detail:
+          "Design comes back as real pages you can click through on your phone, not flat mockups.",
+      },
+      {
+        title: "Days 7–10",
+        detail:
+          "Revisions, testing across devices, then launch on your domain with everything connected.",
+      },
+    ],
+    duration: "7–14 days",
+    price: "From $399",
+    briefType: "website",
+    packages: [
+      {
+        name: "Starter Site",
+        summary: "Three pages that make you findable and contactable. Fast.",
+        price: "$399",
+        priceUsd: 399,
+        duration: "7 days",
+        includes: [
+          "3 pages",
+          "Mobile-first responsive design",
+          "Contact form",
+          "Basic on-page SEO",
+          "Google Analytics",
+        ],
+      },
+      {
+        name: "Business Site",
+        summary:
+          "The standard small-business site — pages for every service, plus a blog.",
+        price: "$899",
+        priceUsd: 899,
+        duration: "10 days",
+        featured: true,
+        includes: [
+          "Everything in Starter",
+          "6 pages",
+          "Content management system",
+          "Blog",
+          "Google Business Profile setup",
+          "Search Console and sitemap",
+          "1 month of Website Care included",
+        ],
+      },
+      {
+        name: "Pro Site",
+        summary:
+          "More pages, booking or quote capture, and a proper speed and SEO pass.",
+        price: "$1,499",
+        priceUsd: 1499,
+        duration: "14 days",
+        includes: [
+          "Everything in Business",
+          "12 pages",
+          "Booking or quote request system",
+          "Speed optimisation pass",
+          "Structured data markup",
+          "Copywriting for every page",
+          "3 months of Website Care included",
+        ],
+      },
+      {
+        name: "Custom Build",
+        summary:
+          "Portals, integrations, or anything that needs to talk to another system.",
+        price: "From $3,499",
+        priceUsd: 3499,
+        duration: "Quoted",
+        includes: [
+          "Everything in Pro",
+          "Custom functionality",
+          "Third-party integrations",
+          "User accounts or portal",
+          "Dedicated project manager",
+        ],
+      },
+    ],
+    related: ["forma-studio", "atlas-freight"],
+  },
+  {
+    slug: "ecommerce",
+    name: "Online stores",
+    tagline: "Start selling without a six-month build.",
+    description:
+      "Shopify or WooCommerce, set up properly: products loaded, payments live, shipping and tax configured, and the abandoned-cart email switched on before launch. You get the admin login and a walkthrough recording, so adding a product doesn't mean raising a support ticket.",
+    deliverables: [
+      "Shopify or WooCommerce build",
+      "Product upload and organisation",
+      "Payment gateway setup",
+      "Shipping and tax configuration",
+      "Abandoned cart recovery",
+      "Admin training walkthrough",
+    ],
+    rhythm: [
+      {
+        title: "Days 1–3",
+        detail:
+          "Platform chosen, store structure and categories agreed, product data collected.",
+      },
+      {
+        title: "Days 4–10",
+        detail:
+          "Store built and designed, products loaded, payments and shipping configured and tested.",
+      },
+      {
+        title: "Days 11–14",
+        detail:
+          "Test orders end to end, then launch with your walkthrough recording.",
+      },
+    ],
+    duration: "10–21 days",
+    price: "From $1,299",
+    briefType: "website",
+    packages: [
+      {
+        name: "Starter Store",
+        summary: "A first store, with a tight product range.",
+        price: "$1,299",
+        priceUsd: 1299,
+        duration: "10 days",
+        includes: [
+          "Shopify or WooCommerce setup",
+          "Up to 25 products",
+          "Payment gateway",
+          "Shipping and tax setup",
+          "Mobile-optimised checkout",
+        ],
+      },
+      {
+        name: "Online Store",
+        summary: "A full catalogue with the recovery and trust pieces in place.",
+        price: "$1,999",
+        priceUsd: 1999,
+        duration: "14 days",
+        featured: true,
+        includes: [
+          "Everything in Starter Store",
+          "Up to 50 products",
+          "Custom design",
+          "Abandoned cart recovery",
+          "Product reviews",
+          "Discount and promotion setup",
+          "3 months of Care+ included",
+        ],
+      },
+      {
+        name: "Advanced Store",
+        summary:
+          "Larger catalogues, subscriptions, or selling in more than one place.",
+        price: "$3,499",
+        priceUsd: 3499,
+        duration: "21 days",
+        includes: [
+          "Everything in Online Store",
+          "Unlimited products",
+          "Subscriptions or bookings",
+          "Multi-channel selling",
+          "Inventory sync",
+          "Custom integrations",
+        ],
+      },
+    ],
+    related: ["forma-studio"],
+  },
+  {
+    slug: "video-animation",
+    name: "Video & animation",
+    tagline: "Explain what you do in sixty seconds.",
+    description:
+      "Scripted, voiced and animated explainers for the top of your homepage, your ads, or your social feed. We're straight about how they're made: the entry tier uses AI-assisted storyboarding and first-pass animation, finished by a human. The top tier is bespoke throughout, with no AI in the final cut. Both are priced accordingly.",
+    deliverables: [
+      "Script writing",
+      "Storyboard",
+      "Professional voice-over",
+      "Animation and motion graphics",
+      "Music and sound effects",
+      "Delivery in every aspect ratio you need",
+    ],
+    rhythm: [
+      {
+        title: "Days 1–3",
+        detail: "Brief in, script written and approved before anything moves.",
+      },
+      {
+        title: "Days 4–8",
+        detail: "Storyboard, then voice-over recorded against the approved script.",
+      },
+      {
+        title: "Days 9–14",
+        detail: "Animation, sound design, revisions, final delivery.",
+      },
+    ],
+    duration: "7–21 days",
+    price: "From $399",
+    briefType: "general",
+    packages: [
+      {
+        name: "Explainer 30",
+        summary: "A short, clear thirty seconds for your homepage or an ad.",
+        price: "$399",
+        priceUsd: 399,
+        duration: "7 days",
+        includes: [
+          "30 second video",
+          "Script writing",
+          "Professional voice-over",
+          "Music and sound effects",
+          "HD delivery",
+          "2 revision rounds",
+        ],
+      },
+      {
+        name: "Explainer 60",
+        summary: "A full minute — enough to explain something that needs explaining.",
+        price: "$799",
+        priceUsd: 799,
+        duration: "14 days",
+        featured: true,
+        includes: [
+          "Everything in Explainer 30",
+          "60 second video",
+          "Custom illustrated characters",
+          "Unlimited revisions for 14 days",
+          "Square and vertical cuts for social",
+        ],
+      },
+      {
+        name: "Premium 90",
+        summary:
+          "Bespoke throughout. No AI in the final cut, and the source files are yours.",
+        price: "$1,299",
+        priceUsd: 1299,
+        duration: "21 days",
+        includes: [
+          "Everything in Explainer 60",
+          "90 second video",
+          "Fully bespoke animation",
+          "4K delivery",
+          "Every aspect ratio",
+          "Source files included",
+        ],
+      },
+    ],
+    related: ["loop-health"],
+  },
+  {
+    slug: "website-care",
+    name: "Website care",
+    tagline: "Someone whose job it is to keep your site up.",
+    description:
+      "Updates, backups, security and small changes, handled on a schedule instead of whenever something breaks. Every plan includes real human time each month for the edits you'd otherwise put off — a new phone number, swapped photos, updated opening hours. Cancel any month; we don't hold your site hostage.",
+    deliverables: [
+      "Core, theme and plugin updates",
+      "Daily offsite backups",
+      "Security scanning and malware removal",
+      "Uptime monitoring",
+      "Monthly content edits",
+      "Monthly report",
     ],
     rhythm: [
       {
         title: "Week 1",
         detail:
-          "Motion audit and art direction: what should move, why, and what it must never cost in load time.",
+          "We audit the site, take a full backup, and fix anything already broken.",
       },
       {
-        title: "Weeks 2–4",
+        title: "Monthly",
         detail:
-          "Prototypes in the browser, not in After Effects — you review the real thing at real frame rates.",
+          "Updates applied on staging first, security scan, speed check, and your included edit time.",
       },
       {
-        title: "Weeks 5–6",
-        detail:
-          "Production, optimization, and a handoff kit your engineers can extend without us.",
+        title: "Anytime",
+        detail: "Email us a change. Cancel whenever — no notice period.",
       },
     ],
-    duration: "2–6 weeks",
-    price: "From $20k",
+    duration: "Monthly, cancel anytime",
+    price: "From $99 / month",
+    briefType: "general",
     packages: [
       {
-        name: "Essential",
-        summary:
-          "A focused motion pass — the handful of moments that carry the most weight.",
-        price: "$20k",
-        duration: "2 weeks",
+        name: "Care",
+        summary: "A brochure or business site that needs to stay up and current.",
+        price: "$99 / month",
+        priceUsd: 99,
+        interval: "month",
+        duration: "Monthly",
         includes: [
-          "Motion audit & art direction",
-          "Interaction & motion design",
-          "Browser prototypes at real frame rates",
-          "Lottie / Rive handoff files",
+          "Updates tested on staging",
+          "Daily offsite backups",
+          "Weekly security scans",
+          "Uptime monitoring",
+          "30 minutes of edits each month",
+          "48 hour response",
         ],
       },
       {
-        name: "Studio",
-        summary:
-          "WebGL and 3D work, built inside a performance budget your engineers can keep.",
-        price: "$38k",
-        duration: "4–6 weeks",
+        name: "Care+",
+        summary: "A store, where an hour of downtime is lost money.",
+        price: "$199 / month",
+        priceUsd: 199,
+        interval: "month",
+        duration: "Monthly",
         featured: true,
         includes: [
-          "Everything in Essential",
-          "WebGL / Three.js experiences",
-          "Motion guidelines & tokens",
-          "Social & campaign assets",
-          "Handoff kit your team can extend",
+          "Everything in Care",
+          "Checkout and payment monitoring",
+          "Plugin compatibility testing before updates",
+          "Order-safe backups",
+          "1 hour of edits each month",
+          "24 hour priority response",
         ],
       },
       {
-        name: "Partner",
-        summary:
-          "Launch films and a standing motion retainer for teams shipping continuously.",
-        price: "$65k",
-        duration: "Retained, per quarter",
+        name: "Priority",
+        summary: "Custom builds and anything with an integration that can break.",
+        price: "$449 / month",
+        priceUsd: 449,
+        interval: "month",
+        duration: "Monthly",
         includes: [
-          "Everything in Studio",
-          "Product launch film",
-          "Full animation library",
-          "Quarterly motion refresh",
-          "On-call for launch moments",
+          "Everything in Care+",
+          "3 hours of developer time each month",
+          "Server and dependency management",
+          "API and integration monitoring",
+          "Same business day response",
+          "Monthly call",
         ],
       },
     ],
-    related: ["forma-studio", "meridian"],
+    related: ["atlas-freight"],
+  },
+  {
+    slug: "local-seo",
+    name: "Local SEO",
+    tagline: "Get found by the people already looking for you.",
+    description:
+      "Most small businesses don't need national rankings — they need to appear when someone nearby searches for what they sell. We optimise your Google Business Profile, fix the citations that disagree about your address, build the pages that answer local search queries, and report on calls and directions, not vanity keyword positions.",
+    deliverables: [
+      "Google Business Profile optimisation",
+      "Local citation cleanup",
+      "Keyword research and mapping",
+      "On-page optimisation",
+      "Review generation strategy",
+      "Monthly reporting",
+    ],
+    rhythm: [
+      {
+        title: "Month 1",
+        detail:
+          "Full audit, Google Business Profile fixed, citations corrected, technical issues cleared.",
+      },
+      {
+        title: "Months 2–3",
+        detail:
+          "Location and service pages built and optimised, review strategy running.",
+      },
+      {
+        title: "Ongoing",
+        detail:
+          "Content, monitoring, and a monthly report on calls, directions and enquiries.",
+      },
+    ],
+    duration: "3 month minimum",
+    price: "From $299 / month",
+    briefType: "general",
+    packages: [
+      {
+        name: "Local Starter",
+        summary: "One location that needs to show up on the map.",
+        price: "$299 / month",
+        priceUsd: 299,
+        interval: "month",
+        duration: "Monthly",
+        includes: [
+          "Google Business Profile optimisation",
+          "15 target keywords",
+          "Citation cleanup",
+          "On-page optimisation",
+          "Monthly report",
+        ],
+      },
+      {
+        name: "Growth",
+        summary: "Competing for searches beyond your own business name.",
+        price: "$599 / month",
+        priceUsd: 599,
+        interval: "month",
+        duration: "Monthly",
+        featured: true,
+        includes: [
+          "Everything in Local Starter",
+          "40 target keywords",
+          "2 optimised pages each month",
+          "2 blog posts each month",
+          "Competitor tracking",
+          "Review generation",
+          "Monthly strategy call",
+        ],
+      },
+      {
+        name: "Authority",
+        summary: "Multiple locations, or a competitive market you need to win.",
+        price: "$1,199 / month",
+        priceUsd: 1199,
+        interval: "month",
+        duration: "Monthly",
+        includes: [
+          "Everything in Growth",
+          "80 target keywords",
+          "Multi-location optimisation",
+          "Link building",
+          "4 blog posts each month",
+          "AI search visibility tracking",
+        ],
+      },
+    ],
+    related: ["meridian"],
+  },
+  {
+    slug: "social-media",
+    name: "Social media",
+    tagline: "Show up consistently without doing it yourself.",
+    description:
+      "Designed posts, written captions, scheduled and published on the platforms your customers actually use. You approve a month at a time from a shared calendar, so nothing goes out that you haven't seen. Reporting covers reach, engagement and — where we can attribute it — enquiries.",
+    deliverables: [
+      "Content calendar",
+      "Custom post design",
+      "Caption writing and hashtag research",
+      "Scheduling and publishing",
+      "Community management",
+      "Monthly reporting",
+    ],
+    rhythm: [
+      {
+        title: "Week 1",
+        detail:
+          "Profile audit, templates designed in your brand, first calendar built.",
+      },
+      {
+        title: "Monthly",
+        detail:
+          "Calendar shared for approval, posts scheduled, comments and messages handled.",
+      },
+      {
+        title: "Month end",
+        detail: "Report on reach, engagement and enquiries, then plan the next month.",
+      },
+    ],
+    duration: "3 month minimum",
+    price: "From $299 / month",
+    briefType: "general",
+    packages: [
+      {
+        name: "Social Starter",
+        summary: "Two platforms, posted consistently.",
+        price: "$299 / month",
+        priceUsd: 299,
+        interval: "month",
+        duration: "Monthly",
+        includes: [
+          "2 platforms",
+          "12 posts each month",
+          "Custom designed graphics",
+          "Caption and hashtag writing",
+          "Scheduling",
+          "Monthly report",
+        ],
+      },
+      {
+        name: "Social Growth",
+        summary: "More platforms, more posts, and short video in the mix.",
+        price: "$699 / month",
+        priceUsd: 699,
+        interval: "month",
+        duration: "Monthly",
+        featured: true,
+        includes: [
+          "Everything in Social Starter",
+          "4 platforms",
+          "20 posts each month",
+          "4 short videos or Reels",
+          "Stories each week",
+          "Daily community management",
+          "Monthly strategy call",
+        ],
+      },
+      {
+        name: "Social Pro",
+        summary: "A full content operation, including video production.",
+        price: "$1,499 / month",
+        priceUsd: 1499,
+        interval: "month",
+        duration: "Monthly",
+        includes: [
+          "Everything in Social Growth",
+          "5+ platforms",
+          "30+ posts each month",
+          "Full short-form video production",
+          "Influencer outreach",
+          "Paid promotion management",
+          "Dedicated account manager",
+        ],
+      },
+    ],
+    related: ["loop-health"],
   },
 ];
 
+/**
+ * Homepage best sellers. Priced below the sum of their parts, because the
+ * saving is the reason to decide today instead of buying one piece now and
+ * the rest "later" — which usually means never.
+ */
+export const BUNDLES: Bundle[] = [
+  {
+    slug: "open-for-business",
+    name: "Open for Business",
+    summary:
+      "Everything a new business needs to open its doors: a logo, a site, and a Google listing that shows up.",
+    price: "$899",
+    priceUsd: 899,
+    listUsd: 1098,
+    duration: "14 days",
+    featured: true,
+    briefType: "website",
+    includes: [
+      "Business logo — 6 concepts, full vector files",
+      "Business Site — 6 pages with a CMS and blog",
+      "Google Business Profile set up and verified",
+      "Business email on your own domain",
+      "1 month of Website Care",
+    ],
+  },
+  {
+    slug: "store-launch",
+    name: "Store Launch",
+    summary:
+      "A brand and a working shop, from nothing to taking your first order.",
+    price: "$2,299",
+    priceUsd: 2299,
+    listUsd: 2795,
+    duration: "21 days",
+    briefType: "website",
+    includes: [
+      "Business logo — 6 concepts, full vector files",
+      "Online Store — 50 products, custom design",
+      "Payments, shipping and tax configured",
+      "Abandoned cart recovery",
+      "3 months of Care+",
+    ],
+  },
+  {
+    slug: "complete-brand-launch",
+    name: "Complete Brand Launch",
+    summary:
+      "For a rebrand or a serious launch — the full identity, a twelve-page site, and three months of getting found.",
+    price: "$2,199",
+    priceUsd: 2199,
+    listUsd: 3092,
+    duration: "21 days",
+    briefType: "website",
+    includes: [
+      "Brand Kit — logo, colour and type system, stationery",
+      "Pro Site — 12 pages, copywriting, booking system",
+      "3 months of Website Care",
+      "3 months of Local SEO",
+      "Google Business Profile and Search Console",
+    ],
+  },
+];
+
+/**
+ * Cheapest package anywhere on the site, formatted for display. Derived rather
+ * than typed out: the entry price appears on several pages, and a hardcoded
+ * copy is how the old "$20k" survived three price changes.
+ */
+export const ENTRY_PRICE = `$${Math.min(
+  ...SERVICES.flatMap((s) => s.packages.map((p) => p.priceUsd)),
+).toLocaleString("en-US")}`;
+
 export function getService(slug: string) {
   return SERVICES.find((s) => s.slug === slug);
+}
+
+export function getBundle(slug: string) {
+  return BUNDLES.find((b) => b.slug === slug);
+}
+
+/** Saving on a bundle versus buying the tiers separately. */
+export function bundleSaving(bundle: Bundle) {
+  return bundle.listUsd - bundle.priceUsd;
 }

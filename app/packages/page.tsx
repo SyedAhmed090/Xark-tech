@@ -8,12 +8,12 @@ import Footer from "@/components/Footer";
 import Magnetic from "@/components/Magnetic";
 import Packages from "@/components/Packages";
 import { Reveal } from "@/components/Reveal";
-import { SERVICES } from "@/lib/services";
+import { ENTRY_PRICE, SERVICES } from "@/lib/services";
 
 export const metadata: Metadata = pageMeta({
   title: "Packages & pricing",
   description:
-    "What it costs to work with Xark Tech. Three tiers across brand identity, product design, web design & build, and motion & 3D — from $20k.",
+    "What it costs to work with Xark Tech. Logos from $99, websites from $399, online stores from $1,299, plus monthly care, local SEO and social plans. Every price published.",
   path: "/packages",
 });
 
@@ -47,11 +47,11 @@ export default function PackagesPage() {
               </div>
               <div className="flex items-baseline justify-between py-4 hairline-b">
                 <span className="eyebrow text-ink/50">Entry point</span>
-                <span className="font-mono text-sm">$20k</span>
+                <span className="font-mono text-sm">{ENTRY_PRICE}</span>
               </div>
               <div className="flex items-baseline justify-between py-4 hairline-b">
-                <span className="eyebrow text-ink/50">Team size</span>
-                <span className="font-mono text-sm">4 people</span>
+                <span className="eyebrow text-ink/50">Delivery</span>
+                <span className="font-mono text-sm">3&ndash;21 days</span>
               </div>
             </div>
           </Reveal>
