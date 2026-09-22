@@ -3,7 +3,8 @@ import { chromium } from "playwright";
 
 const BASE = process.env.AUDIT_BASE ?? "http://localhost:3000";
 const ROUTES = ["/", "/services", "/packages", "/work", "/studio", "/journal", "/contact",
-  "/services/brand-identity", "/work/meridian", "/journal/why-we-stay-four-people"];
+  "/services/brand-identity", "/work/meridian", "/journal/why-we-stay-four-people",
+  "/journal/why-your-b2b-site-doesnt-rank"];
 const WIDTHS = [768, 834, 1024];
 
 const browser = await chromium.launch();

@@ -19,6 +19,8 @@ const ROUTES = [
   "/services/motion-3d",
   "/work/meridian",
   "/journal/why-we-stay-four-people",
+  "/journal/why-your-b2b-site-doesnt-rank",
+  "/journal/what-a-b2b-software-rebrand-costs",
 ];
 const VIEWPORTS = [
   { name: "iPhone SE", width: 375, height: 667 },
