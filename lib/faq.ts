@@ -32,7 +32,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: "How long does a typical project take?",
-    a: "Logos take three to five days. A starter site is about a week, a business site ten days, and an online store two to three weeks. You get a delivery date when you submit your brief, not after.",
+    a: "Logos take three to five days. A starter site is about a week, a business site ten days, and an online store two to three weeks. You get a delivery date in writing before you pay — and if a website build misses it for reasons at our end, your deposit comes back.",
   },
   {
     q: "Who actually works on our project?",
