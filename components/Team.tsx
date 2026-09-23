@@ -21,8 +21,13 @@ export default function Team() {
     <section id="team" className="px-5 py-24 hairline-t md:px-10 md:py-36">
       <Reveal>
         <p className="eyebrow mb-4 text-brand">The people</p>
+        {/* Was "the person you meet is the person doing the work" — true of
+            the studio, and now contradicted by the production team described
+            on this same page and in the FAQ. Claiming otherwise is the kind
+            of small lie a client discovers on day two. */}
         <h2 className="display-tight max-w-3xl text-4xl md:text-6xl">
-          Founder-led. The person you meet is the person doing the work.
+          Founder-led, with a production team — and one person accountable for
+          what reaches you.
         </h2>
       </Reveal>
 

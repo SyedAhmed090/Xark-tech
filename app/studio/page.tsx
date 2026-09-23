@@ -7,32 +7,38 @@ import Team from "@/components/Team";
 import { Reveal } from "@/components/Reveal";
 
 export const metadata: Metadata = pageMeta({
-  title: "Studio",
+  title: "About",
   description:
-    "An independent, founder-led design studio in Sheridan, WY, with a bias for work that ships.",
+    "Design and development for small businesses — published prices, full file ownership, and a delivery date before you pay. Based in Sheridan, WY.",
   path: "/studio",
 });
 
+/**
+ * These were studio values — shipping over showing, arguing with evidence,
+ * leaving a team stronger. All true of the old positioning, and all addressed
+ * to a product team choosing a studio. The four below are the promises this
+ * site actually makes, and each one is checkable by the buyer before paying.
+ */
 const VALUES = [
   {
-    name: "Ship over show",
+    name: "The price is the price",
     detail:
-      "Portfolio pieces that never launched don’t count. We measure ourselves on what’s live, in front of users, doing its job.",
+      "Every package is priced on the page. No quote to wait for, no call before you learn what something costs, and no number that moves once we know what you can afford.",
   },
   {
-    name: "Argue with evidence",
+    name: "You own all of it",
     detail:
-      "Taste opens the conversation; research and testing close it. When we push back — and we will — we bring receipts.",
+      "Every logo ships the full vector set — AI, EPS, SVG, PDF — including the $99 one. Budget logo services hand over a JPEG and charge again for the files a printer will accept. We don’t put our name on your site either, so there is nothing to pay to remove.",
   },
   {
-    name: "Small on purpose",
+    name: "The real number, honoured",
     detail:
-      "Staying small is a decision, not a phase. It keeps senior attention on the work, decisions fast, and your budget out of the org chart.",
+      "If a package says two revision rounds, it means two. Advertising “unlimited” and capping it in the contract is the oldest trick in this industry, and it is why people arrive here not trusting anyone.",
   },
   {
-    name: "Leave them stronger",
+    name: "A date before you pay",
     detail:
-      "Every engagement ends with systems and habits your team can run without us. Dependency is bad design.",
+      "You get a delivery date with the price, not after your deposit clears. If a website misses the date we gave you, the deposit comes back.",
   },
 ];
 
@@ -51,11 +57,10 @@ export default function StudioPage() {
       <main id="main" className="pt-32">
         <header className="grid gap-10 px-5 md:grid-cols-[2fr_1fr] md:gap-8 md:px-10">
           <Reveal>
-            <p className="eyebrow mb-4 text-brand">The studio</p>
-            <h1 className="display text-[clamp(2.75rem,10vw,10rem)]">
-              Small by design,
-              <br />
-              <span className="accent-word">serious</span> about craft
+            <p className="eyebrow mb-4 text-brand">About us</p>
+            <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
+              Proper design, at a price a small business can{" "}
+              <span className="accent-word">actually pay</span>
             </h1>
           </Reveal>
 
@@ -66,12 +71,12 @@ export default function StudioPage() {
                 <span className="font-mono text-sm">Sheridan, WY</span>
               </div>
               <div className="flex items-baseline justify-between py-4 hairline-b">
-                <span className="eyebrow text-ink/50">Studio</span>
-                <span className="font-mono text-sm">Independent, founder-led</span>
+                <span className="eyebrow text-ink/50">Starts at</span>
+                <span className="font-mono text-sm">$99</span>
               </div>
               <div className="flex items-baseline justify-between py-4 hairline-b">
-                <span className="eyebrow text-ink/50">Focus</span>
-                <span className="font-mono text-sm">Fintech, health, logistics</span>
+                <span className="eyebrow text-ink/50">Turnaround</span>
+                <span className="font-mono text-sm">3–21 days</span>
               </div>
             </div>
           </Reveal>
@@ -80,30 +85,33 @@ export default function StudioPage() {
         <section className="grid gap-12 px-5 py-20 md:grid-cols-2 md:gap-20 md:px-10 md:py-28">
           <Reveal>
             <p className="text-xl leading-relaxed text-ink/80 md:text-2xl">
-              Xark Tech started with a simple irritation: software that worked
-              but felt like homework. We&rsquo;re independent, based in
-              Sheridan, and convinced that how something feels is part of
-              whether it works.
+              Most small businesses get one of two offers: a $40 logo from a
+              marketplace that arrives as an unusable JPEG, or a $15,000 agency
+              proposal after three meetings. We built the thing that should
+              exist in between.
             </p>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="leading-relaxed text-ink/70">
-              We focus on complex B2B software — fintech, healthcare,
-              logistics — the kind with real compliance constraints and users
-              who can’t afford to be confused. Occasionally something outside
-              that lane is worth the detour, like an architecture studio’s
-              portfolio. Every engagement is small on purpose: the person you
-              meet is the person doing the work. No account layer, no
-              juniors billed as seniors, no big reveal at the end. Just
-              weekly momentum you can see, and a deliverable at every step
-              you can hold.
+            <p className="leading-relaxed text-muted">
+              We work with trades, shops, clinics, studios and brand-new
+              businesses — people who need to look credible and be findable,
+              and who would rather spend an afternoon on a written brief than
+              three weeks in meetings. Every package has a fixed price, a fixed
+              scope and a delivery date, so the thing you agreed to is the
+              thing that arrives.
             </p>
-            <p className="mt-6 leading-relaxed text-ink/70">
+            <p className="mt-6 leading-relaxed text-muted">
+              Design and build are handled by a production team we work with
+              directly, and nothing reaches you until it has been reviewed
+              here. That is how these prices are possible without the quality
+              being the thing that pays for them.
+            </p>
+            <p className="mt-6 leading-relaxed text-muted">
               The case studies on this site are self-initiated concept
-              projects — each one designed, built and shipped as a working
-              prototype you can open and use. They exist because the fastest
-              way to show how we think is to build the thing rather than
-              describe it.
+              projects — each designed and built as a working prototype you
+              can open and use. We label them as such rather than implying a
+              client list we don’t have, and you are welcome to judge the
+              craft on them.
             </p>
           </Reveal>
         </section>
@@ -118,7 +126,7 @@ export default function StudioPage() {
                 <h2 className="display-tight text-2xl md:text-3xl">
                   {value.name}
                 </h2>
-                <p className="mt-4 max-w-md leading-relaxed text-ink/70">
+                <p className="mt-4 max-w-md leading-relaxed text-muted">
                   {value.detail}
                 </p>
               </Reveal>
@@ -131,14 +139,14 @@ export default function StudioPage() {
         <section className="px-5 py-24 md:px-10 md:py-32">
           <Reveal>
             <h2 className="display-tight max-w-2xl text-3xl md:text-5xl">
-              Sound like people you’d want in your corner?
+              Know what you need? Every price is on one page.
             </h2>
             <div className="mt-10">
                 <Link
-                  href="/contact"
-                  className="eyebrow inline-block rounded-full bg-brand px-8 py-4 text-paper transition-colors hover:bg-ink"
+                  href="/packages"
+                  className="btn btn-primary"
                 >
-                  Start a conversation →
+                  See packages &amp; prices
                 </Link>
             </div>
           </Reveal>
