@@ -162,11 +162,11 @@ export default async function ServicePage({
           <Reveal delay={0.1} className="md:pt-24">
             <div className="hairline-t">
               <div className="flex items-baseline justify-between py-4 hairline-b">
-                <span className="eyebrow text-ink/50">Engagement</span>
+                <span className="eyebrow text-ink/50">Turnaround</span>
                 <span className="font-mono text-sm">{service.duration}</span>
               </div>
               <div className="flex items-baseline justify-between py-4 hairline-b">
-                <span className="eyebrow text-ink/50">Investment</span>
+                <span className="eyebrow text-ink/50">Starts at</span>
                 <span className="font-mono text-sm">{service.price}</span>
               </div>
               <div className="flex items-baseline justify-between py-4 hairline-b">
@@ -229,13 +229,13 @@ export default async function ServicePage({
             <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
               <div className="flex flex-col gap-8 md:flex-row md:gap-20">
                 <div>
-                  <p className="eyebrow text-paper/50">Typical engagement</p>
+                  <p className="eyebrow text-paper/50">Turnaround</p>
                   <p className="display mt-2 text-3xl md:text-4xl">
                     {service.duration}
                   </p>
                 </div>
                 <div>
-                  <p className="eyebrow text-paper/50">Investment</p>
+                  <p className="eyebrow text-paper/50">Starts at</p>
                   <p className="display mt-2 text-3xl md:text-4xl">
                     {service.price}
                   </p>

@@ -11,7 +11,7 @@ import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta, pageUrl } from "@/lib/site
 export const metadata: Metadata = pageMeta({
   title: "Services",
   description:
-    "Brand identity, product design, web design & build, and motion & 3D — the four things Xark Tech does for B2B software teams, and what each engagement involves.",
+    "Logos, websites, online stores, video, website care, local SEO and social media — seven services for small businesses, every one priced on the page.",
   path: "/services",
 });
 
@@ -51,22 +51,21 @@ export default function ServicesIndex() {
           <Reveal>
             <p className="eyebrow mb-4 text-brand">Services</p>
             <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
-              Four things,
-              <br />
-              <span className="accent-word">done properly</span>
+              Everything a small business{" "}
+              <span className="accent-word">actually needs</span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/70">
-              We don&rsquo;t have a capabilities deck with twenty logos on it.
-              These are the four disciplines we actually staff with senior
-              people, and they&rsquo;re usually combined — brand and site
-              together, or product design running alongside a system rebuild.
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+              Seven services, every one with its price on the page. Most people
+              start with a logo or a website and add the monthly pieces once
+              there is something worth promoting — and we will tell you when
+              that is, rather than selling it up front.
             </p>
           </Reveal>
 
           <Reveal delay={0.1} className="md:pt-24">
             <div className="hairline-t">
               <div className="flex items-baseline justify-between py-4 hairline-b">
-                <span className="eyebrow text-ink/50">Disciplines</span>
+                <span className="eyebrow text-ink/50">Services</span>
                 <span className="font-mono text-sm">{SERVICES.length}</span>
               </div>
               <div className="flex items-baseline justify-between py-4 hairline-b">
@@ -124,12 +123,12 @@ export default function ServicesIndex() {
               <div>
                 <p className="eyebrow text-paper/50">Pricing</p>
                 <h2 className="display-tight mt-4 max-w-2xl text-3xl md:text-5xl">
-                  Every service has three package tiers.
+                  Every price is on one page.
                 </h2>
                 <p className="mt-6 max-w-xl leading-relaxed text-paper/70">
-                  Scoped start, the engagement most clients pick, or a
-                  partnership for teams who need us standing by. All the numbers
-                  are on one page.
+                  No quotes, no discovery call before you can see a number, and
+                  no price that moves once we know what you can afford. Pick a
+                  package, fill in the brief, and work starts.
                 </p>
               </div>
                 <Link

@@ -53,19 +53,18 @@ export default function Team() {
 
         <Reveal delay={0.12} className="md:pt-6">
           <p className="max-w-xl text-xl leading-relaxed text-ink/80 md:text-2xl">
-            No account layer, no handoff to juniors, no big reveal at the end.
+            No account manager, no sales team, and nothing reaches you unseen.
           </p>
-          <p className="mt-6 max-w-xl leading-relaxed text-ink/70">
-            Xark Tech is deliberately small. Every engagement is run by the
-            person who scoped it, which keeps decisions fast and the work
-            consistent from first call to launch. When a project needs a
-            specialist — an illustrator, a copywriter, an engineer — we bring in
-            trusted collaborators and tell you exactly who is doing what.
+          <p className="mt-6 max-w-xl leading-relaxed text-muted">
+            Design and build are handled by a production team we work with
+            directly. Every brief is read here, and every draft is reviewed here
+            before it goes to you — so there is one person accountable for what
+            lands in your inbox, whoever drew it.
           </p>
-          <p className="mt-6 max-w-xl leading-relaxed text-ink/70">
-            The trade-off is honest: we take on fewer projects at a time. If the
-            timing doesn&rsquo;t work, we&rsquo;ll say so on the first call
-            rather than stretch and under-deliver.
+          <p className="mt-6 max-w-xl leading-relaxed text-muted">
+            That structure is why the prices on this site are possible. It also
+            means fixed scope: a package is a package, and anything outside it
+            gets quoted rather than absorbed quietly.
           </p>
         </Reveal>
       </div>

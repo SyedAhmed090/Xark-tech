@@ -28,10 +28,10 @@ export default function PackagesPage() {
               <span className="accent-word">to work with us</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/70">
-              No hidden day rates and no discovery call before you can see a
-              number. Every service runs on the same three-rung ladder — a
-              scoped start, the engagement most clients pick, and a partnership
-              for teams who need us standing by.
+              No hidden extras and no discovery call before you can see a
+              number. Every package lists exactly what it includes, what it
+              costs, and how long it takes — and the file formats and ownership
+              are the same at every price.
             </p>
           </Reveal>
 

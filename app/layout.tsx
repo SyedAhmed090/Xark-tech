@@ -75,7 +75,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Xark Tech — independent design agency for B2B software",
+        alt: "Xark Tech — logos and websites for small businesses, from $99",
       },
     ],
   },
@@ -125,7 +125,7 @@ const JSON_LD = {
         "Design systems",
         "Web design and development",
         "Motion design",
-        "B2B software",
+        "small business website design",
       ],
       hasOfferCatalog: {
         "@type": "OfferCatalog",

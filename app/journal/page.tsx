@@ -10,7 +10,7 @@ import { POSTS } from "@/lib/posts";
 export const metadata: Metadata = pageMeta({
   title: "Journal",
   description:
-    "Notes on design systems, motion, and running a small studio — from the team at Xark Tech.",
+    "Plain answers on what design and websites cost, how to choose a designer, and why your business isn\u2019t showing up on Google.",
   path: "/journal",
 });
 
@@ -22,15 +22,15 @@ export default function JournalIndex() {
         <header className="grid gap-10 px-5 md:grid-cols-[2fr_1fr] md:gap-8 md:px-10">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">Journal</p>
-            <h1 className="display text-[clamp(2.75rem,11vw,10rem)]">
-              Notes from
+            <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
+              Straight answers,
               <br />
-              the <span className="accent-word">studio</span>
+              <span className="accent-word">no jargon</span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/70">
-              What we’re learning about design systems, motion, and running a
-              small studio — written when we have something to say, not on a
-              content calendar.
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+              What things cost, how to tell a good quote from a bad one, and
+              why your business isn&rsquo;t showing up on Google. Written for
+              people hiring a designer for the first time.
             </p>
           </Reveal>
 

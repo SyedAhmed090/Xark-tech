@@ -6,7 +6,8 @@ import { ImageResponse } from "next/og";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "Xark Tech — independent design agency for B2B software";
+export const alt =
+  "Xark Tech — logos from $99 and websites from $399 for small businesses";
 
 export default function Image() {
   return new ImageResponse(
