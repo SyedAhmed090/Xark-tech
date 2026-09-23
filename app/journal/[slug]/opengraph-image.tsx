@@ -54,7 +54,7 @@ export default async function Image({
             }}
           >
             XARK
-            <span style={{ color: "#2016e8", fontSize: 18, marginLeft: 4 }}>
+            <span style={{ color: "#1f4fe0", fontSize: 18, marginLeft: 4 }}>
               ®
             </span>
           </div>
@@ -77,7 +77,7 @@ export default async function Image({
               display: "flex",
               width: 120,
               height: 10,
-              background: "#2016e8",
+              background: "#1f4fe0",
               marginBottom: 28,
             }}
           />

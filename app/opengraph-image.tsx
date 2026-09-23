@@ -40,7 +40,7 @@ export default function Image() {
             }}
           >
             XARK
-            <span style={{ color: "#2016e8", fontSize: 18, marginLeft: 4 }}>
+            <span style={{ color: "#1f4fe0", fontSize: 18, marginLeft: 4 }}>
               ®
             </span>
           </div>
@@ -53,7 +53,7 @@ export default function Image() {
               letterSpacing: 3,
             }}
           >
-            Independent design agency
+            Small business design
           </div>
         </div>
 
@@ -63,7 +63,7 @@ export default function Image() {
               display: "flex",
               width: 120,
               height: 10,
-              background: "#2016e8",
+              background: "#1f4fe0",
               marginBottom: 28,
             }}
           />
@@ -76,7 +76,7 @@ export default function Image() {
               lineHeight: 1,
             }}
           >
-            We make software
+            Logos from $99.
           </div>
           <div
             style={{
@@ -85,10 +85,10 @@ export default function Image() {
               fontWeight: 800,
               letterSpacing: -4,
               lineHeight: 1,
-              color: "#2016e8",
+              color: "#1f4fe0",
             }}
           >
-            feel human.
+            Sites from $399.
           </div>
         </div>
 
@@ -101,7 +101,7 @@ export default function Image() {
             letterSpacing: 3,
           }}
         >
-          Brand · Product · Web · Sheridan, Wyoming
+          Fixed prices · You own the files · Sheridan, Wyoming
         </div>
       </div>
     ),

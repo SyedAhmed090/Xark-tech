@@ -30,7 +30,7 @@ export default async function Image({
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#2016e8",
+          background: "#1f4fe0",
           color: "#f7f6f2",
           padding: 64,
           fontFamily: "sans-serif",

@@ -38,14 +38,14 @@ export default async function Image({
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div style={{ display: "flex", fontSize: 34, fontWeight: 800, letterSpacing: -1 }}>
-            XARK<span style={{ color: "#2016e8", fontSize: 18, marginLeft: 4 }}>®</span>
+            XARK<span style={{ color: "#1f4fe0", fontSize: 18, marginLeft: 4 }}>®</span>
           </div>
           <div style={{ display: "flex", fontSize: 20, color: "#a9a79c", textTransform: "uppercase", letterSpacing: 3 }}>
             Case study — {project?.year ?? ""}
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", width: 120, height: 10, background: project?.tint ?? "#2016e8", marginBottom: 28 }} />
+          <div style={{ display: "flex", width: 120, height: 10, background: project?.tint ?? "#1f4fe0", marginBottom: 28 }} />
           <div style={{ display: "flex", fontSize: 110, fontWeight: 800, letterSpacing: -4, textTransform: "uppercase", lineHeight: 1 }}>
             {project?.name ?? "Xark Tech"}
           </div>

@@ -10,7 +10,7 @@ import { PROJECTS } from "@/lib/projects";
 export const metadata: Metadata = pageMeta({
   title: "Work",
   description:
-    "Self-initiated concept projects from Xark Tech: brand, product, and web for complex B2B software in fintech, healthcare, and logistics. Each one built as a working prototype.",
+    "Self-initiated concept projects from Xark Tech — each one designed and then actually built, so you can open the prototype rather than take our word for the craft.",
   path: "/work",
 });
 
@@ -25,11 +25,16 @@ export default function WorkIndex() {
               All work — {PROJECTS.length} concept projects — 2024–2026
             </p>
             <h1 className="display text-[clamp(3rem,12vw,11rem)]">Work</h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/70">
-              Mostly complex B2B software — fintech, healthcare, logistics —
-              plus the occasional detour worth taking. These are self-initiated
-              concept projects: each one designed and then actually built, so
-              you can open the prototype rather than take our word for it.
+            {/* These are ambitious software concepts, not small-business
+                sites, and pretending otherwise in the copy would be worse than
+                saying so. Framed as a craft demonstration until the case
+                studies are rebuilt around the work now being sold. */}
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+              Self-initiated concept projects — each one designed and then
+              actually built, so you can open the prototype rather than take
+              our word for it. They are deliberately hard briefs: if the
+              detail holds up at this level, it holds up on a five-page site
+              for a local business.
             </p>
           </Reveal>
         </header>

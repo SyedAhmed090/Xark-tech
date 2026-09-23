@@ -9,13 +9,13 @@ export const SITE = {
   /** Production origin, no trailing slash. */
   url: "https://xarktech.com",
   name: "Xark Tech",
-  tagline: "We make software feel human",
+  tagline: "Design your small business can afford",
   email: "info@xarktech.com",
   description:
-    "Xark Tech is an independent design studio in Sheridan, WY, focused on complex B2B software — fintech, healthcare, logistics. Brand identity, product design, and web experiences.",
+    "Logos, websites and branding for small businesses. Fixed prices published on the page, full file ownership on every package, and a delivery date before you pay. Based in Sheridan, WY.",
   /** Shorter variant for social cards, where long text is truncated. */
   shortDescription:
-    "Independent design studio in Sheridan, WY, focused on complex B2B software — fintech, healthcare, logistics.",
+    "Logos from $99 and websites from $399 for small businesses — fixed prices, full ownership, no sales calls.",
   /**
    * No foundingDate: the previous value (2014) was not verified, and an
    * unverifiable date asserted in JSON-LD is a claim to search engines rather

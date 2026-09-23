@@ -18,7 +18,7 @@ export default function NotFound() {
         <svg viewBox="0 0 100 100" className="mb-8 h-16 w-16" aria-hidden>
           <path
             d="M22 22 L78 78 M78 22 L22 78"
-            stroke="#2016e8"
+            stroke="#1f4fe0"
             strokeWidth="12"
             strokeLinecap="round"
           />
