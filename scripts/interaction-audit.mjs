@@ -1,8 +1,16 @@
 // Drives the actual interactive surfaces: accordion, mobile menu, forms,
 // keyboard navigation, and reduced-motion behaviour.
 import { chromium } from "playwright";
+import { routesFromSitemap } from "./routes.mjs";
 
-const BASE = "http://localhost:3000";
+const BASE = process.env.AUDIT_BASE ?? "http://localhost:3000";
+
+// Pick a real post from the sitemap rather than naming one. This script
+// hardcoded a slug, and retargeting the journal left it driving a 404 while
+// still reporting "no newsletter form found" as though that were a finding.
+const ROUTES = await routesFromSitemap(BASE);
+const JOURNAL_POST =
+  ROUTES.find((r) => r.startsWith("/journal/")) ?? "/journal";
 const browser = await chromium.launch();
 const log = (s) => console.log(s);
 
@@ -102,7 +110,7 @@ const log = (s) => console.log(s);
 // ---------- 4. Newsletter form ----------
 {
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
-  await page.goto(`${BASE}/journal/why-we-stay-small`, { waitUntil: "networkidle" });
+  await page.goto(`${BASE}${JOURNAL_POST}`, { waitUntil: "networkidle" });
   await page.waitForTimeout(600);
   log("\n== Newsletter form ==");
   const email = page.locator('input[type="email"]').first();
