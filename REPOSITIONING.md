@@ -5,7 +5,7 @@ productized small-business agency. Read `README.md` first for the architecture
 (static export, Apache/cPanel, PHP form endpoints) — this file is only about
 the repositioning.
 
-**Status: steps 1–3 done and on `main`. Steps 4–6 outstanding.**
+**Status: steps 1–5 done and on `main`. Step 6 is blocked on host access.**
 
 ---
 
@@ -85,81 +85,65 @@ unlayered rule rather than a token swap at each call site.
 
 ---
 
-## Outstanding
+## Status by step
 
-### 4. Service page content
+### 4. Service page content — done
 
-Each of the seven service pages needs **15–20 FAQs**, written to lead with the
-answer. There are currently **none** — `lib/faq.ts` covers the homepage only.
+102 FAQs across the seven service pages, each mirrored into FAQPage schema
+generated from the same array the page renders. Answers lead with the number,
+the timeframe or a plain yes/no, because they are written to be quoted in
+isolation by an assistant rather than skimmed.
 
-This is the cheapest remaining win. Competitors run this density explicitly for
-AI answer engines, and at this price point "how much does a logo cost for a
-small business" is a query worth owning. Mirror each set into `FAQPage` schema
-the way `app/page.tsx` already does, and keep the answers consistent with
-`lib/services.ts` — contradicting the page is worse than no schema.
+They deliberately cover the awkward questions — refunds, whether AI is used,
+whether the work is outsourced, whether first place on Google can be
+guaranteed. Several argue against a sale. Those are the questions stopping the
+purchase; omitting them moves the doubt somewhere it cannot be answered.
 
-### 5. Retarget the content
+### 5. Retarget the content — done
 
-Steps 1–3 changed the commercial model and the pages that sell. Several
-surfaces were never revisited and now **contradict** the site rather than
-merely sounding dated. In rough order of how much damage they do:
+Every surface that still spoke to a B2B product team has been rewritten:
+the homepage process block, `/contact`, the reply-time promise (one business
+day everywhere now), `BookingLink`, `/studio`, the terms, and all five journal
+posts. Two posts that could not be retargeted were retired.
 
-1. **`components/Process.tsx` — live on the homepage.** Describes a multi-week
-   embedded engagement: *"Two weeks inside your world — stakeholder interviews,
-   customer calls"*, *"weekly working sessions"*, *"you see momentum every
-   Friday"*, *"a design system your team can run without us"*. The hero three
-   screens above it promises a logo in three days. Worst offender, because it
-   is on the page that does the most work.
+`lib/site.ts` was the important one: its `description` is both the site-wide
+meta description and the Organization schema description, and it still said
+"an independent design studio focused on complex B2B software". The Open Graph
+card still said "We make software feel human".
 
-2. **`/contact`** — *"currently booking Q4 2026 engagements"* and *"a scoped
-   proposal with a number and a start date, if we're a fit"*, on a site whose
-   prices are published and whose brief starts work immediately. Also *"a reply
-   from a founder"*, which contradicts both the offshore delivery model and the
-   FAQ's own answer about who does the work.
+**Still open here:** the four case studies are enterprise software concepts.
+They are honestly labelled as self-initiated concept work and `/work` now
+frames them as craft demonstrations, but replacing the *subjects* with
+small-business ones means rebuilding four working prototypes. That is a design
+job to schedule, not a copy fix.
 
-3. **Reply-time conflict.** `/contact` and `components/CTA.tsx` both say *two*
-   business days; `BriefForm` says *one*. Pick one and make all three agree.
+### 6. Launch — blocked on host access
 
-4. **`components/BookingLink.tsx`** — a cal.com "Rather just talk?" CTA. A call
-   option is fine, but it is currently framed as the main alternative on a site
-   built around not needing one.
+`npm run launch-check` verifies the built `out/` before deploy: required files,
+origin consistency, sitemap/canonical agreement, noindex pages wrongly listed,
+Organization schema completeness, and leftover placeholder markers. It exits
+non-zero on anything that would break in production.
 
-5. **`/studio` (linked as "About")** — *"an independent, founder-led design
-   studio"*, *"small by design, serious about craft"*, *"taste opens the
-   conversation; research and testing close it"*. Written for a product team
-   choosing a studio, not a florist buying a logo.
+It currently reports **0 blocking, 2 to decide**:
 
-6. **Journal** — seven posts, all B2B SaaS ("How to choose a B2B SaaS design
-   agency"; "What a B2B software rebrand actually costs" still quotes
-   $35k–$250k). Retarget to small-business queries.
+1. **tawk.to is not configured.** Set `SITE.chat.propertyId` and `widgetId` in
+   `lib/site.ts` or no chat widget renders. The CSP already allows the vendor.
+2. **No `sameAs` in the Organization schema.** Add real social profile URLs to
+   `SITE.socials` — deliberately empty rather than pointing at platform
+   homepages, which asserts a relationship that does not exist.
 
-7. **Case studies** — Meridian, Loop Health, Forma Studio, Atlas Freight are
-   enterprise product work. Reframe to small-business outcomes, or replace.
-   The terms page already covers the framing ("anonymized, illustrative
-   form"); it is the targeting that is wrong.
+Two things the check cannot see, both needing the live host:
 
-8. **`/terms` has no revision or refund policy.** It covers site content,
-   indicative pricing and governing law, but says nothing about how many
-   revisions a package includes or when money comes back. Competitors are
-   beatable precisely because their terms contradict their marketing — ours
-   should state both, matching what the packages advertise, before taking
-   money.
-
-### 6. Launch
-
-Blockers, in order:
-
-1. **Mail delivery is broken on the host.** `mail()` returns true and nothing
-   arrives. Submissions are being recorded to `xark-data/` so nothing is lost,
-   but no notification is reaching anyone. Check `info@xarktech.com` exists as
-   a real mailbox on the cPanel account.
-2. **`xarktech.com` returns 403.** Nothing is deployed yet.
-3. **`lib/site.ts` has two `TODO(launch)` markers** — phone and street/postal —
-   plus `socials: []` and empty tawk.to ids. An Organization schema with no
-   telephone, address or `sameAs` is a thin entity.
+3. **Mail delivery is broken.** `mail()` returns true and nothing arrives.
+   Every form writes its row to `xark-data/*.csv` above `public_html` first, so
+   nothing is being lost, but no notification reaches anyone. Confirm
+   `info@xarktech.com` exists as a real mailbox on the cPanel account.
+   `tools/mailtest.php` is there to diagnose it.
 4. **`brief.php` has never been executed.** There is no PHP on the dev machine,
    so not even a syntax check has run against it. Needs one live submission;
    confirm a row lands in `xark-data/briefs.csv` above `public_html`.
+
+`xarktech.com` returning 403 simply means nothing is deployed yet.
 
 ### Not a site problem, but decides whether this works
 
@@ -180,6 +164,8 @@ AUDIT_BASE=http://localhost:3000 node scripts/site-audit.mjs
 AUDIT_BASE=http://localhost:3000 node scripts/mobile-audit.mjs
 AUDIT_BASE=http://localhost:3000 node scripts/tablet-contrast-audit.mjs
 AUDIT_BASE=http://localhost:3000 node scripts/brief-check.mjs
+
+npm run launch-check      # reads out/ directly; run before every deploy
 ```
 
 The audits read routes from the site's own sitemap. They used to carry

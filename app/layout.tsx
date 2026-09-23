@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Newsreader, Spline_Sans_Mono } from "next/font/google";
-import { SITE, absoluteUrl } from "@/lib/site";
+import { SITE, absoluteUrl, pageUrl } from "@/lib/site";
 import { SERVICES } from "@/lib/services";
 import Chat from "@/components/Chat";
 import "./globals.css";
@@ -136,7 +136,7 @@ const JSON_LD = {
             "@type": "Service",
             name: service.name,
             description: service.tagline,
-            url: absoluteUrl(`/services/${service.slug}`),
+            url: pageUrl(`/services/${service.slug}`),
           },
         })),
       },

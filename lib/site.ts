@@ -56,9 +56,27 @@ export const SITE = {
   },
 } as const;
 
-/** Absolute URL for a site-relative path. */
+/** Absolute URL for a site-relative path. Use for assets and image routes. */
 export function absoluteUrl(path = "/") {
   return new URL(path, SITE.url).toString();
+}
+
+/**
+ * Absolute URL for a *page*, in the form the site actually serves it.
+ *
+ * next.config.ts sets `trailingSlash: true`, so /work is served at /work/ and
+ * the canonical tag Next emits carries the slash. The sitemap was built from
+ * absoluteUrl() and did not, so every URL submitted to search engines
+ * redirected to a different URL than the one it named — harmless in isolation,
+ * and exactly the sort of inconsistency that wastes crawl budget and muddies
+ * which address is authoritative.
+ *
+ * Page routes only. Asset paths (/logo.png) and Next's metadata image routes
+ * must not gain a trailing slash, so those keep using absoluteUrl.
+ */
+export function pageUrl(path = "/") {
+  const withSlash = path === "/" || path.endsWith("/") ? path : `${path}/`;
+  return new URL(withSlash, SITE.url).toString();
 }
 
 /**
@@ -130,7 +148,7 @@ export function breadcrumbs(trail: { name: string; path: string }[]) {
       "@type": "ListItem",
       position: i + 1,
       name: crumb.name,
-      item: absoluteUrl(crumb.path),
+      item: pageUrl(crumb.path),
     })),
   };
 }

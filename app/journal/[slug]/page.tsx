@@ -20,7 +20,7 @@ import {
   type Post,
   type Rich,
 } from "@/lib/posts";
-import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta } from "@/lib/site";
+import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta, pageUrl } from "@/lib/site";
 
 export function generateStaticParams() {
   return POSTS.map((p) => ({ slug: p.slug }));
@@ -60,7 +60,7 @@ function postSchema(post: Post) {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.metaDescription ?? post.dek,
-    url: absoluteUrl(`/journal/${post.slug}`),
+    url: pageUrl(`/journal/${post.slug}`),
     datePublished: post.date,
     dateModified: post.date,
     author: ORG_REF,
@@ -73,7 +73,7 @@ function postSchema(post: Post) {
     articleSection: postHeadings(post).map((h) => h.text),
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": absoluteUrl(`/journal/${post.slug}`),
+      "@id": pageUrl(`/journal/${post.slug}`),
     },
   };
 }

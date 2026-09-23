@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 import JsonLd from "@/components/JsonLd";
 import { PROJECTS, getProject, type Project } from "@/lib/projects";
-import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta } from "@/lib/site";
+import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta, pageUrl } from "@/lib/site";
 
 export function generateStaticParams() {
   return PROJECTS.map((p) => ({ slug: p.slug }));
@@ -33,7 +33,7 @@ function caseStudySchema(project: Project) {
     "@type": "Article",
     headline: `${project.name} — ${project.category} case study`,
     description: project.summary,
-    url: absoluteUrl(`/work/${project.slug}`),
+    url: pageUrl(`/work/${project.slug}`),
     image: absoluteUrl(`/portfolio/${project.slug}-photo.jpg`),
     author: ORG_REF,
     publisher: ORG_REF,
@@ -43,7 +43,7 @@ function caseStudySchema(project: Project) {
     inLanguage: "en-US",
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": absoluteUrl(`/work/${project.slug}`),
+      "@id": pageUrl(`/work/${project.slug}`),
     },
   };
 }

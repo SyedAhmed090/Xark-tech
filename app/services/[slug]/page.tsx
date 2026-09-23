@@ -17,7 +17,7 @@ import {
   type Service,
 } from "@/lib/services";
 import { PROJECTS } from "@/lib/projects";
-import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta } from "@/lib/site";
+import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta, pageUrl } from "@/lib/site";
 
 export function generateStaticParams() {
   return SERVICES.map((s) => ({ slug: s.slug }));
@@ -90,7 +90,7 @@ function serviceSchema(service: Service) {
     "@type": "Service",
     name: service.name,
     description: service.description,
-    url: absoluteUrl(`/services/${service.slug}`),
+    url: pageUrl(`/services/${service.slug}`),
     serviceType: service.name,
     provider: ORG_REF,
     areaServed: { "@type": "Country", name: "United States" },
@@ -109,7 +109,7 @@ function serviceSchema(service: Service) {
         name: `${service.name} — ${pkg.name}`,
         description: pkg.summary,
         ...offerPricing(pkg),
-        url: absoluteUrl(`/services/${service.slug}`),
+        url: pageUrl(`/services/${service.slug}`),
         availability: "https://schema.org/InStock",
       })),
     },
@@ -133,7 +133,7 @@ export default async function ServicePage({
       <JsonLd data={serviceSchema(service)} />
       {faqs.length > 0 && (
         <JsonLd
-          data={faqSchema(faqs, absoluteUrl(`/services/${service.slug}`))}
+          data={faqSchema(faqs, pageUrl(`/services/${service.slug}`))}
         />
       )}
       <JsonLd

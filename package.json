@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && node scripts/prepare-deploy.mjs",
-    "lint": "eslint"
+    "lint": "eslint",
+    "launch-check": "node scripts/launch-check.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.42.2",

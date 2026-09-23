@@ -6,7 +6,7 @@ import JsonLd from "@/components/JsonLd";
 import { Reveal } from "@/components/Reveal";
 import { ENTRY_PRICE, SERVICES } from "@/lib/services";
 import { PROJECTS } from "@/lib/projects";
-import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta } from "@/lib/site";
+import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta, pageUrl } from "@/lib/site";
 
 export const metadata: Metadata = pageMeta({
   title: "Services",
@@ -21,7 +21,7 @@ const LIST_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   name: "Services — Xark Tech",
-  url: absoluteUrl("/services"),
+  url: pageUrl("/services"),
   isPartOf: ORG_REF,
   mainEntity: {
     "@type": "ItemList",
@@ -30,7 +30,7 @@ const LIST_SCHEMA = {
       "@type": "ListItem",
       position: i + 1,
       name: service.name,
-      url: absoluteUrl(`/services/${service.slug}`),
+      url: pageUrl(`/services/${service.slug}`),
     })),
   },
 };
