@@ -8,6 +8,8 @@ import { PackagesSection } from "@/components/Packages";
 import { Reveal } from "@/components/Reveal";
 import { Tick } from "@/components/Hero";
 import JsonLd from "@/components/JsonLd";
+import FAQ from "@/components/FAQ";
+import { SERVICE_FAQS } from "@/lib/service-faqs";
 import {
   SERVICES,
   getService,
@@ -61,6 +63,25 @@ function offerPricing(pkg: Package) {
   };
 }
 
+/**
+ * Generated from the array the page renders, never written separately.
+ * FAQ schema that does not match the visible page is treated as untrustworthy,
+ * and the only reliable way to keep them identical is to have one source.
+ */
+function faqSchema(items: { q: string; a: string }[], url: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    url,
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+    publisher: ORG_REF,
+  };
+}
+
 function serviceSchema(service: Service) {
   const prices = service.packages.map((p) => p.priceUsd);
 
@@ -103,12 +124,18 @@ export default async function ServicePage({
   const service = getService((await params).slug);
   if (!service) notFound();
 
+  const faqs = SERVICE_FAQS[service.slug] ?? [];
   const related = PROJECTS.filter((p) => service.related.includes(p.slug));
   const others = SERVICES.filter((s) => s.slug !== service.slug);
 
   return (
     <>
       <JsonLd data={serviceSchema(service)} />
+      {faqs.length > 0 && (
+        <JsonLd
+          data={faqSchema(faqs, absoluteUrl(`/services/${service.slug}`))}
+        />
+      )}
       <JsonLd
         data={breadcrumbs([
           { name: "Home", path: "/" },
@@ -188,6 +215,14 @@ export default async function ServicePage({
           serviceName={service.name}
           serviceSlug={service.slug}
         />
+
+        {faqs.length > 0 && (
+          <FAQ
+            items={faqs}
+            eyebrow="Questions"
+            heading={`${service.name}: the questions people ask first.`}
+          />
+        )}
 
         <section className="bg-ink px-5 py-16 text-paper md:px-10 md:py-20">
           <Reveal>
