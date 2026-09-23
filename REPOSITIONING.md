@@ -100,16 +100,50 @@ the way `app/page.tsx` already does, and keep the answers consistent with
 
 ### 5. Retarget the content
 
-Both of these still speak to the old positioning and now contradict the site:
+Steps 1–3 changed the commercial model and the pages that sell. Several
+surfaces were never revisited and now **contradict** the site rather than
+merely sounding dated. In rough order of how much damage they do:
 
-- **Journal** — seven posts, all B2B SaaS ("How to choose a B2B SaaS design
-  agency", "What a B2B software rebrand actually costs" — the latter still
-  quotes $35k–$250k). Retarget to small-business queries.
-- **Case studies** — Meridian, Loop Health, Forma Studio, Atlas Freight are
-  enterprise product work. Reframe to small-business outcomes, or replace.
+1. **`components/Process.tsx` — live on the homepage.** Describes a multi-week
+   embedded engagement: *"Two weeks inside your world — stakeholder interviews,
+   customer calls"*, *"weekly working sessions"*, *"you see momentum every
+   Friday"*, *"a design system your team can run without us"*. The hero three
+   screens above it promises a logo in three days. Worst offender, because it
+   is on the page that does the most work.
 
-Note the terms page already says client details may be shown "in anonymized,
-illustrative form", so the framing is covered — the targeting is not.
+2. **`/contact`** — *"currently booking Q4 2026 engagements"* and *"a scoped
+   proposal with a number and a start date, if we're a fit"*, on a site whose
+   prices are published and whose brief starts work immediately. Also *"a reply
+   from a founder"*, which contradicts both the offshore delivery model and the
+   FAQ's own answer about who does the work.
+
+3. **Reply-time conflict.** `/contact` and `components/CTA.tsx` both say *two*
+   business days; `BriefForm` says *one*. Pick one and make all three agree.
+
+4. **`components/BookingLink.tsx`** — a cal.com "Rather just talk?" CTA. A call
+   option is fine, but it is currently framed as the main alternative on a site
+   built around not needing one.
+
+5. **`/studio` (linked as "About")** — *"an independent, founder-led design
+   studio"*, *"small by design, serious about craft"*, *"taste opens the
+   conversation; research and testing close it"*. Written for a product team
+   choosing a studio, not a florist buying a logo.
+
+6. **Journal** — seven posts, all B2B SaaS ("How to choose a B2B SaaS design
+   agency"; "What a B2B software rebrand actually costs" still quotes
+   $35k–$250k). Retarget to small-business queries.
+
+7. **Case studies** — Meridian, Loop Health, Forma Studio, Atlas Freight are
+   enterprise product work. Reframe to small-business outcomes, or replace.
+   The terms page already covers the framing ("anonymized, illustrative
+   form"); it is the targeting that is wrong.
+
+8. **`/terms` has no revision or refund policy.** It covers site content,
+   indicative pricing and governing law, but says nothing about how many
+   revisions a package includes or when money comes back. Competitors are
+   beatable precisely because their terms contradict their marketing — ours
+   should state both, matching what the packages advertise, before taking
+   money.
 
 ### 6. Launch
 
