@@ -51,8 +51,11 @@ export default function Footer() {
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
           <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-brand" />
         </span>
+        {/* "Accepting Q4 2026 projects" implied a booked-out studio queue.
+            Work starts when the brief lands, so the status line should say
+            that — and it does not need editing every quarter. */}
         <span className="eyebrow text-paper/70">
-          Accepting Q4 2026 projects
+          Taking on new projects now
         </span>
       </div>
 

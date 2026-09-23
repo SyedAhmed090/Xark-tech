@@ -23,10 +23,12 @@ export default function CTA() {
 
         <Reveal delay={0.3}>
           <div className="flex h-full flex-col justify-between gap-10">
+            {/* One business day, matching /contact and the brief
+                confirmation. These three used to disagree, and the one a
+                visitor remembers is whichever we then miss. */}
             <p className="max-w-xs text-sm leading-relaxed text-paper/70">
-              Booking new engagements for Q4 2026. Tell us what you’re building
-              — we reply within two business days. Prefer email? Write to us
-              directly:
+              Tell us what you need and we reply within one business day with a
+              price and a delivery date. Prefer email? Write to us directly:
             </p>
             <a
               href={`mailto:${SITE.email}`}

@@ -1,29 +1,38 @@
 import { Reveal } from "./Reveal";
 
+/**
+ * The real process, not an agency one.
+ *
+ * This block previously described a multi-week embedded engagement —
+ * stakeholder interviews, weekly working sessions, a design system handed to
+ * the client's team. That was true of the studio it was written for, and it
+ * sits three screens below a hero promising a logo in three days. A visitor
+ * who reads both believes neither.
+ */
 const STEPS = [
   {
     number: "01",
-    name: "Listen",
+    name: "Choose",
     detail:
-      "Two weeks inside your world — stakeholder interviews, customer calls, and a hard look at the market. We don’t sketch until we understand.",
+      "Pick a package from the price list. Every number is on the page, so there is no quote to wait for and no call to sit through before you know what it costs.",
   },
   {
     number: "02",
-    name: "Define",
+    name: "Brief",
     detail:
-      "Strategy on one page: positioning, the design principles that will govern every decision, and a scope we’ll actually hit.",
+      "Fill in the brief — it asks everything a discovery call would, in plain language. We reply with a delivery date before any work starts, and before you pay.",
   },
   {
     number: "03",
-    name: "Design",
+    name: "Draft",
     detail:
-      "Weekly working sessions, real prototypes over static decks. You see momentum every Friday, not a big reveal at the end.",
+      "First concepts come back in days, not weeks. You pick a direction and tell us what to change in your own words — no design vocabulary required.",
   },
   {
     number: "04",
-    name: "Ship",
+    name: "Deliver",
     detail:
-      "We stay through launch — production-ready builds, QA, and a design system your team can run without us.",
+      "Revisions, then the final files: the full vector set, web formats, and full ownership. Nothing is held back, and there is no fee to remove our name.",
   },
 ];
 
@@ -35,12 +44,12 @@ export default function Process() {
           <Reveal>
             <p className="eyebrow mb-4 text-brand">How we work</p>
             <h2 className="display-tight text-4xl md:text-5xl">
-              A four-step process with no mystery in it.
+              Four steps, and you know the price at step one.
             </h2>
-            <p className="mt-6 max-w-sm text-ink/70">
-              Most agency processes are theater. Ours is four steps because
-              that’s how many it takes — each one with a deliverable you can
-              hold.
+            <p className="mt-6 max-w-sm text-muted">
+              Most agency processes are theater — a discovery phase whose main
+              deliverable is an invoice. Ours is four steps because that is how
+              many it takes to get you a finished thing.
             </p>
           </Reveal>
         </div>
@@ -54,7 +63,7 @@ export default function Process() {
                   <h3 className="display-tight text-3xl md:text-4xl">
                     {step.name}
                   </h3>
-                  <p className="mt-4 max-w-lg leading-relaxed text-ink/70">
+                  <p className="mt-4 max-w-lg leading-relaxed text-muted">
                     {step.detail}
                   </p>
                 </div>

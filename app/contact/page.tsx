@@ -10,22 +10,31 @@ import { Reveal } from "@/components/Reveal";
 export const metadata: Metadata = pageMeta({
   title: "Contact",
   description:
-    "Tell us what you're building. Xark Tech replies within two business days — currently booking Q4 2026 engagements.",
+    "Tell us what you need. Xark Tech replies within one business day with a price and a delivery date. No sales call required.",
   path: "/contact",
 });
 
+/**
+ * These used to describe a studio sales cycle — a founder reply, an intro
+ * call, a scoped proposal two weeks out. On a site that publishes its prices
+ * and starts work from a brief, that promised a slower, vaguer process than
+ * the one a visitor can already see on the pricing page.
+ */
 const NEXT_STEPS = [
   {
-    title: "Within two days",
-    detail: "A reply from a founder — not a form letter, not a sales rep.",
+    title: "Within one business day",
+    detail:
+      "A reply with a price and a delivery date — or the one or two questions we need answered before we can give you either.",
   },
   {
-    title: "Within a week",
-    detail: "A 30-minute intro call to hear the problem in your words.",
+    title: "No sales call",
+    detail:
+      "Not unless you want one. Most projects start from a written brief, which is faster for you and gives the designer more to work from.",
   },
   {
-    title: "Within two weeks",
-    detail: "A scoped proposal with a number and a start date, if we're a fit.",
+    title: "Nothing charged yet",
+    detail:
+      "Payment comes after the scope and the date are agreed in writing. Getting a number from us costs nothing.",
   },
 ];
 
@@ -40,9 +49,13 @@ export default function ContactPage() {
             <h1 className="display text-[clamp(2.75rem,11vw,10rem)]">
               Say <span className="accent-word">hello</span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/70">
-              Booking new engagements for Q4 2026. A few lines about what
-              you’re building is all it takes to start.
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+              A few lines about what you need is all it takes. If you already
+              know which package you want,{" "}
+              <Link href="/brief" className="text-brand underline underline-offset-4">
+                fill in the brief instead
+              </Link>{" "}
+              and we&rsquo;ll get straight to work.
             </p>
           </Reveal>
         </header>
@@ -67,11 +80,16 @@ export default function ContactPage() {
 
               <div>
                 <p className="eyebrow mb-4 text-brand">Our location</p>
-                <address className="font-serif text-2xl not-italic leading-snug text-ink md:text-3xl">
-                  <span className="block">{SITE.address.street}</span>
+                {/* street and postalCode are null until launch — see the
+                    TODO markers in lib/site.ts. Rendering them unconditionally
+                    printed blank lines into the address. */}
+                <address className="text-2xl not-italic leading-snug text-ink md:text-3xl">
+                  {SITE.address.street && (
+                    <span className="block">{SITE.address.street}</span>
+                  )}
                   <span className="block">
-                    {SITE.address.locality}, {SITE.address.region}{" "}
-                    {SITE.address.postalCode}
+                    {SITE.address.locality}, {SITE.address.region}
+                    {SITE.address.postalCode ? ` ${SITE.address.postalCode}` : ""}
                   </span>
                 </address>
               </div>
@@ -84,7 +102,7 @@ export default function ContactPage() {
                       <h2 className="font-mono text-sm text-brand">
                         {step.title}
                       </h2>
-                      <p className="mt-2 text-ink/70">{step.detail}</p>
+                      <p className="mt-2 text-muted">{step.detail}</p>
                     </div>
                   ))}
                 </div>
