@@ -3,6 +3,11 @@
 Marketing site for Xark Tech. Next.js 16 (App Router) built as a **static
 export** and deployed to Apache on cPanel shared hosting.
 
+See [REPOSITIONING.md](REPOSITIONING.md) for what the site is currently being
+turned into, which pricing decisions are settled, and what is still outstanding
+before launch. Read it before changing anything commercial — several of the
+choices there look arbitrary and are not.
+
 ## Why static
 
 The hosting has no Node runtime — cPanel offers Git Version Control but not
