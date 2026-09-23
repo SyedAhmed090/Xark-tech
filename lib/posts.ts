@@ -114,11 +114,7 @@ export const POSTS: Post[] = [
       { kind: "h2", text: "5. What are we left holding?" },
       {
         kind: "p",
-        text: [
-          "The end of a good engagement is not a handoff of files, it is a transfer of capability. Ask what your team can do on day 31 that it could not do on day 1. The honest version of that answer includes a design system with a written decision protocol — who may add a pattern, and what happens when a product team needs a variant on Thursday. We have argued this at length in ",
-          { text: "design systems are a management tool", href: "/journal/design-systems-are-a-management-tool" },
-          ", because it is the difference between a library that maintains itself and one you redraw in eighteen months.",
-        ],
+        text: "The end of a good engagement is not a handoff of files, it is a transfer of capability. Ask what your team can do on day 31 that it could not do on day 1. The honest version of that answer includes a design system with a written decision protocol — who may add a pattern, and what happens when a product team needs a variant on Thursday. That is the difference between a library that maintains itself and one you redraw in eighteen months.",
       },
       { kind: "h2", text: "6. What have you turned down?" },
       {
@@ -195,174 +191,119 @@ export const POSTS: Post[] = [
         a: "Often, and it is cheaper. The cases where outside help genuinely wins are the ones your team cannot do from inside: a repositioning that requires being rude about a sacred cow, a system that needs an outsider to arbitrate between two product squads, or a launch that has to happen while the team keeps shipping. If none of those apply, keep the money.",
       },
     ],
-    related: ["what-a-b2b-software-rebrand-costs", "design-retainer-vs-project-work"],
+    related: ["what-a-logo-and-website-cost", "design-retainer-vs-project-work"],
   },
   {
-    slug: "what-a-b2b-software-rebrand-costs",
-    title: "What a B2B software rebrand actually costs",
-    dek: "Not a price list — the four variables that move the same project from $35k to $250k, and how to tell which one you are paying for.",
+    slug: "what-a-logo-and-website-cost",
+    title: "What a logo and website actually cost in 2026",
+    dek: "Three price bands, what each one really buys, and the charges that turn a $40 logo into a $300 one.",
     metaDescription:
-      "What a B2B software rebrand costs, the four variables that drive the number, and how to tell whether a quote is scoped or padded.",
-    date: "2026-08-13",
-    displayDate: "August 2026",
+      "What a small business logo and website cost in 2026 — the three real price bands, what each includes, and the hidden fees to check for before you buy.",
+    date: "2026-09-22",
+    displayDate: "September 2026",
     readingTime: "7 min",
     blocks: [
       {
         kind: "p",
-        text: "Nobody will give you the number on the phone, and there is a legitimate reason plus a bad one. The legitimate reason is that the word rebrand covers everything from a new logo to rebuilding how a company describes itself across a product, a sales motion and four years of documentation. The bad reason is that many studios are waiting to hear your funding stage before pricing.",
+        text: "Almost nobody will tell you the number. Ask three agencies what a website costs and you will get three requests for a discovery call, because the honest answer depends on scope and the dishonest answer depends on what they think you can pay. Both end with you no wiser.",
       },
       {
         kind: "p",
-        text: "So here is the honest shape of it. Serious B2B software rebrands run from about $35k to well past $250k, and the spread is not agency greed — it is four variables. Once you can name which ones apply to you, you can read any proposal in about ten minutes.",
+        text: "So here is the shape of the market, with numbers. There are three bands, they buy genuinely different things, and most of the money wasted in this industry is spent by someone in the wrong band for their situation.",
       },
-      { kind: "h2", text: "Variable 1: how many surfaces have to survive it" },
+      { kind: "h2", text: "Band 1: $5–$50, the marketplace" },
       {
         kind: "p",
-        text: "A logo is a small problem. A brand that has to hold up inside a data-dense product, in a procurement deck next to a hundred-year-old bank, in API documentation, in a trade-show booth and in an email from a support rep is a large one. Cost tracks surfaces, not opinions.",
-      },
-      {
-        kind: "p",
-        text: "Count yours before you brief anyone: marketing site, product UI, sales collateral, documentation, support macros, contracts, mobile, event presence, hiring materials. Most B2B companies find nine to fourteen. A quote that does not enumerate them is guessing, and you will pay for the guess later as scope creep.",
-      },
-      { kind: "h2", text: "Variable 2: whether the product ships with it" },
-      {
-        kind: "p",
-        text: [
-          "The single biggest cost driver is whether the identity has to land inside the software at the same time. Doing both at once is more expensive up front and much cheaper in total, because the alternative is a new brand pointing at an old interface — which is the state that makes buyers trust neither. When ",
-          { text: "Meridian", href: "/work/meridian" },
-          " relaunched, the identity and the redesigned platform went out in one release; ten interface patterns replaced forty screens of one-offs.",
-        ],
+        text: "Fiverr, a logo generator, a template site. At this price you are buying output, not judgement. Sometimes that is exactly right — if you need a mark on a van by Friday and the business may not exist in a year, spending $2,000 on brand strategy is the mistake, not the $30 logo.",
       },
       {
         kind: "p",
-        text: "If you cannot fund both, sequence deliberately: brand first only if your problem is that nobody knows who you are, product first if your problem is that people try you and leave. Do not split the difference by applying new colors to old screens. That is the one order that wastes both budgets.",
+        text: "What catches people is not the quality. It is the file formats. A $30 logo very often arrives as a JPEG or a PNG, and neither can be used by a sign-maker, an embroiderer, a printer or an app store. When you go back for the vector files — AI, EPS, SVG, PDF — that is a separate purchase, and it is frequently more than the logo cost. Check before you buy, not after.",
       },
-      { kind: "h2", text: "Variable 3: how many people have to agree" },
       {
         kind: "quote",
-        text: "Approval count is a cost multiplier, and it is the only one entirely within your control.",
+        text: "The cheap logo is rarely the price you were quoted. It is that price plus whatever it costs to get the files you can actually use.",
       },
+      { kind: "h2", text: "Band 2: $100–$5,000, productized" },
       {
         kind: "p",
-        text: "Two decision-makers is a project. Seven is a governance exercise with a design project inside it. Every additional stakeholder adds review cycles, and review cycles are where fees quietly double — not because anyone is billing dishonestly, but because consensus work requires more options, more rationale, and more meetings that produce artifacts instead of decisions.",
+        text: "A fixed price, a fixed scope, a delivery date, and a real designer doing the work. This is where most small businesses should be, and it is the band that barely existed ten years ago.",
       },
-      {
-        kind: "p",
-        text: "Before you brief, name one person who can say yes alone, and one escalation path for when they cannot. Studios that ask about this in the first call are not being nosy; they are pricing your internal politics, which is the input they cannot see.",
-      },
-      { kind: "h2", text: "Variable 4: what you are left with afterwards" },
-      {
-        kind: "p",
-        text: [
-          "A PDF of guidelines is cheap and decays in a year. A system your team can operate — tokens in code, patterns documented, a written protocol for who may add one — costs more and holds. This is the line item people cut first and regret hardest, because a brand with no maintenance model regresses to whatever each team improvises under deadline. We have made the full argument in ",
-          { text: "design systems are a management tool", href: "/journal/design-systems-are-a-management-tool" },
-          ".",
-        ],
-      },
-      { kind: "h2", text: "A rough map of the ranges" },
       {
         kind: "list",
         items: [
-          "$15k–$30k — Identity refresh. New marks, type and palette applied to a handful of surfaces. Appropriate when the positioning is already right and only the execution is dated.",
-          "$35k–$70k — Full identity, product-aware. Positioning, verbal and visual system, applied into the product's real screens, with a documented system. Our brand identity work starts at $35k.",
-          "$70k–$150k — Identity plus the site or platform shipping together. Two disciplines, one release date.",
-          "$150k–$250k+ — Repositioning at company scale: multiple product lines, migration of legacy surfaces, sales enablement, sometimes a naming change.",
+          "$100–$400 — a logo with a handful of concepts and a couple of revision rounds. Expect the full file set included at this price; if it is not, you are in band 1 with better marketing.",
+          "$400–$1,000 — a logo plus the things you need the week after: colours, type, business card, social profiles. Or a small website of three to six pages.",
+          "$1,000–$3,000 — a proper business website with a content system you can edit, a blog, on-page SEO, and your Google Business Profile set up.",
+          "$3,000–$5,000 — an online store with products loaded and payments live, or a larger site with booking, quote capture, or multiple locations.",
         ],
       },
       {
         kind: "p",
         text: [
-          "Those bands are what the market looks like in complex B2B, not a promise. Our own tiers and what is in each are on the ",
+          "Our own packages sit in this band and every price is published on the ",
           { text: "packages page", href: "/packages" },
-          ", and the eight-week process behind them is on ",
-          { text: "brand identity", href: "/services/logo-design" },
-          ".",
+          " rather than quoted on request.",
         ],
       },
-      { kind: "h2", text: "What to compare, when two quotes are far apart" },
+      { kind: "h2", text: "Band 3: $10,000 and up, the agency" },
       {
         kind: "p",
-        text: "Price differences of 3x between proposals are normal and usually explainable. Read for these four things and the gap resolves into a choice rather than a mystery:",
+        text: "Strategy, research, custom development, a team assigned to you. This is real work and the price is not a rip-off — but it solves a problem most small businesses do not have yet. You are paying for discovery: someone to work out what the business should say before anyone designs anything.",
+      },
+      {
+        kind: "p",
+        text: "Buy this when the answer genuinely is not known — a new category, a complicated service, a merger of two brands, a product with real compliance constraints. If you can describe your business in two sentences and name your customers, you are paying for a process you could have skipped.",
+      },
+      { kind: "h2", text: "The charges that move the real price" },
+      {
+        kind: "p",
+        text: "The headline number is the smaller half of this. Five things quietly decide what you actually pay, and all five are answerable before you hand over a card.",
       },
       {
         kind: "list",
         ordered: true,
         items: [
-          "Named seniors and their allocation, not roles and percentages.",
-          "An enumerated surface list, so you can see what is excluded.",
-          "A change mechanism — what happens in week five when you learn something that breaks the week-one brief.",
-          "A maintenance model: who owns the system after launch, and what it costs to keep.",
+          "File release. Are the vector files included, or extra? Ask for the list of formats in writing.",
+          "Ownership. Do you own the design outright, or license it? A logo you do not own cannot be trademarked.",
+          "The credit fee. Some agencies put their name in your footer and charge to remove it — commonly 10% of the build, or a few hundred dollars flat.",
+          "Revision caps. \u201CUnlimited revisions\u201D in the advert and three in the contract is the most common gap in this industry. Ask which document wins.",
+          "Who holds the keys. If the hosting, domain and content system are in their account rather than yours, the price of leaving is whatever they decide later.",
         ],
       },
+      { kind: "h2", text: "How to read a quote in five minutes" },
       {
         kind: "p",
-        text: "A cheaper proposal missing all four is not cheaper. It is the same project with the difficult half deferred until it is your problem.",
-      },
-      { kind: "h2", text: "What the weeks actually buy" },
-      {
-        kind: "p",
-        text: "Fees feel arbitrary until you can see what the time is spent on. An eight-week identity engagement in complex B2B breaks down roughly like this, and the shape is more informative than the total:",
-      },
-      {
-        kind: "list",
-        items: [
-          "Weeks 1–2, positioning and audit. Customer and sales-call interviews, a competitive read of how your market actually sounds, and an inventory of every surface the brand touches. This is the phase clients most want to skip and the one that decides whether the rest is guesswork.",
-          "Weeks 3–5, the system. Marks, type, color, and — in B2B, the part that matters most — how all of it behaves at interface density, where a palette designed for a hero image meets a table with nine columns.",
-          "Weeks 6–8, application and documentation. The system meets real screens, real decks and real edge cases, and the maintenance model gets written down.",
-        ],
+        text: "Ask three questions. What exactly is included, in a list. What is the delivery date. What happens if I want a change after it is delivered. A quote that answers all three in writing is a scoped quote. One that cannot is an opening position, and the number will move.",
       },
       {
         kind: "p",
-        text: "Notice that no week is labelled logo. If a proposal's timeline is mostly concepts and revisions, you are buying a drawing exercise, and the price should be much lower than these bands.",
-      },
-      { kind: "h2", text: "Where the money actually leaks" },
-      {
-        kind: "p",
-        text: "Across a dozen years of these projects, overruns almost never come from design taking longer than expected. They come from four places, all of them upstream of the studio:",
-      },
-      {
-        kind: "list",
-        ordered: true,
-        items: [
-          "Positioning relitigated in week six. The strategy was approved by people who had not internalized it, and the first real application reopens it. This alone can add a month.",
-          "A stakeholder introduced late. Someone with veto power sees the work for the first time at the reveal, and the reveal becomes round one.",
-          "Surfaces discovered mid-project. The sales team's forty-slide deck, the partner portal nobody mentioned, the trade-show wall with a six-week lead time.",
-          "No engineering voice until handoff. A brand that cannot be built at the density your product needs gets simplified in code by whoever ships it last, which is how a $70k identity becomes a suggestion.",
-        ],
-      },
-      {
-        kind: "p",
-        text: "Three of the four are procurement problems, not design problems. Fixing them costs you nothing and is worth more than any discount you will negotiate.",
-      },
-      { kind: "h2", text: "The cheapest rebrand is the one you do once" },
-      {
-        kind: "p",
-        text: [
-          "Most companies we meet are on their second attempt. The first one failed for a reason that had nothing to do with craft: no maintenance model, no decision-maker, or a brand that never reached the product. Fixing those before you shop will move your quote more than any negotiation. When you are ready to test the number against a real scope, ",
-          { text: "tell us what surfaces you counted", href: "/contact" },
-          ".",
-        ],
+        text: "None of this requires you to know anything about design. It requires you to ask what you are buying, which is the same question you would ask a builder.",
       },
     ],
     faqs: [
       {
-        q: "How long does a B2B rebrand take?",
-        a: "Eight to twelve weeks for a full identity that reaches the product, assuming one decision-maker and weekly reviews. Our own brand engagements run eight weeks: two on positioning and audit, three on the system, three on application and documentation. Programs that stretch past four months are usually stalled on approvals, not on design.",
-      },
-      {
-        q: "Can we rebrand without touching the product?",
-        a: "You can, and it is the most common way rebrands underdeliver. A new identity that stops at the marketing site sets an expectation the software then contradicts, which reads as a company that spent money on the wrong half. If the product cannot move this quarter, at minimum align color, type and core components so the two surfaces do not argue.",
-      },
-      {
-        q: "Do we need a rebrand or just a new website?",
+        q: "How much does a logo cost for a small business?",
         a: [
-          "If your positioning and story are right and the site simply fails to express them, buy a site — it is faster and less than half the disruption. If you cannot get three executives to describe the company the same way, a new site will just publish the confusion in better typography. That test decides it more reliably than any audit; ",
-          { text: "web design and build", href: "/services/web-design" },
-          " is the cheaper branch.",
+          "Expect $100\u2013$400 for a professionally designed logo with a few concepts and revision rounds, and the full vector file set included. Below about $50 you are usually buying a raster file and paying again for the artwork a printer can use. Our own logo packages start at $99 and include the full vector set at every tier \u2014 see the ",
+          { text: "packages page", href: "/packages" },
+          ".",
         ],
       },
+      {
+        q: "How much does a small business website cost?",
+        a: "A simple three to five page site runs about $400\u2013$900. A business site with a content system you can edit yourself, a blog and basic SEO is roughly $900\u2013$1,500. Online stores start around $1,300 once products, payments and shipping are configured. Above $10,000 you are buying strategy and custom development, which most small businesses do not need yet.",
+      },
+      {
+        q: "Why are some logos $30 and others $3,000?",
+        a: "Three things: whether a person made judgement calls or a generator produced output, whether the file set you need is included or sold separately, and whether you own the result outright. The design itself is often the smallest part of the difference.",
+      },
+      {
+        q: "What file formats should a logo come with?",
+        a: "Vector files \u2014 AI, EPS, SVG and PDF \u2014 plus web formats like PNG and JPG, and ideally colour, black and reversed versions. Vectors scale to any size without blurring, which is why printers, sign-makers and app stores ask for them. A logo supplied only as a JPEG will have to be redrawn.",
+      },
     ],
-    related: ["how-to-choose-a-b2b-saas-design-agency", "why-your-b2b-site-doesnt-rank"],
+    related: ["how-to-choose-a-b2b-saas-design-agency", "design-retainer-vs-project-work"],
   },
   {
     slug: "design-retainer-vs-project-work",
@@ -524,7 +465,7 @@ export const POSTS: Post[] = [
         a: "Run the project first and let the retainer start at launch, not before. Overlapping them means the retainer's early cycles get consumed by the project's own scope, which is a costly way to buy the same hours twice. The exception is a small retained diagnostic ahead of a project, used to define it.",
       },
     ],
-    related: ["how-to-choose-a-b2b-saas-design-agency", "what-a-b2b-software-rebrand-costs"],
+    related: ["how-to-choose-a-b2b-saas-design-agency", "what-a-logo-and-website-cost"],
   },
   {
     slug: "why-your-b2b-site-doesnt-rank",
@@ -667,77 +608,7 @@ export const POSTS: Post[] = [
         a: "Yes, as a tiebreaker rather than a lever — they rarely outrank relevance, but they decide between comparable pages and they measurably affect conversion regardless of ranking. Treat them as a floor to clear, not a score to maximize. The gap between a 70 and a 95 matters; the gap between 95 and 100 is usually vanity.",
       },
     ],
-    related: ["what-a-b2b-software-rebrand-costs", "motion-is-a-language-not-a-garnish"],
-  },
-  {
-    slug: "design-systems-are-a-management-tool",
-    title: "Design systems are a management tool",
-    dek: "The component library is the artifact. The system is the agreement about who decides what, and when.",
-    date: "2026-05-12",
-    displayDate: "May 2026",
-    readingTime: "6 min",
-    blocks: [
-      {
-        kind: "p",
-        text: "Every design system pitch we see leads with the component library: the buttons, the tokens, the tidy Figma pages. And every design system failure we get called in to fix has a beautiful component library that nobody uses. The library was never the hard part.",
-      },
-      {
-        kind: "p",
-        text: "The hard part is the agreement underneath it. Who is allowed to add a pattern? What happens when a product team needs a variant on Thursday and the systems team meets on Monday? Is a deviation a bug, a proposal, or a firing offense? Teams that can answer those questions in one sentence have a design system. Teams that can’t have a folder.",
-      },
-      {
-        kind: "p",
-        text: "When we built Meridian’s system, the deliverable that mattered most wasn’t the ten patterns — it was a one-page decision protocol taped into their sprint ritual. New pattern requests got answered within one working day, by a named person, with a default of yes-if-documented. Deviation stopped being a moral question and became a logistics question.",
-      },
-      {
-        kind: "quote",
-        text: "A design system that lives only in Figma is a wish. One that lives in the sprint ritual is a system.",
-      },
-      {
-        kind: "p",
-        text: "That’s why we say design systems are a management tool. They encode how a team makes decisions about its interface — which means building one is an organizational intervention wearing a design costume. Treat it that way and the library maintains itself. Treat it as a drawing exercise and you’ll redraw it every eighteen months.",
-      },
-      {
-        kind: "p",
-        text: "A test you can run today: ask three people on your team what happens when a screen needs a component that doesn’t exist. If you get three answers, the system isn’t shipped yet — no matter how complete the Figma file looks.",
-      },
-    ],
-    related: ["design-retainer-vs-project-work", "what-a-b2b-software-rebrand-costs"],
-  },
-  {
-    slug: "motion-is-a-language-not-a-garnish",
-    title: "Motion is a language, not a garnish",
-    dek: "Animation earns its file size when it explains, confirms, or directs. Everything else is decoration wearing a costume.",
-    date: "2026-03-03",
-    displayDate: "March 2026",
-    readingTime: "5 min",
-    blocks: [
-      {
-        kind: "p",
-        text: "There are two kinds of motion on the web. The first kind carries information: the drawer that slides in from the right so you know where it went when it closed. The modal that scales up from the button you clicked so you know what caused it. The counter that rolls up so you feel the number growing rather than just reading it.",
-      },
-      {
-        kind: "p",
-        text: "The second kind is garnish: things fading in because fading in felt fancy, parallax on content that nobody asked to move, hover states that wiggle. Garnish isn’t evil — a site with zero personality is its own failure — but garnish is a spice, and most animated sites season like a first-year cook.",
-      },
-      {
-        kind: "p",
-        text: "Our rule on every project: each animation must explain, confirm, or direct. Explain — show where something came from or went. Confirm — acknowledge that an action worked. Direct — pull attention to the one thing that matters next. If a motion does none of those, it has to justify itself as signature: the one deliberate flourish a brand is remembered by. Most pages get one signature. Not five.",
-      },
-      {
-        kind: "quote",
-        text: "Ask of every animation: what does the user know after it that they didn’t know before?",
-      },
-      {
-        kind: "p",
-        text: "This is also a performance position. Motion that carries meaning is worth its frame budget; motion that doesn’t is jank you paid to create. When Loop Health cut their app’s decorative animation and kept only confirmations, patients over sixty stopped asking whether their check-in ‘went through.’ That’s what motion is for.",
-      },
-      {
-        kind: "p",
-        text: "The craft is invisible when it works. Nobody leaves a great restaurant praising the salt. They just remember that everything tasted right.",
-      },
-    ],
-    related: ["why-your-b2b-site-doesnt-rank", "design-systems-are-a-management-tool"],
+    related: ["what-a-logo-and-website-cost"],
   },
   {
     slug: "why-we-stay-small",
