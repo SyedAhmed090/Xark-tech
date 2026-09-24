@@ -1,16 +1,67 @@
 # Design plan
 
 The functionality and the copy are now right for a small-business buyer. The
-look is not. This is what is wrong, why, and the order to fix it in.
+look is not. This is what was wrong, why, and the order it is being fixed in.
 
 Nothing here changes a price, a promise or a form. It is layout, rhythm,
 colour and imagery only.
 
 ---
 
-## What is actually wrong
+## Status
+
+| Step | State |
+|---|---|
+| 1 — One grid, one rhythm, one scale | **Done** |
+| 2 — A visual spine | **Done** |
+| 3 — Pictures | **Partial** — everything that needs no camera |
+| 4 — Proof | **Blocked** — needs real testimonials |
+| 5 — Retarget the work section | **Done** |
+
+Four commits on `design-refresh`, off `main`.
+
+### What is still outstanding
+
+1. **Real testimonials.** Step 4's whole point. Three quotes with a name, a
+   trade and a face. Nothing else unblocks it, and inventing them is the one
+   thing this site has consistently refused to do.
+2. **Photography.** The hero, the bundle stills and the file-set shot. Needs
+   either credits (the Higgsfield account has 1.85 on the free plan) or real
+   photos. See "What step 3 actually shipped" for why the hero was drawn rather
+   than generated even before credits became the constraint.
+3. **Small-business work to show.** The deepest problem on the site and the one
+   none of this fixes. Step 5 stopped the four B2B concepts being the first and
+   heaviest thing a buyer meets; it did not make them the right work.
+4. **`launch-check` has never run against this branch.** `out/` is locked by an
+   unrelated `python -m http.server` process, so `next build` compiles and
+   generates all 56 pages but cannot complete the static export. Nothing here
+   has been verified against a production build — only against `next dev` and
+   the four audit scripts.
+
+### What was verified, and how
+
+Every step: `tsc` clean, `eslint` 0 errors, `site-audit` exit 0 on 25/25
+routes, `tablet-contrast-audit` no failures at 768/834/1024, `mobile-audit`
+only its documented-benign findings (the spam honeypot label, inline-link
+target sizes in prose, 10px captions inside scaled UI mockups).
+
+One pre-existing defect found and left alone: under `prefers-reduced-motion`,
+framer-motion produces an SSR/client mismatch and React regenerates the tree.
+Confirmed pre-existing by stashing. `Reveal` also has no reduced-motion
+handling, so those users get content sitting at opacity 0 until they scroll
+past it.
+
+---
+
+## What was wrong
+
+Kept in the present tense it was written in — it is the record of what the
+site looked like before any of this. Each finding carries where it was fixed.
 
 ### 1. The page is two design systems stacked on top of each other
+
+> **Fixed in step 1.** `components/Section.tsx` — one band, one column, one
+> rhythm, everywhere.
 
 The repositioning rebuilt the top of the homepage and left the agency-era
 sections below it. They were never reconciled, so the page changes visual
@@ -36,6 +87,9 @@ different sites.
 
 ### 2. There are no pictures
 
+> **Partly fixed in step 3.** Service glyphs, a drawn hero visual and the
+> trade strip. Every photographic slot is still open.
+
 Outside the logo and four portfolio covers, the site contains zero imagery —
 not one photo, illustration, icon set or screenshot. Every homepage section is
 words inside a white rounded box on a warm white ground. That is why it reads
@@ -44,6 +98,10 @@ as a document rather than a business.
 `grep -rn "next/image\|<img" app components` returns two hits, both the logo.
 
 ### 3. The only pictures on the site are aimed at the old audience
+
+> **Contained in step 5, not fixed.** They no longer load on the homepage or
+> the service pages, and `Work` left the primary nav. Replacing them with
+> small-business work is still outstanding.
 
 All four case studies are B2B software concepts — a treasury dashboard, a
 patient check-in app, an architecture studio site, a freight dispatch board —
@@ -54,12 +112,18 @@ nothing that looks like their own trade.
 
 ### 4. No social proof of any kind
 
+> **Still true**, except the trade strip. Step 4 is blocked on real
+> testimonials.
+
 There is no testimonials component. The homepage's own ordering comment
 promises one — "has it worked before (Work, Testimonials)" — and it does not
 exist. No faces, no client names, no star rating, no count of jobs delivered.
 For a fixed-price offer bought without a call, proof is the whole sale.
 
 ### 5. Studio voice survives in the chrome
+
+> **Fixed in step 1.** Footer line, live clock, ping dot and CTA headline all
+> gone; `/studio` remains the About route.
 
 - Footer: "Independent design studio."
 - CTA headline: "Let's make something worth shipping" — a portfolio line, not
@@ -68,6 +132,9 @@ For a fixed-price offer bought without a call, proof is the whole sale.
 - Nav routes About through `/studio`.
 
 ### 6. Colour carries no structure
+
+> **Fixed in step 2.** Nine bands, no two adjacent alike, and a page ground
+> far enough off white to do structural work.
 
 One blue, one green, ink, and two near-whites. Sections are separated only by
 swapping `paper` for `surface`, a difference of about 2%. The result is an
@@ -80,7 +147,7 @@ undifferentiated stack — nothing signals "this is the part that matters."
 Five steps, in dependency order. Each is shippable on its own and each ends
 with the audits and `launch-check` green.
 
-### Step 1 — One grid, one rhythm, one scale
+### Step 1 — One grid, one rhythm, one scale — done
 
 The largest visual gain for the smallest diff, and everything after it depends
 on the page being consistent first.
@@ -95,7 +162,14 @@ on the page being consistent first.
 - Delete the leftover studio chrome: footer "design studio" line, the live
   clock, the ping dot, the CTA headline.
 
-### Step 2 — Give the page a visual spine
+**Shipped as planned, plus two the survey had missed:** `Nav` was also on
+`max-w-[1600px]`, so the logo started left of everything beneath it, and six
+h1s were oversized rather than the two the table named (`/contact` at 10rem,
+`/work` at 11rem, not-found at 13rem). With the clock gone the footer stopped
+being a client component, so that JavaScript left every page. Net −13 lines
+across 25 files, plus `components/Section.tsx`. Homepage 9814px → 8896px.
+
+### Step 2 — Give the page a visual spine — done
 
 Once the rhythm is uniform, the page needs deliberate contrast so it does not
 read as one long card list.
@@ -108,9 +182,28 @@ read as one long card list.
 - Real elevation on cards — a soft shadow rather than a 10%-alpha hairline.
   The current cards are barely distinguishable from the ground they sit on.
 
-### Step 3 — Pictures (the big one — detailed below)
+**Shipped, with one change of mind.** The plan wanted ink behind both the
+comparison table and the closing CTA; that would have put two dark bands either
+side of a dark footer. The table went to ink and the CTA kept brand blue, which
+separates them properly. The nine bands now read paper → tint → white → ink →
+paper → white → paper → brand → ink, and no adjacent pair matches.
 
-### Step 4 — Proof
+`--color-paper` also had to move, which the plan had not anticipated: at
+`#fbfaf7` it was 1.04:1 against white, so white cards and white bands did no
+structural work at all. At `#f6f3ec` it is 1.11:1 and every token still clears
+AA on it (ink 16.3, brand 5.8, muted 5.4, accent 4.8).
+
+Two defects fixed in passing: long service prices broke mid-string and collided
+with the duration beside them, and the work tiles' `md:mt-24` stagger left a
+column of dead space once the grid was aligned.
+
+### Step 3 — Pictures (the big one — detailed below) — partial
+
+Everything that needs no camera shipped; every photographic slot is still open.
+See "What step 3 actually shipped" below for what was built, what was not, and
+why the hero was drawn rather than photographed.
+
+### Step 4 — Proof — blocked, except the trade strip
 
 - A testimonials band under `Work`: three quotes, each with a name, a trade
   and a face. Real ones only — placeholder testimonials are worse than none.
@@ -118,6 +211,14 @@ read as one long card list.
   law, fitness) as a quiet row, which does the job "client logos" does for an
   agency without claiming clients that do not exist.
 - A delivery counter in the hero proof row once there is a real number.
+
+**The trade strip shipped** as `components/TradeStrip.tsx`, under the hero —
+five categories lifted verbatim from the sentence already on `/studio`, so it
+adds a surface and not a claim. Extending that list means extending that
+sentence first.
+
+**The testimonials band and the delivery counter are blocked on real numbers
+and real quotes.** Both stay unbuilt rather than shipping with placeholders.
 
 ### Step 5 — Retarget the work section — done
 
