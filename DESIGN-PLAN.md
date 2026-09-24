@@ -32,11 +32,9 @@ Four commits on `design-refresh`, off `main`.
 3. **Small-business work to show.** The deepest problem on the site and the one
    none of this fixes. Step 5 stopped the four B2B concepts being the first and
    heaviest thing a buyer meets; it did not make them the right work.
-4. **`launch-check` has never run against this branch.** `out/` is locked by an
-   unrelated `python -m http.server` process, so `next build` compiles and
-   generates all 56 pages but cannot complete the static export. Nothing here
-   has been verified against a production build — only against `next dev` and
-   the four audit scripts.
+4. **Two launch-check warnings, both deliberate.** `SITE.socials` is empty so
+   the Organization schema has no `sameAs`, and `SITE.chat` is unset so no chat
+   widget renders. Both are data only this business has; the wiring is done.
 
 ### What was verified, and how
 
@@ -45,11 +43,26 @@ routes, `tablet-contrast-audit` no failures at 768/834/1024, `mobile-audit`
 only its documented-benign findings (the spam honeypot label, inline-link
 target sizes in prose, 10px captions inside scaled UI mockups).
 
-One pre-existing defect found and left alone: under `prefers-reduced-motion`,
-framer-motion produces an SSR/client mismatch and React regenerates the tree.
-Confirmed pre-existing by stashing. `Reveal` also has no reduced-motion
-handling, so those users get content sitting at opacity 0 until they scroll
-past it.
+The static export itself is verified: `npm run build` completes,
+`npm run launch-check` reports **25 pages, 0 blocking, 2 to decide**, and the
+audits were re-run against `out/` served statically, not only against
+`next dev`.
+
+Two pre-existing defects found and left alone, both confirmed pre-existing by
+building `main` and comparing:
+
+- Under `prefers-reduced-motion`, framer-motion produces an SSR/client mismatch
+  and React regenerates the tree. `Reveal` also has no reduced-motion handling,
+  so those users get content sitting at opacity 0 until they scroll past it.
+- The static export emits RSC prefetch payloads at
+  `contact/__next.contact/__PAGE__.txt` while the client router requests
+  `contact/__next.contact.__PAGE__.txt` — a dot where the file has a slash. The
+  result is a dozen 404s per page on prefetch. Navigation still works, falling
+  back to a full page load, so it costs speed rather than function. `main`
+  shows 14 failed requests per page against this branch's 12, the difference
+  being the `/work` link this branch removed from the nav. Fixable with a
+  rewrite in `deploy/.htaccess` or `prefetch={false}`, neither of which belongs
+  in a design change.
 
 ---
 
