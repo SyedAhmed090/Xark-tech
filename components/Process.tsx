@@ -42,12 +42,13 @@ export default function Process() {
     <Section
       id="process"
       size="lg"
+      className="bg-sand"
       inner="max-w-6xl grid gap-12 md:grid-cols-[1fr_2fr] md:gap-20"
     >
         <div className="md:sticky md:top-28 md:self-start">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">How we work</p>
-            <h2 className="display-tight text-3xl md:text-4xl">
+            <h2 className="display display-section">
               Four steps, and you know the price at step one.
             </h2>
             <p className="mt-6 max-w-sm text-muted">

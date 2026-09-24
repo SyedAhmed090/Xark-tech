@@ -101,7 +101,7 @@ export default function Nav() {
     <>
       <motion.header
         className={`fixed inset-x-0 top-0 z-[85] transition-colors ${
-          open ? "bg-transparent" : "bg-paper/85 backdrop-blur-sm hairline-b"
+          open ? "bg-transparent" : "bg-paper hairline-b"
         }`}
         animate={{ y: hidden ? "-100%" : 0 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}

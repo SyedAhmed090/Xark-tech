@@ -82,12 +82,13 @@ export default function FAQ({
   return (
     <Section
       id="faq"
+      className="bg-sand"
       inner="max-w-6xl grid gap-12 md:grid-cols-[1fr_2fr] md:gap-20"
     >
         <div className="md:sticky md:top-28 md:self-start">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">{eyebrow}</p>
-            <h2 className="display-tight text-3xl md:text-4xl">{heading}</h2>
+            <h2 className="display display-section">{heading}</h2>
           </Reveal>
         </div>
         <div className="hairline-t">

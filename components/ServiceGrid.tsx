@@ -11,17 +11,17 @@ import { SERVICES } from "@/lib/services";
  */
 export default function ServiceGrid() {
   return (
-    <Section className="bg-surface">
+    <Section className="bg-paper">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <p className="eyebrow text-brand">What we do</p>
-            <h2 className="display-tight mt-4 text-3xl md:text-4xl">
+            <h2 className="display display-section mt-4">
               Seven things, all priced on the page
             </h2>
           </div>
           <Link
             href="/packages"
-            className="text-sm font-semibold text-brand underline-offset-4 hover:underline"
+            className="inline-block py-1.5 text-sm font-semibold text-brand underline-offset-4 hover:underline"
           >
             Compare every package →
           </Link>

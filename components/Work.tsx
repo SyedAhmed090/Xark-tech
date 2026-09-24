@@ -19,12 +19,12 @@ import { PROJECTS } from "@/lib/projects";
  */
 export default function Work() {
   return (
-    <Section id="work" className="bg-surface">
+    <Section id="work" className="bg-paper">
       <Reveal>
         <div className="md:grid md:grid-cols-[1fr_1.15fr] md:gap-16">
           <div>
             <p className="eyebrow mb-4 text-brand">Selected work</p>
-            <h2 className="display-tight text-3xl md:text-4xl">
+            <h2 className="display display-section">
               Concept projects, built not mocked up
             </h2>
           </div>
@@ -55,7 +55,7 @@ export default function Work() {
 
             <Link
               href="/work"
-              className="mt-7 inline-block text-sm font-semibold text-brand underline-offset-4 hover:underline"
+              className="mt-7 inline-block inline-block py-1.5 text-sm font-semibold text-brand underline-offset-4 hover:underline"
             >
               See all four in full &rarr;
             </Link>

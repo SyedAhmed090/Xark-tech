@@ -18,12 +18,12 @@ const PROOF = [
 
 export default function Hero() {
   return (
-    // Bottom padding is deliberately small: the bundles section below opens
-    // with its own py-16/py-24, and stacking both left a dead screen between
-    // the proof list and the first price.
+    // The hero is the blue field. Its bottom padding used to be 2/4 only
+    // because the bundles band opened with its own; across a colour change it
+    // has to carry its own.
     <Section
       size="none"
-      className="pt-28 pb-2 md:pt-32 md:pb-4"
+      className="bg-brand pt-28 pb-16 text-paper md:pt-32 md:pb-20"
       inner="max-w-6xl grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16"
     >
       <div>
@@ -31,7 +31,7 @@ export default function Hero() {
           Logos, websites &amp; branding for small business
         </p>
 
-        <h1 className="display mt-5 max-w-4xl text-[clamp(2.25rem,4.4vw,3.5rem)]">
+        <h1 className="display display-hero mt-5 max-w-4xl">
           Everything your business needs to{" "}
           <span className="accent-word">look the part</span>.
         </h1>
@@ -43,10 +43,10 @@ export default function Hero() {
         </p>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Link href="/packages" className="btn btn-primary">
+          <Link href="/packages" className="btn btn-invert">
             See packages &amp; prices
           </Link>
-          <Link href="/contact" className="btn btn-secondary">
+          <Link href="/contact" className="btn btn-outline">
             Tell us what you need
           </Link>
         </div>

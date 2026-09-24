@@ -13,7 +13,7 @@ import { SITE } from "@/lib/site";
 export default function CTA() {
   return (
     <Section id="contact" size="lg" className="bg-brand text-paper">
-      <h2 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
+      <h2 className="display display-hero">
         <LineReveal>Get a price and a</LineReveal>
         <LineReveal delay={0.1}>
           <span className="accent-word text-paper">delivery date</span>

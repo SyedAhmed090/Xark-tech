@@ -72,7 +72,7 @@ const TRADES: { label: string; path: React.ReactNode }[] = [
 
 export default function TradeStrip() {
   return (
-    <Section size="none" className="hairline-t hairline-b py-7">
+    <Section size="none" className="bg-ink py-7 text-paper">
       <div className="flex flex-col gap-5 md:flex-row md:items-center md:gap-10">
         <p className="eyebrow shrink-0 text-muted">Who we work with</p>
         <ul className="grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-3 md:flex md:flex-1 md:justify-between md:gap-6">

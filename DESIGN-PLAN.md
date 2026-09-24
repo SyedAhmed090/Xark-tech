@@ -8,6 +8,41 @@ colour and imagery only.
 
 ---
 
+## Direction change — the palette was the problem
+
+Steps 1–5 fixed structure: one grid, one rhythm, grounds that alternate, no
+more 868KB of wrong-audience photography. The result was coherent and still
+disliked, for a reason the original plan never addressed — it kept the palette
+it inherited. `paper` and `surface` were both near-white, so roughly 85% of
+every page was pale ground carrying one blue and one green in small doses.
+Clean, and forgettable, which is a credibility problem on a site whose promise
+is "look the part".
+
+Step 1 made that worse in one respect: it fixed an inconsistent type scale by
+levelling everything to `text-3xl md:text-4xl`, which removed the drama along
+with the inconsistency. A scale can be consistent and still hold a real display
+step; it now does (`.display-hero`, `.display-section`).
+
+**The new direction is colour-blocked.** Every band commits to a field —
+blue, sand, ink or bone — and nothing sits on near-white. Hard edges: 4px card
+radius instead of 14px, no shadows, buttons no longer pills.
+
+Because the same token now lands on four different grounds, three combinations
+fail AA (brand blue is 2.8:1 on ink and 4.6:1 on sand; the value green is
+3.8:1 on sand; muted is 3.2:1 on ink and 4.2:1 on sand). Rather than picking a
+variant per call site, `globals.css` substitutes per field, unlayered so it
+beats the utilities — the same mechanism that was already there for one case,
+extended to cover the rest.
+
+Homepage band order: blue → ink → sand → bone → ink → sand → bone → sand →
+blue → ink. No two adjacent bands match.
+
+**Rolled out to the homepage only.** Inner pages pick up the new tokens —
+palette, radius, no shadows, the display tier — but still sit on a single
+ground each; they need the band treatment before this is finished.
+
+---
+
 ## Status
 
 | Step | State |

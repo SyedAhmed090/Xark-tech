@@ -20,10 +20,10 @@ const money = (n: number) => `$${n.toLocaleString("en-US")}`;
  */
 export default function BundleCards() {
   return (
-    <Section className="bg-tint">
+    <Section className="bg-sand">
         <div className="max-w-2xl">
           <p className="eyebrow text-brand">Best sellers</p>
-          <h2 className="display-tight mt-4 text-3xl md:text-4xl">
+          <h2 className="display display-section mt-4">
             Start with everything you need
           </h2>
           <p className="mt-4 leading-relaxed text-muted">

@@ -48,7 +48,7 @@ export default function HeroVisual() {
             </span>
             <span className="flex gap-3">
               {NAV.map((item) => (
-                <span key={item} className="text-[9px] text-ink/50">
+                <span key={item} className="text-[10px] text-ink/50">
                   {item}
                 </span>
               ))}
@@ -56,7 +56,7 @@ export default function HeroVisual() {
           </div>
 
           <div className="px-5 pb-11 pt-6">
-            <p className="text-[9px] font-bold uppercase tracking-[0.1em] text-brand">
+            <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-brand">
               Open today until 6pm
             </p>
             <p className="display mt-2 text-[22px] leading-[1.05]">
@@ -81,7 +81,7 @@ export default function HeroVisual() {
                       ["bg-tint", "bg-accent-tint", "bg-paper"][i]
                     }`}
                   />
-                  <span className="block px-2 py-1.5 text-[8px] font-semibold">
+                  <span className="block px-2 py-1.5 text-[10px] font-semibold">
                     {item}
                   </span>
                 </div>

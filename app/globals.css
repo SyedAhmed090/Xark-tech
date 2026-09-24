@@ -11,44 +11,50 @@
  * per block.
  */
 @theme {
-  /* Page ground, warm rather than clinical white. Deliberately a full step
-     off #fff rather than a hair off it: at the old #fbfaf7 the ground and the
-     surface were 1.04:1 apart, so white cards and white bands did no
-     structural work — the page read as one undifferentiated stack. This is
-     1.11:1, and every token still clears AA on it (ink 16.3, brand 5.8,
-     muted 5.4, accent 4.8). */
-  --color-paper: #f6f3ec;
-  /* Cards and anything that should lift off the ground. */
+  /**
+   * Colour-blocked. Every band on the page commits to a field colour — blue,
+   * sand, ink or bone — and nothing sits on near-white. The previous palette
+   * had the ground and the card surface 1.1:1 apart, so roughly everything
+   * read as one pale wash however the sections were ordered.
+   */
+
+  /* The lightest field. Still a colour: warm enough to read as chosen. */
+  --color-paper: #f7f1e6;
+  /* Cards, and only cards. White is reserved for what should be read. */
   --color-surface: #ffffff;
-  --color-ink: #14161b;
+  /* The warm field. Carries the bundles and the process. */
+  --color-sand: #e9d8b8;
+  --color-ink: #0f1115;
   --color-muted: #5c6474;
 
-  /* Blue carries the actions. Saturated enough to read as a button at a
-     glance, dark enough to pass AA on white at body size. */
+  /* Blue carries the hero and the closing CTA as whole fields, not just the
+     buttons. White on it is 6.5:1; ink on it is 2.9:1, so ink text never goes
+     on blue. */
   --color-brand: #1f4fe0;
   --color-brand-dark: #1a41b8;
-  /* Brand blue is 6.5:1 on paper but only 2.8:1 on ink — a fail. Dark
-     sections get this lighter blue instead (8.5:1 on ink). */
+  /* Blue at body size on sand is 4.6:1 — over the line but not by much, so
+     small text on sand uses this instead (7.0:1). */
+  --color-brand-on-sand: #143a9e;
+  /* And on ink, where #1f4fe0 is 2.8:1. */
   --color-brand-on-dark: #8fb1ff;
   --color-tint: #eef2fe;
 
-  /* Green is reserved for value: included ticks, savings, guarantees. Never
-     used decoratively, so it keeps meaning where it appears. */
+  /* Green still means value and nothing else — ticks, savings, guarantees.
+     It needs a darker cut on sand (3.8 → 5.5) and a lighter one on ink. */
   --color-accent: #0b7a54;
+  --color-accent-on-sand: #0a5f42;
+  --color-accent-on-dark: #4ed6a1;
   --color-accent-tint: #e7f5ef;
 
-  --color-line: rgba(20, 22, 27, 0.1);
-  --color-line-strong: rgba(20, 22, 27, 0.18);
+  --color-line: rgba(15, 17, 21, 0.14);
+  --color-line-strong: rgba(15, 17, 21, 0.28);
 
-  /* One family. Newsreader and Spline Mono were dropped: two extra font
-     downloads to style decoration this audience does not need. The serif and
-     mono slots fall back to system stacks so existing utility classes still
-     render sensibly without a network request. */
   --font-sans: var(--font-archivo), system-ui, -apple-system, sans-serif;
   --font-serif: Georgia, "Times New Roman", serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
 
-  --radius-card: 14px;
+  /* Hard edges. 14px on a soft shadow was the look this replaced. */
+  --radius-card: 4px;
 }
 
 html {
@@ -113,8 +119,23 @@ body {
   .display {
     font-family: var(--font-sans);
     font-weight: 800;
-    letter-spacing: -0.025em;
-    line-height: 1.02;
+    letter-spacing: -0.03em;
+    line-height: 0.98;
+  }
+
+  /* The scale was levelled to text-3xl/4xl everywhere to fix an inconsistency,
+     which made it consistent and flat. A system can hold a real display step:
+     these are the two sizes, used deliberately, rather than eight ad-hoc ones. */
+  /* 4.6vw, not 7: the hero headline lives in a half-width column beside the
+     visual, where 7vw wrapped it to four lines. The closing CTA uses the same
+     class full width, where this still reads as the largest thing on the
+     page. */
+  .display-hero {
+    font-size: clamp(2.5rem, 4.6vw, 4.25rem);
+  }
+
+  .display-section {
+    font-size: clamp(2rem, 4vw, 3.25rem);
   }
 
   .display-tight {
@@ -149,12 +170,6 @@ body {
     background: var(--color-surface);
     border: 1px solid var(--color-line);
     border-radius: var(--radius-card);
-    /* A 10%-alpha hairline on a warm-white ground is a 2% difference — the
-       cards read as ruled boxes rather than as objects. The shadow does the
-       separating; the border stays for the case where a card sits on white. */
-    box-shadow:
-      0 1px 2px rgba(20, 22, 27, 0.04),
-      0 10px 28px -14px rgba(20, 22, 27, 0.16);
   }
 
   .btn {
@@ -162,7 +177,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    border-radius: 999px;
+    border-radius: 6px;
     font-weight: 600;
     /* 48px tall at the default padding — above the 44px touch target floor. */
     padding: 0.875rem 1.5rem;
@@ -195,14 +210,26 @@ body {
     color: var(--color-ink);
   }
   .btn-invert:hover {
-    background: var(--color-tint);
+    background: var(--color-sand);
+  }
+
+  /* The secondary action on a blue or ink field. btn-secondary is a white
+     block with an ink border and disappears into nothing on a colour. */
+  .btn-outline {
+    background: transparent;
+    color: #fff;
+    border: 1.5px solid rgba(255, 255, 255, 0.55);
+  }
+  .btn-outline:hover {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.1);
   }
 
   .badge {
     display: inline-flex;
     align-items: center;
     gap: 0.375rem;
-    border-radius: 999px;
+    border-radius: 4px;
     padding: 0.25rem 0.625rem;
     font-size: 0.75rem;
     font-weight: 700;
@@ -219,17 +246,80 @@ body {
 }
 
 /**
- * Brand blue on an ink surface fails AA (2.8:1). Rather than hand-swapping a
- * token at every call site — and re-breaking it the next time someone writes
- * `text-brand` inside a dark section — the substitution happens here, once.
+ * Field-aware text colours.
  *
- * Deliberately unlayered so it beats the `text-brand` utility: an unlayered
- * class always wins against a Tailwind utility, which is exactly the
- * behaviour wanted for an accessibility floor.
+ * Now that every band commits to a colour, the same token lands on four
+ * different grounds and three of the combinations fail AA: brand blue is
+ * 2.8:1 on ink and 4.6:1 on sand, and the value green is 3.8:1 on sand and
+ * 2.5:1 on ink. Rather than hand-picking a variant at every call site — and
+ * re-breaking it the next time someone writes `text-brand` inside a coloured
+ * section — the substitution happens here, once, per field.
+ *
+ * Deliberately unlayered so these beat the Tailwind utilities: an unlayered
+ * class always wins against a utility, which is what an accessibility floor
+ * needs.
  */
 .bg-ink .text-brand,
 .bg-brand-dark .text-brand {
   color: var(--color-brand-on-dark);
+}
+.bg-ink .text-accent {
+  color: var(--color-accent-on-dark);
+}
+/* Muted is 3.2:1 on ink and 4.2:1 on sand — both short of AA, and the trade
+   strip's label was the first casualty. */
+.bg-ink .text-muted {
+  color: #a8b0be;
+}
+
+.bg-sand .text-brand {
+  color: var(--color-brand-on-sand);
+}
+.bg-sand .text-accent {
+  color: var(--color-accent-on-sand);
+}
+.bg-sand .text-muted {
+  color: #4a5262;
+}
+
+/* Blue is a whole field now. Nothing tinted survives on it — brand-on-brand is
+   invisible and ink is 2.9:1 — so both resolve to white, and the green keeps
+   its meaning by going white too rather than muddying to an unreadable teal. */
+.bg-brand .text-brand,
+.bg-brand .text-accent,
+.bg-brand .text-muted {
+  color: #fff;
+}
+/* The emphasis word is brand blue, which on the brand field is invisible.
+   Sand rather than white, so the hero carries the second colour too. */
+.bg-brand .accent-word {
+  color: var(--color-sand);
+}
+.bg-brand .text-muted {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* Cards sit on coloured fields and carry their own light palette, so they have
+   to put the ink colours back rather than inherit the band's. */
+.bg-ink .card,
+.bg-brand .card,
+.bg-sand .card {
+  color: var(--color-ink);
+}
+.bg-ink .card .text-brand,
+.bg-brand .card .text-brand,
+.bg-sand .card .text-brand {
+  color: var(--color-brand);
+}
+.bg-ink .card .text-accent,
+.bg-brand .card .text-accent,
+.bg-sand .card .text-accent {
+  color: var(--color-accent);
+}
+.bg-ink .card .text-muted,
+.bg-brand .card .text-muted,
+.bg-sand .card .text-muted {
+  color: var(--color-muted);
 }
 
 /* Kept for the case-study tiles, which still use a textured cover. */

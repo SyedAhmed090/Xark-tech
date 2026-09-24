@@ -44,7 +44,7 @@ export default function WhatYouGet() {
     <Section className="bg-ink text-paper" inner="max-w-4xl">
         <div className="max-w-2xl">
           <p className="eyebrow text-brand">The difference</p>
-          <h2 className="display-tight mt-4 text-3xl md:text-4xl">
+          <h2 className="display display-section mt-4">
             A $99 logo you can actually use
           </h2>
           <p className="mt-4 leading-relaxed text-paper/70">
