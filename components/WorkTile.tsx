@@ -22,7 +22,7 @@ export default function WorkTile({
   const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
 
   return (
-    <Reveal delay={(index % 2) * 0.08} className={index % 2 === 1 ? "md:mt-24" : ""}>
+    <Reveal delay={(index % 2) * 0.08}>
       <Link href={`/work/${project.slug}`} className="group block">
         <div
           ref={ref}

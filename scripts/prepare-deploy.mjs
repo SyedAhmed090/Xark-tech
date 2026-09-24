@@ -12,7 +12,7 @@
  * Wired into `npm run build`, so `out/` is always complete.
  */
 
-import { cp, access, readdir } from "node:fs/promises";
+import { cp, access, readdir, rename, rmdir } from "node:fs/promises";
 import { constants } from "node:fs";
 import path from "node:path";
 import process from "node:process";
@@ -75,5 +75,62 @@ if (!(await exists(path.join(target, ".htaccess")))) {
   console.error("prepare-deploy: .htaccess missing from out/ after copy.");
   process.exit(1);
 }
+
+/**
+ * Flattens the RSC prefetch payloads so the client router can find them.
+ *
+ * Next writes each payload into nested directories — for a service page,
+ * `__next.services/$d$slug/__PAGE__.txt` — while the client router asks for
+ * the same thing with dots where those separators are:
+ * `__next.services.$d$slug.__PAGE__.txt`. On a real Next server the request is
+ * routed rather than resolved against the filesystem, so nothing notices. On
+ * Apache serving a static export, every one of them 404s. Navigation still
+ * works, because a failed prefetch falls back to a full page load, so the cost
+ * is speed rather than function — roughly a dozen wasted round trips per page.
+ *
+ * Renaming rather than copying: the nested spelling is never requested, so
+ * leaving both would ship the payloads twice for no reader. Verified against a
+ * served export — the derived name matched all 41 distinct 404s.
+ */
+async function flattenPrefetchPayloads(dir) {
+  let moved = 0;
+
+  async function walk(current) {
+    for (const entry of await readdir(current, { withFileTypes: true })) {
+      const full = path.join(current, entry.name);
+      if (!entry.isDirectory()) continue;
+      if (entry.name.startsWith("__next.")) {
+        moved += await flattenOne(current, full, entry.name);
+      } else {
+        await walk(full);
+      }
+    }
+  }
+
+  // `base` is the route directory the flattened files belong in; `prefix` is
+  // the dotted name built up from the segment directories walked so far.
+  async function flattenOne(base, current, prefix) {
+    let count = 0;
+    for (const entry of await readdir(current, { withFileTypes: true })) {
+      const full = path.join(current, entry.name);
+      if (entry.isDirectory()) {
+        count += await flattenOne(base, full, `${prefix}.${entry.name}`);
+      } else {
+        await rename(full, path.join(base, `${prefix}.${entry.name}`));
+        count++;
+      }
+    }
+    await rmdir(current);
+    return count;
+  }
+
+  await walk(dir);
+  return moved;
+}
+
+const flattened = await flattenPrefetchPayloads(target);
+console.log(
+  `prepare-deploy: flattened ${flattened} RSC prefetch payloads for static serving`
+);
 
 console.log("prepare-deploy: out/ is ready to upload to public_html.");

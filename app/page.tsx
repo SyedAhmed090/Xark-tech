@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
+import TradeStrip from "@/components/TradeStrip";
 import BundleCards from "@/components/BundleCards";
 import ServiceGrid from "@/components/ServiceGrid";
 import WhatYouGet from "@/components/WhatYouGet";
@@ -43,6 +44,7 @@ export default function Home() {
       <Nav />
       <main id="main" className="pb-20 md:pb-0">
         <Hero />
+        <TradeStrip />
         <BundleCards />
         <ServiceGrid />
         <WhatYouGet />

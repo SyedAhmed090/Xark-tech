@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
+import Section from "@/components/Section";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 import NewsletterForm from "@/components/NewsletterForm";
@@ -20,7 +21,7 @@ import {
   type Post,
   type Rich,
 } from "@/lib/posts";
-import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta, pageUrl } from "@/lib/site";
+import { ORG_REF, breadcrumbs, pageMeta, pageUrl } from "@/lib/site";
 
 export function generateStaticParams() {
   return POSTS.map((p) => ({ slug: p.slug }));
@@ -184,7 +185,7 @@ export default async function PostPage({
               <p className="eyebrow mb-4 text-brand">
                 Journal — {post.displayDate} — {post.readingTime}
               </p>
-              <h1 className="display-tight text-[clamp(2.25rem,6vw,5.5rem)]">
+              <h1 className="display-tight text-[clamp(2.25rem,6.5vw,4.5rem)]">
                 {post.title}
               </h1>
               <p className="mt-6 font-serif text-xl italic text-ink/70 md:text-2xl">
@@ -283,7 +284,7 @@ export default async function PostPage({
         </section>
 
         {related.length > 0 && (
-          <section className="px-5 py-16 hairline-t md:px-10 md:py-24">
+          <Section className="hairline-t" inner="max-w-3xl">
             <Reveal>
               <p className="eyebrow mb-4 text-brand">Read next</p>
               <div className="space-y-8">
@@ -293,7 +294,7 @@ export default async function PostPage({
                     href={`/journal/${next.slug}`}
                     className="group block"
                   >
-                    <h2 className="display-tight text-3xl transition-colors group-hover:text-brand md:text-5xl">
+                    <h2 className="display-tight text-2xl transition-colors group-hover:text-brand md:text-3xl">
                       {next.title} →
                     </h2>
                     <p className="mt-3 max-w-xl text-ink/60">{next.dek}</p>
@@ -307,7 +308,7 @@ export default async function PostPage({
                 ← All notes
               </Link>
             </Reveal>
-          </section>
+          </Section>
         )}
 
         <Footer />

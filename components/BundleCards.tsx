@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Section from "./Section";
 import { Tick } from "./Hero";
 import {
   BUNDLES,
@@ -19,8 +20,7 @@ const money = (n: number) => `$${n.toLocaleString("en-US")}`;
  */
 export default function BundleCards() {
   return (
-    <section className="px-5 py-16 md:px-10 md:py-24">
-      <div className="mx-auto max-w-6xl">
+    <Section className="bg-tint">
         <div className="max-w-2xl">
           <p className="eyebrow text-brand">Best sellers</p>
           <h2 className="display-tight mt-4 text-3xl md:text-4xl">
@@ -37,8 +37,7 @@ export default function BundleCards() {
             <BundleCard key={bundle.slug} bundle={bundle} />
           ))}
         </ul>
-      </div>
-    </section>
+    </Section>
   );
 }
 

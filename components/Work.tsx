@@ -1,33 +1,67 @@
 import Link from "next/link";
 import { Reveal } from "./Reveal";
-import WorkTile from "./WorkTile";
+import Section from "./Section";
 import { PROJECTS } from "@/lib/projects";
 
+/**
+ * A band, not a gallery.
+ *
+ * This used to render four full case-study tiles, which cost the homepage
+ * 888KB of JPEG - against 49KB of gzipped HTML for the whole page - to show a
+ * treasury dashboard, a patient check-in app, an architecture studio site and
+ * a freight dispatch board to someone pricing a $399 website for their shop.
+ * Wrong audience, and nine times the page's own weight, so both problems take
+ * the same fix: name the work, link to it, ship none of it here.
+ *
+ * The concepts stay on /work, where the copy already explains why the briefs
+ * are software. Anyone who wants that proof is one click away; everyone else
+ * stops paying to download it.
+ */
 export default function Work() {
   return (
-    <section id="work" className="px-5 py-24 md:px-10 md:py-36">
+    <Section id="work" className="bg-surface">
       <Reveal>
-        <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="md:grid md:grid-cols-[1fr_1.15fr] md:gap-16">
           <div>
             <p className="eyebrow mb-4 text-brand">Selected work</p>
-            <h2 className="display-tight max-w-2xl text-4xl md:text-6xl">
+            <h2 className="display-tight text-3xl md:text-4xl">
               Concept projects, built not mocked up
             </h2>
           </div>
-          <Link
-            href="/work"
-            className="eyebrow inline-block py-1.5 text-ink/60 transition-colors hover:text-brand"
-          >
-            All work →
-          </Link>
+
+          <div className="mt-6 md:mt-0">
+            <p className="max-w-xl leading-relaxed text-muted">
+              Four self-initiated concepts, each designed and then actually
+              built, so you can open the prototype rather than take our word for
+              it. They are deliberately hard briefs: if the detail holds up at
+              that level, it holds up on a five-page site for a local business.
+            </p>
+
+            <ul className="mt-7 grid gap-2 sm:grid-cols-2">
+              {PROJECTS.map((project) => (
+                <li key={project.slug}>
+                  <Link
+                    href={`/work/${project.slug}`}
+                    className="flex items-baseline gap-2 rounded-full border border-[color:var(--color-line-strong)] px-4 py-2 text-sm font-semibold transition-colors hover:border-brand hover:text-brand"
+                  >
+                    {project.name}
+                    <span className="font-mono text-xs text-muted">
+                      {project.category}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <Link
+              href="/work"
+              className="mt-7 inline-block text-sm font-semibold text-brand underline-offset-4 hover:underline"
+            >
+              See all four in full &rarr;
+            </Link>
+          </div>
         </div>
       </Reveal>
-
-      <div className="mt-16 grid gap-10 md:grid-cols-2 md:gap-x-10 md:gap-y-20">
-        {PROJECTS.map((project, i) => (
-          <WorkTile key={project.slug} project={project} index={i} />
-        ))}
-      </div>
-    </section>
+    </Section>
   );
 }

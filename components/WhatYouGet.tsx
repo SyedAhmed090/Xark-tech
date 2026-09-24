@@ -1,4 +1,5 @@
 import { Tick } from "./Hero";
+import Section from "./Section";
 
 /**
  * The single most persuasive block on the site, because it is the one claim a
@@ -40,21 +41,20 @@ const ROWS: { label: string; typical: string; ours: string }[] = [
 
 export default function WhatYouGet() {
   return (
-    <section className="px-5 py-16 md:px-10 md:py-24">
-      <div className="mx-auto max-w-4xl">
+    <Section className="bg-ink text-paper" inner="max-w-4xl">
         <div className="max-w-2xl">
           <p className="eyebrow text-brand">The difference</p>
           <h2 className="display-tight mt-4 text-3xl md:text-4xl">
             A $99 logo you can actually use
           </h2>
-          <p className="mt-4 leading-relaxed text-muted">
+          <p className="mt-4 leading-relaxed text-paper/70">
             Most budget logo services hand over a JPEG and charge again for the
             files your printer will accept. Ours includes the full vector set
             at every price, including the cheapest one.
           </p>
         </div>
 
-        <div className="card mt-10 overflow-hidden">
+        <div className="card mt-10 overflow-hidden text-ink">
           <table className="w-full text-left text-sm">
             <caption className="sr-only">
               What a typical budget logo service includes, compared with every
@@ -104,7 +104,6 @@ export default function WhatYouGet() {
             </tbody>
           </table>
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
+import Section from "@/components/Section";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 import JsonLd from "@/components/JsonLd";
@@ -71,7 +72,7 @@ export default async function CasePage({
       />
       <Nav />
       <main id="main" className="pt-32">
-        <header className="px-5 md:px-10">
+        <Section size="none">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">
               {project.category} — {project.year}
@@ -84,7 +85,7 @@ export default async function CasePage({
             {/* Floor is 2.25rem, not 3rem: single-word titles like "Meridian"
                 can't wrap, and at 3rem the ultra-wide display face overflowed
                 a 320px viewport by 6px. Only affects widths under ~400px. */}
-            <h1 className="display text-[clamp(2.25rem,12vw,11rem)]">
+            <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
               {project.name}
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink/70">
@@ -109,15 +110,17 @@ export default async function CasePage({
               Open the prototype →
             </Link>
           </Reveal>
-        </header>
+        </Section>
 
-        <Reveal className="mt-16 px-5 md:px-10">
-          <div className="relative aspect-[16/9] overflow-hidden rounded-sm md:aspect-[21/9]">
-            {project.cover}
-          </div>
-        </Reveal>
+        <Section size="none" className="mt-16">
+          <Reveal>
+            <div className="relative aspect-[16/9] overflow-hidden rounded-sm md:aspect-[21/9]">
+              {project.cover}
+            </div>
+          </Reveal>
+        </Section>
 
-        <div className="mx-auto grid max-w-[1600px] gap-16 px-5 py-24 md:grid-cols-3 md:gap-10 md:px-10 md:py-36">
+        <Section inner="max-w-6xl grid gap-16 md:grid-cols-3 md:gap-10">
           {(
             [
               ["The challenge", project.challenge],
@@ -130,9 +133,9 @@ export default async function CasePage({
               <p className="mt-5 leading-relaxed text-ink/70">{body}</p>
             </Reveal>
           ))}
-        </div>
+        </Section>
 
-        <section className="px-5 pb-24 md:px-10 md:pb-32">
+        <Section size="none" className="pb-16 md:pb-24">
           <Reveal>
             <p className="eyebrow mb-10 text-brand">Inside the process</p>
           </Reveal>
@@ -155,20 +158,20 @@ export default async function CasePage({
               </Reveal>
             ))}
           </div>
-        </section>
+        </Section>
 
-        <section className="bg-ink px-5 py-20 text-paper md:px-10 md:py-28">
+        <Section className="bg-ink text-paper">
           <div className="grid gap-12 md:grid-cols-3 md:gap-8 md:divide-x md:divide-paper/15">
             {project.stats.map((stat, i) => (
               <Reveal key={stat.label} delay={i * 0.08} className="md:px-8 md:first:pl-0">
-                <p className="display text-5xl text-paper md:text-6xl">{stat.value}</p>
+                <p className="display text-4xl text-paper md:text-5xl">{stat.value}</p>
                 <p className="eyebrow mt-3 text-paper/50">{stat.label}</p>
               </Reveal>
             ))}
           </div>
-        </section>
+        </Section>
 
-        <section className="px-5 py-24 md:px-10 md:py-32">
+        <Section size="lg">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">Next case</p>
             <Link href={`/work/${next.slug}`} className="group block">
@@ -184,7 +187,7 @@ export default async function CasePage({
               ← All work
             </Link>
           </Reveal>
-        </section>
+        </Section>
 
         <Footer />
       </main>

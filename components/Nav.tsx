@@ -15,7 +15,6 @@ import { SITE } from "@/lib/site";
 const LINKS = [
   { label: "Pricing", href: "/packages" },
   { label: "Services", href: "/services" },
-  { label: "Work", href: "/work" },
   { label: "About", href: "/studio" },
   { label: "Journal", href: "/journal" },
   { label: "Contact", href: "/contact" },
@@ -107,7 +106,7 @@ export default function Nav() {
         animate={{ y: hidden ? "-100%" : 0 }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       >
-        <nav className="mx-auto flex max-w-[1600px] items-center justify-between px-5 py-4 md:px-10">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-10">
           <Link
             href="/"
             aria-label="Xark Tech home"

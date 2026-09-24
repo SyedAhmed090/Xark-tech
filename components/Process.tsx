@@ -1,4 +1,5 @@
 import { Reveal } from "./Reveal";
+import Section from "./Section";
 
 /**
  * The real process, not an agency one.
@@ -38,12 +39,15 @@ const STEPS = [
 
 export default function Process() {
   return (
-    <section id="process" className="px-5 py-24 md:px-10 md:py-36">
-      <div className="grid gap-12 md:grid-cols-[1fr_2fr] md:gap-20">
+    <Section
+      id="process"
+      size="lg"
+      inner="max-w-6xl grid gap-12 md:grid-cols-[1fr_2fr] md:gap-20"
+    >
         <div className="md:sticky md:top-28 md:self-start">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">How we work</p>
-            <h2 className="display-tight text-4xl md:text-5xl">
+            <h2 className="display-tight text-3xl md:text-4xl">
               Four steps, and you know the price at step one.
             </h2>
             <p className="mt-6 max-w-sm text-muted">
@@ -57,10 +61,10 @@ export default function Process() {
         <div className="hairline-t">
           {STEPS.map((step, i) => (
             <Reveal key={step.number} delay={i * 0.05}>
-              <div className="grid grid-cols-[auto_1fr] gap-6 py-10 hairline-b md:gap-12">
+              <div className="grid grid-cols-[auto_1fr] gap-6 py-7 hairline-b md:gap-12">
                 <span className="font-mono text-sm text-brand">{step.number}</span>
                 <div>
-                  <h3 className="display-tight text-3xl md:text-4xl">
+                  <h3 className="display-tight text-xl md:text-2xl">
                     {step.name}
                   </h3>
                   <p className="mt-4 max-w-lg leading-relaxed text-muted">
@@ -71,7 +75,6 @@ export default function Process() {
             </Reveal>
           ))}
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }

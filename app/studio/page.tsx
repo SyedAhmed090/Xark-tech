@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { pageMeta } from "@/lib/site";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import Section from "@/components/Section";
 import Footer from "@/components/Footer";
 import Team from "@/components/Team";
 import { Reveal } from "@/components/Reveal";
@@ -55,7 +56,7 @@ export default function StudioPage() {
     <>
       <Nav />
       <main id="main" className="pt-32">
-        <header className="grid gap-10 px-5 md:grid-cols-[2fr_1fr] md:gap-8 md:px-10">
+        <Section size="none" inner="max-w-6xl grid gap-10 md:grid-cols-[2fr_1fr] md:gap-8">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">About us</p>
             <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
@@ -80,9 +81,9 @@ export default function StudioPage() {
               </div>
             </div>
           </Reveal>
-        </header>
+        </Section>
 
-        <section className="grid gap-12 px-5 py-20 md:grid-cols-2 md:gap-20 md:px-10 md:py-28">
+        <Section inner="max-w-6xl grid gap-12 md:grid-cols-2 md:gap-20">
           <Reveal>
             <p className="text-xl leading-relaxed text-ink/80 md:text-2xl">
               Most small businesses get one of two offers: a $40 logo from a
@@ -114,9 +115,9 @@ export default function StudioPage() {
               craft on them.
             </p>
           </Reveal>
-        </section>
+        </Section>
 
-        <section className="px-5 py-20 hairline-t md:px-10 md:py-28">
+        <Section className="hairline-t">
           <Reveal>
             <p className="eyebrow mb-12 text-brand">What we believe</p>
           </Reveal>
@@ -132,13 +133,13 @@ export default function StudioPage() {
               </Reveal>
             ))}
           </div>
-        </section>
+        </Section>
 
         <Team />
 
-        <section className="px-5 py-24 md:px-10 md:py-32">
+        <Section size="lg">
           <Reveal>
-            <h2 className="display-tight max-w-2xl text-3xl md:text-5xl">
+            <h2 className="display-tight max-w-2xl text-3xl md:text-4xl">
               Know what you need? Every price is on one page.
             </h2>
             <div className="mt-10">
@@ -150,7 +151,7 @@ export default function StudioPage() {
                 </Link>
             </div>
           </Reveal>
-        </section>
+        </Section>
 
         <Footer />
       </main>

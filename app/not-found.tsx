@@ -23,7 +23,7 @@ export default function NotFound() {
             strokeLinecap="round"
           />
         </svg>
-        <h1 className="display text-[clamp(3.5rem,18vw,13rem)] leading-none">
+        <h1 className="display text-[clamp(3.5rem,14vw,8rem)] leading-none">
           404
         </h1>
         <p className="mt-6 text-2xl text-paper/70 md:text-3xl">

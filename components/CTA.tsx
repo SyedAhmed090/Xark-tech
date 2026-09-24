@@ -1,22 +1,27 @@
 import ContactForm from "./ContactForm";
 import { LineReveal, Reveal } from "./Reveal";
+import Section from "./Section";
 import { SITE } from "@/lib/site";
 
+/**
+ * The closing band. It used to read "Let's make something worth shipping" set
+ * at 9rem — a portfolio line, at a scale nothing else on the page came near,
+ * which is what made the bottom of the homepage look like a different site
+ * from the top. The headline now states the offer, and the scale matches the
+ * h1 it echoes.
+ */
 export default function CTA() {
   return (
-    <section
-      id="contact"
-      className="bg-brand px-5 py-28 text-paper md:px-10 md:py-40"
-    >
-      <h2 className="display text-[clamp(2.25rem,10.5vw,5rem)] md:text-[clamp(4rem,8.5vw,9rem)]">
-        <LineReveal>Let’s make</LineReveal>
+    <Section id="contact" size="lg" className="bg-brand text-paper">
+      <h2 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
+        <LineReveal>Get a price and a</LineReveal>
         <LineReveal delay={0.1}>
-          something <span className="accent-word text-paper">worth</span>
+          <span className="accent-word text-paper">delivery date</span>
         </LineReveal>
-        <LineReveal delay={0.2}>shipping</LineReveal>
+        <LineReveal delay={0.2}>in one business day.</LineReveal>
       </h2>
 
-      <div className="mt-16 grid gap-12 md:grid-cols-2 md:gap-20">
+      <div className="mt-14 grid gap-12 md:grid-cols-2 md:gap-20">
         <Reveal delay={0.2}>
           <ContactForm theme="brand" />
         </Reveal>
@@ -32,13 +37,13 @@ export default function CTA() {
             </p>
             <a
               href={`mailto:${SITE.email}`}
-              className="text-3xl transition-opacity hover:opacity-70 md:text-5xl"
+              className="text-2xl transition-opacity hover:opacity-70 md:text-3xl"
             >
               {SITE.email}
             </a>
           </div>
         </Reveal>
       </div>
-    </section>
+    </Section>
   );
 }

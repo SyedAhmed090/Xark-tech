@@ -1,4 +1,6 @@
 import Link from "next/link";
+import HeroVisual from "./HeroVisual";
+import Section from "./Section";
 import { ENTRY_PRICE } from "@/lib/services";
 
 /**
@@ -19,13 +21,17 @@ export default function Hero() {
     // Bottom padding is deliberately small: the bundles section below opens
     // with its own py-16/py-24, and stacking both left a dead screen between
     // the proof list and the first price.
-    <section className="px-5 pt-28 pb-2 md:px-10 md:pt-32 md:pb-4">
-      <div className="mx-auto max-w-6xl">
+    <Section
+      size="none"
+      className="pt-28 pb-2 md:pt-32 md:pb-4"
+      inner="max-w-6xl grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16"
+    >
+      <div>
         <p className="eyebrow text-brand">
           Logos, websites &amp; branding for small business
         </p>
 
-        <h1 className="display mt-5 max-w-4xl text-[clamp(2.25rem,6.5vw,4.5rem)]">
+        <h1 className="display mt-5 max-w-4xl text-[clamp(2.25rem,4.4vw,3.5rem)]">
           Everything your business needs to{" "}
           <span className="accent-word">look the part</span>.
         </h1>
@@ -54,7 +60,13 @@ export default function Hero() {
           ))}
         </ul>
       </div>
-    </section>
+
+      {/* pb-12 on the wrapper: the files card hangs below the site card, and
+          without it the next section clips it on mobile. */}
+      <div className="pb-12 lg:pb-0">
+        <HeroVisual />
+      </div>
+    </Section>
   );
 }
 
