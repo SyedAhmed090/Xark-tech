@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ServiceIcon from "./ServiceIcon";
 import Section from "./Section";
 import { SERVICES } from "@/lib/services";
 
@@ -33,6 +34,9 @@ export default function ServiceGrid() {
                 href={`/services/${service.slug}`}
                 className="card flex h-full flex-col p-6 transition-colors hover:border-brand"
               >
+                <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-tint text-brand">
+                  <ServiceIcon slug={service.slug} />
+                </span>
                 <h3 className="display-tight text-lg">{service.name}</h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
                   {service.tagline}

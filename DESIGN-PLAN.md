@@ -161,6 +161,39 @@ added has to be hand-prepared:
 | **/studio (About)** | One photo of the actual workspace, or none. | A fake team photo is worse than an empty section. |
 | **/work** | Replace or demote the four B2B concepts. | See step 5. |
 
+### What step 3 actually shipped
+
+The Higgsfield account has **1.85 credits on the free plan**, so the generation
+pipeline this plan assumed is not available. Step 3 shipped the half that needs
+no photography, and the photographic slots are still open:
+
+**Done, and costing zero image bytes** — everything below is inline SVG or CSS,
+which matters more than usual under `unoptimized: true`:
+
+- Seven service glyphs (`components/ServiceIcon.tsx`), one drawn family.
+- The hero's right column (`components/HeroVisual.tsx`) — a finished
+  small-business site and its file set, drawn rather than photographed. The
+  first attempt used grey bars and read as a loading skeleton; real words at a
+  small size read as a finished page.
+- The trade strip (`components/TradeStrip.tsx`), five glyphs, categories lifted
+  verbatim from what /studio already claims.
+
+**Still open, needs credits or real assets:**
+
+- The hero photograph. Note the constraint that pushed this to a drawing even
+  before credits ran out: a generated photo of a café's branding, sitting in a
+  hero, reads as portfolio — the exact claim every case study on this site is
+  labelled "self-initiated concept" to avoid.
+- Bundle card stills, and the file-set photo beside the comparison table.
+- Testimonial faces, which wait on real testimonials regardless.
+
+**A weight finding while measuring:** the homepage ships **888KB** of portfolio
+JPEGs — all four covers render there, unoptimized, and `loop-health-photo.jpg`
+alone is 360KB. That is nine times the homepage's entire gzipped HTML (49KB),
+spent on concept projects aimed at the audience this business no longer sells
+to. It is the strongest argument for step 5 and it is a performance problem,
+not only a positioning one.
+
 ### Sourcing
 
 The four existing portfolio photos were generated through Higgsfield with the
