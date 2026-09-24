@@ -54,15 +54,18 @@ building `main` and comparing:
 - Under `prefers-reduced-motion`, framer-motion produces an SSR/client mismatch
   and React regenerates the tree. `Reveal` also has no reduced-motion handling,
   so those users get content sitting at opacity 0 until they scroll past it.
-- The static export emits RSC prefetch payloads at
-  `contact/__next.contact/__PAGE__.txt` while the client router requests
-  `contact/__next.contact.__PAGE__.txt` — a dot where the file has a slash. The
-  result is a dozen 404s per page on prefetch. Navigation still works, falling
-  back to a full page load, so it costs speed rather than function. `main`
-  shows 14 failed requests per page against this branch's 12, the difference
-  being the `/work` link this branch removed from the nav. Fixable with a
-  rewrite in `deploy/.htaccess` or `prefetch={false}`, neither of which belongs
-  in a design change.
+- ~~RSC prefetch payloads 404 in the static export.~~ **Fixed** in
+  `scripts/prepare-deploy.mjs`. Next wrote each payload into nested
+  directories (`__next.services/$d$slug/__PAGE__.txt`) while the client router
+  asked for the same thing with dots (`__next.services.$d$slug.__PAGE__.txt`);
+  on a Next server the request is routed rather than resolved against a
+  filesystem, so nothing notices, but Apache serving a static export 404s every
+  one. The deploy step now renames them to the spelling the client uses —
+  renames rather than copies, since the nested form is never requested. The
+  mapping was derived by serving the export and checking the candidate name
+  against all 41 distinct 404s, not guessed. Across the 25-route sweep:
+  **186 404s and 186 console errors → 0**, with client-side routing verified
+  intact.
 
 ---
 
