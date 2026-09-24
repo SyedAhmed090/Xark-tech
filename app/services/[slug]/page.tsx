@@ -143,7 +143,7 @@ export default async function ServicePage({
       />
       <Nav />
       <main id="main" className="pt-32">
-        <Section size="none" inner="max-w-6xl grid gap-10 md:grid-cols-[2fr_1fr] md:gap-8">
+        <Section size="none" inner="max-w-[84rem] grid gap-10 md:grid-cols-[2fr_1fr] md:gap-8">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">Service</p>
             <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
@@ -175,7 +175,7 @@ export default async function ServicePage({
           </Reveal>
         </Section>
 
-        <Section inner="max-w-6xl grid gap-16 md:grid-cols-2 md:gap-20">
+        <Section inner="max-w-[84rem] grid gap-16 md:grid-cols-2 md:gap-20">
           <Reveal>
             <h2 className="eyebrow mb-8 text-brand">What you get</h2>
             <ul className="hairline-t">

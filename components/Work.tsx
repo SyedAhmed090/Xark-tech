@@ -19,7 +19,7 @@ import { PROJECTS } from "@/lib/projects";
  */
 export default function Work() {
   return (
-    <Section id="work" className="bg-paper">
+    <Section id="work" size="sm" className="bg-paper">
       <Reveal>
         <div className="md:grid md:grid-cols-[1fr_1.15fr] md:gap-16">
           <div>

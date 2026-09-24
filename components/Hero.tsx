@@ -24,7 +24,7 @@ export default function Hero() {
     <Section
       size="none"
       className="bg-brand pt-28 pb-16 text-paper md:pt-32 md:pb-20"
-      inner="max-w-6xl grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16"
+      inner="max-w-[84rem] grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16"
     >
       <div>
         <p className="eyebrow text-brand">

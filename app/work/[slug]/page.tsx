@@ -120,7 +120,7 @@ export default async function CasePage({
           </Reveal>
         </Section>
 
-        <Section inner="max-w-6xl grid gap-16 md:grid-cols-3 md:gap-10">
+        <Section inner="max-w-[84rem] grid gap-16 md:grid-cols-3 md:gap-10">
           {(
             [
               ["The challenge", project.challenge],

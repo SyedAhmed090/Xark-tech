@@ -8,6 +8,44 @@ colour and imagery only.
 
 ---
 
+## Second direction change — the layout was the problem
+
+Colour-blocking landed and was still disliked. Asked what was wrong, the answer
+was the layout, and looking at the page that is plainly right: **seven of the
+nine bands were one of two shapes.** Bundles and Services were both "heading,
+then a row of equal cards". Process, Work and FAQ were all "heading in the left
+column, content in the right" — three consecutively. Everything sat in a
+1152px column with dead margin either side, and every band carried identical
+vertical padding, so nothing dominated.
+
+Step 1 caused a good part of that. It fixed an *inconsistent* layout by forcing
+every section into one container, one rhythm and one shape — which removed the
+inconsistency and produced monotony. Consistency belongs in the system (the
+spacing scale, the type scale, the palette), not in the composition.
+
+What changed:
+
+- **Column 1152px → 1344px**, so a wide screen is used rather than margined.
+- **Three section weights** (`sm`/`md`/`lg`) instead of one, so the bundles own
+  their screen and the trade strip and work footnote do not.
+- **Services: card grid → a dense price list.** A row per service — name,
+  what it is, what it costs, how long. It reads the way somebody comparing
+  quotes reads, and it looks nothing like the bundles above it.
+- **Process: vertical list → four across.** Four short steps had been four
+  screens of scrolling; laid out horizontally the whole process fits one, which
+  is also the point it is making.
+- **FAQ: one tall column → two.** Half the height, and it stops being the third
+  "heading left, list right" in a row.
+- **Bundles: the featured card is physically bigger**, not an outline on an
+  identical box.
+
+One bug worth recording: each service row was its own grid, so `auto` tracks
+sized to that row's content and nothing aligned down the column — taglines
+started at seven different x positions. Fixed tracks resolve identically in
+every row.
+
+---
+
 ## Direction change — the palette was the problem
 
 Steps 1–5 fixed structure: one grid, one rhythm, grounds that alternate, no

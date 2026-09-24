@@ -18,7 +18,7 @@ const SITEMAP = [
 export default function Footer() {
   return (
     <footer className="bg-ink px-5 pb-10 pt-20 text-paper md:px-10">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-[84rem]">
       <p className="eyebrow mb-14 text-paper/70">Taking on new projects now</p>
 
       <div className="grid gap-12 md:grid-cols-[2fr_1fr_1fr]">

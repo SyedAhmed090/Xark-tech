@@ -20,7 +20,10 @@ const money = (n: number) => `$${n.toLocaleString("en-US")}`;
  */
 export default function BundleCards() {
   return (
-    <Section className="bg-sand">
+    /* The commercial centre of the page, so it is the one band that gets the
+       heavy weight and the one grid where the cards are not all equal — the
+       bundle most people buy is physically bigger, not just outlined. */
+    <Section size="lg" className="bg-sand">
         <div className="max-w-2xl">
           <p className="eyebrow text-brand">Best sellers</p>
           <h2 className="display display-section mt-4">
@@ -32,7 +35,7 @@ export default function BundleCards() {
           </p>
         </div>
 
-        <ul className="mt-10 grid gap-5 lg:grid-cols-3">
+        <ul className="mt-12 grid items-start gap-5 lg:grid-cols-[1fr_1.18fr_1fr]">
           {BUNDLES.map((bundle) => (
             <BundleCard key={bundle.slug} bundle={bundle} />
           ))}
@@ -48,23 +51,29 @@ function BundleCard({ bundle }: { bundle: Bundle }) {
 
   return (
     <li
-      className={`card relative flex flex-col p-6 md:p-7 ${
-        featured ? "border-brand ring-1 ring-brand" : ""
+      className={`card relative flex flex-col ${
+        featured
+          ? "border-2 border-ink bg-surface p-7 md:p-9 lg:-mt-4"
+          : "p-6 md:p-7"
       }`}
     >
       {featured && (
-        <span className="absolute -top-3 left-6 rounded-full bg-brand px-3 py-1 text-xs font-bold text-white">
+        <span className="absolute -top-3 left-7 rounded bg-ink px-3 py-1 text-xs font-bold text-paper">
           Most popular
         </span>
       )}
 
-      <h3 className="display-tight text-xl">{bundle.name}</h3>
+      <h3 className={`display-tight ${featured ? "text-2xl md:text-3xl" : "text-xl"}`}>
+        {bundle.name}
+      </h3>
       <p className="mt-2 text-sm leading-relaxed text-muted">
         {bundle.summary}
       </p>
 
       <div className="mt-6 flex items-end gap-3">
-        <span className="price text-4xl">{bundle.price}</span>
+        <span className={`price ${featured ? "text-5xl md:text-6xl" : "text-4xl"}`}>
+          {bundle.price}
+        </span>
         {/* The list price is struck because it is a real sum of real tiers,
             not an inflated anchor — the components are individually priced
             on the same site and a visitor can add them up. */}

@@ -18,10 +18,15 @@ import type { ReactNode } from "react";
  * they were written in. Same reason vertical rhythm is a prop and not a
  * className.
  */
+/**
+ * Three weights, not one. Every band carrying identical padding is what made
+ * the page a metronome — nothing dominated, so nothing read as important.
+ * `sm` is for the connective bands (a strip, a footnote), `lg` for the two
+ * that should own their screen.
+ */
 const PAD = {
-  /** The default band. */
+  sm: "py-10 md:py-14",
   md: "py-16 md:py-24",
-  /** The two or three that should breathe: closing CTAs, the process list. */
   lg: "py-24 md:py-32",
   /** Caller sets its own vertical padding — page tops that clear the nav. */
   none: "",
@@ -42,7 +47,7 @@ export default function Section({
 }) {
   return (
     <section id={id} className={`px-5 md:px-10 ${PAD[size]} ${className}`}>
-      <div className={`mx-auto ${inner || "max-w-6xl"}`}>{children}</div>
+      <div className={`mx-auto ${inner || "max-w-[84rem]"}`}>{children}</div>
     </section>
   );
 }

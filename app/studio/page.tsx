@@ -56,7 +56,7 @@ export default function StudioPage() {
     <>
       <Nav />
       <main id="main" className="pt-32">
-        <Section size="none" inner="max-w-6xl grid gap-10 md:grid-cols-[2fr_1fr] md:gap-8">
+        <Section size="none" inner="max-w-[84rem] grid gap-10 md:grid-cols-[2fr_1fr] md:gap-8">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">About us</p>
             <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
@@ -83,7 +83,7 @@ export default function StudioPage() {
           </Reveal>
         </Section>
 
-        <Section inner="max-w-6xl grid gap-12 md:grid-cols-2 md:gap-20">
+        <Section inner="max-w-[84rem] grid gap-12 md:grid-cols-2 md:gap-20">
           <Reveal>
             <p className="text-xl leading-relaxed text-ink/80 md:text-2xl">
               Most small businesses get one of two offers: a $40 logo from a

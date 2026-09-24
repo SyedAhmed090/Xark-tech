@@ -80,18 +80,15 @@ export default function FAQ({
   );
 
   return (
-    <Section
-      id="faq"
-      className="bg-sand"
-      inner="max-w-6xl grid gap-12 md:grid-cols-[1fr_2fr] md:gap-20"
-    >
-        <div className="md:sticky md:top-28 md:self-start">
-          <Reveal>
-            <p className="eyebrow mb-4 text-brand">{eyebrow}</p>
-            <h2 className="display display-section">{heading}</h2>
-          </Reveal>
-        </div>
-        <div className="hairline-t">
+    <Section id="faq" className="bg-sand">
+      <Reveal>
+        <p className="eyebrow mb-4 text-brand">{eyebrow}</p>
+        <h2 className="display display-section max-w-2xl">{heading}</h2>
+      </Reveal>
+
+      {/* Two columns, so eight questions are half as tall and the block stops
+          repeating the shape of the two sections above it. */}
+      <div className="mt-10 grid gap-x-12 border-t border-[color:var(--color-line)] md:grid-cols-2">
           {items.map((item, i) => (
             <Reveal key={item.q} delay={i * 0.04}>
               <Item

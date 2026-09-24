@@ -48,7 +48,7 @@ export default function ServicesIndex() {
       />
       <Nav />
       <main id="main" className="pt-32">
-        <Section size="none" inner="max-w-6xl grid gap-10 md:grid-cols-[2fr_1fr] md:gap-8">
+        <Section size="none" inner="max-w-[84rem] grid gap-10 md:grid-cols-[2fr_1fr] md:gap-8">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">Services</p>
             <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
