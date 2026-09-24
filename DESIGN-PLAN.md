@@ -119,13 +119,27 @@ read as one long card list.
   agency without claiming clients that do not exist.
 - A delivery counter in the hero proof row once there is a real number.
 
-### Step 5 — Retarget the work section
+### Step 5 — Retarget the work section — done
 
-The four B2B concepts move to a lower-priority page, or get replaced by
-small-business pieces: a logo grid, a before/after of a real local site, a menu
-and signage set. Until those exist, the homepage `Work` section becomes a
-single strip of logo marks rather than four full case-study tiles — smaller
-claim, better fit.
+The plan said a strip of logo marks. There are no logo marks to show that would
+not be invented client work, so the homepage band names the four concepts,
+links each one, and ships no imagery at all. Measured: **910KB → 42KB**, the
+42KB being the logo, which is now the only image the homepage loads.
+
+The same tiles were also rendering on all seven service detail pages under an
+eyebrow reading "{service.name} in the wild" — a claim of shipped client work,
+made with self-initiated concepts, shown to someone pricing a $99 logo. That
+block is gone (`/services/logo-design` went 169KB → 42KB), and the header stat
+it fed, "Shown here — N cases", now counts packages instead.
+
+`Work` also leaves the primary nav — it stays in the footer sitemap, in the
+homepage band, and at a lower sitemap priority (0.9 → 0.6, detail pages 0.7 →
+0.5). It is one line in `components/Nav.tsx` to put back.
+
+**Still the real fix:** replacing the four B2B concepts with small-business
+work. Nothing here makes that unnecessary — it only stops the wrong work from
+being the first thing a buyer sees, and from being the heaviest thing they
+download.
 
 ---
 
@@ -187,12 +201,12 @@ which matters more than usual under `unoptimized: true`:
 - Bundle card stills, and the file-set photo beside the comparison table.
 - Testimonial faces, which wait on real testimonials regardless.
 
-**A weight finding while measuring:** the homepage ships **888KB** of portfolio
-JPEGs — all four covers render there, unoptimized, and `loop-health-photo.jpg`
-alone is 360KB. That is nine times the homepage's entire gzipped HTML (49KB),
-spent on concept projects aimed at the audience this business no longer sells
-to. It is the strongest argument for step 5 and it is a performance problem,
-not only a positioning one.
+**A weight finding while measuring:** the homepage transfers **910KB across
+five images** — the four portfolio covers, unoptimized, plus the logo, with
+`loop-health-photo.jpg` alone at 351KB. That is roughly nineteen times the
+homepage's entire gzipped HTML (49KB), spent on concept projects aimed at the
+audience this business no longer sells to. It is the strongest argument for
+step 5 and it is a performance problem, not only a positioning one.
 
 ### Sourcing
 

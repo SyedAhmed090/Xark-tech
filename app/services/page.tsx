@@ -7,7 +7,7 @@ import JsonLd from "@/components/JsonLd";
 import { Reveal } from "@/components/Reveal";
 import { ENTRY_PRICE, SERVICES } from "@/lib/services";
 import { PROJECTS } from "@/lib/projects";
-import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta, pageUrl } from "@/lib/site";
+import { ORG_REF, breadcrumbs, pageMeta, pageUrl } from "@/lib/site";
 
 export const metadata: Metadata = pageMeta({
   title: "Services",

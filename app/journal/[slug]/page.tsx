@@ -21,7 +21,7 @@ import {
   type Post,
   type Rich,
 } from "@/lib/posts";
-import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta, pageUrl } from "@/lib/site";
+import { ORG_REF, breadcrumbs, pageMeta, pageUrl } from "@/lib/site";
 
 export function generateStaticParams() {
   return POSTS.map((p) => ({ slug: p.slug }));

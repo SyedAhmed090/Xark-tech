@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
 import Section from "@/components/Section";
 import Footer from "@/components/Footer";
-import WorkTile from "@/components/WorkTile";
 import { PackagesSection } from "@/components/Packages";
 import { Reveal } from "@/components/Reveal";
 import { Tick } from "@/components/Hero";
@@ -17,8 +16,7 @@ import {
   type Package,
   type Service,
 } from "@/lib/services";
-import { PROJECTS } from "@/lib/projects";
-import { ORG_REF, absoluteUrl, breadcrumbs, pageMeta, pageUrl } from "@/lib/site";
+import { ORG_REF, breadcrumbs, pageMeta, pageUrl } from "@/lib/site";
 
 export function generateStaticParams() {
   return SERVICES.map((s) => ({ slug: s.slug }));
@@ -126,7 +124,6 @@ export default async function ServicePage({
   if (!service) notFound();
 
   const faqs = SERVICE_FAQS[service.slug] ?? [];
-  const related = PROJECTS.filter((p) => service.related.includes(p.slug));
   const others = SERVICES.filter((s) => s.slug !== service.slug);
 
   return (
@@ -171,10 +168,8 @@ export default async function ServicePage({
                 <span className="font-mono text-sm">{service.price}</span>
               </div>
               <div className="flex items-baseline justify-between py-4 hairline-b">
-                <span className="eyebrow text-ink/50">Shown here</span>
-                <span className="font-mono text-sm">
-                  {related.length} case{related.length === 1 ? "" : "s"}
-                </span>
+                <span className="eyebrow text-ink/50">Packages</span>
+                <span className="font-mono text-sm">{service.packages.length}</span>
               </div>
             </div>
           </Reveal>
@@ -251,21 +246,6 @@ export default async function ServicePage({
             </div>
           </Reveal>
         </Section>
-
-        {related.length > 0 && (
-          <Section>
-            <Reveal>
-              <p className="eyebrow mb-10 text-brand">
-                {service.name} in the wild
-              </p>
-            </Reveal>
-            <div className="grid gap-10 md:grid-cols-2 md:gap-x-10">
-              {related.map((project, i) => (
-                <WorkTile key={project.slug} project={project} index={i} />
-              ))}
-            </div>
-          </Section>
-        )}
 
         <Section size="none" className="pb-16 md:pb-24">
           <Reveal>

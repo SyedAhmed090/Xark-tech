@@ -15,7 +15,6 @@ import { SITE } from "@/lib/site";
 const LINKS = [
   { label: "Pricing", href: "/packages" },
   { label: "Services", href: "/services" },
-  { label: "Work", href: "/work" },
   { label: "About", href: "/studio" },
   { label: "Journal", href: "/journal" },
   { label: "Contact", href: "/contact" },
