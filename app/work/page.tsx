@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { pageMeta } from "@/lib/site";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import Section from "@/components/Section";
 import Footer from "@/components/Footer";
 import WorkTile from "@/components/WorkTile";
 import { Reveal } from "@/components/Reveal";
@@ -19,12 +20,12 @@ export default function WorkIndex() {
     <>
       <Nav />
       <main id="main" className="pt-32">
-        <header className="px-5 md:px-10">
+        <Section size="none">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">
               All work — {PROJECTS.length} concept projects — 2024–2026
             </p>
-            <h1 className="display text-[clamp(3rem,12vw,11rem)]">Work</h1>
+            <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">Work</h1>
             {/* These are ambitious software concepts, not small-business
                 sites, and pretending otherwise in the copy would be worse than
                 saying so. Framed as a craft demonstration until the case
@@ -37,22 +38,22 @@ export default function WorkIndex() {
               for a local business.
             </p>
           </Reveal>
-        </header>
+        </Section>
 
         {/* WorkTile headings are h3. Without an h2 here the outline jumped
             h1 -> h3, which screen readers report as a missing level. */}
-        <section className="px-5 py-20 md:px-10 md:py-28">
+        <Section>
           <h2 className="sr-only">Case studies</h2>
           <div className="grid gap-10 md:grid-cols-2 md:gap-x-10 md:gap-y-20">
             {PROJECTS.map((project, i) => (
               <WorkTile key={project.slug} project={project} index={i} />
             ))}
           </div>
-        </section>
+        </Section>
 
-        <section className="px-5 pb-24 md:px-10 md:pb-32">
+        <Section size="none" className="pb-16 md:pb-24">
           <Reveal>
-            <h2 className="display-tight max-w-2xl text-3xl md:text-5xl">
+            <h2 className="display-tight max-w-2xl text-3xl md:text-4xl">
               Want yours to be the next case here?
             </h2>
             <Link
@@ -62,7 +63,7 @@ export default function WorkIndex() {
               Start a project →
             </Link>
           </Reveal>
-        </section>
+        </Section>
 
         <Footer />
       </main>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { pageMeta } from "@/lib/site";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import Section from "@/components/Section";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 import NewsletterForm from "@/components/NewsletterForm";
@@ -19,7 +20,7 @@ export default function JournalIndex() {
     <>
       <Nav />
       <main id="main" className="pt-32">
-        <header className="grid gap-10 px-5 md:grid-cols-[2fr_1fr] md:gap-8 md:px-10">
+        <Section size="none" inner="max-w-6xl grid gap-10 md:grid-cols-[2fr_1fr] md:gap-8">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">Journal</p>
             <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
@@ -48,7 +49,7 @@ export default function JournalIndex() {
               </p>
             </Link>
           </Reveal>
-        </header>
+        </Section>
 
         <div className="px-5 md:px-10">
           <Reveal delay={0.1}>

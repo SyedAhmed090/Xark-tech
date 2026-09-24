@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { pageMeta, SITE } from "@/lib/site";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import Section from "@/components/Section";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import BookingLink from "@/components/BookingLink";
@@ -43,10 +44,10 @@ export default function ContactPage() {
     <>
       <Nav />
       <main id="main" className="pt-32">
-        <header className="px-5 md:px-10">
+        <Section size="none">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">Contact</p>
-            <h1 className="display text-[clamp(2.75rem,11vw,10rem)]">
+            <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
               Say <span className="accent-word">hello</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
@@ -58,7 +59,7 @@ export default function ContactPage() {
               and we&rsquo;ll get straight to work.
             </p>
           </Reveal>
-        </header>
+        </Section>
 
         <div className="grid gap-16 px-5 py-20 md:grid-cols-2 md:gap-20 md:px-10 md:py-28">
           <Reveal>

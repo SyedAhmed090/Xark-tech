@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Section from "./Section";
 import { ENTRY_PRICE } from "@/lib/services";
 
 /**
@@ -19,8 +20,7 @@ export default function Hero() {
     // Bottom padding is deliberately small: the bundles section below opens
     // with its own py-16/py-24, and stacking both left a dead screen between
     // the proof list and the first price.
-    <section className="px-5 pt-28 pb-2 md:px-10 md:pt-32 md:pb-4">
-      <div className="mx-auto max-w-6xl">
+    <Section size="none" className="pt-28 pb-2 md:pt-32 md:pb-4">
         <p className="eyebrow text-brand">
           Logos, websites &amp; branding for small business
         </p>
@@ -53,8 +53,7 @@ export default function Hero() {
             </li>
           ))}
         </ul>
-      </div>
-    </section>
+    </Section>
   );
 }
 

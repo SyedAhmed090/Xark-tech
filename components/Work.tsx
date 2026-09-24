@@ -1,16 +1,17 @@
 import Link from "next/link";
 import { Reveal } from "./Reveal";
+import Section from "./Section";
 import WorkTile from "./WorkTile";
 import { PROJECTS } from "@/lib/projects";
 
 export default function Work() {
   return (
-    <section id="work" className="px-5 py-24 md:px-10 md:py-36">
+    <Section id="work" className="bg-surface">
       <Reveal>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow mb-4 text-brand">Selected work</p>
-            <h2 className="display-tight max-w-2xl text-4xl md:text-6xl">
+            <h2 className="display-tight max-w-2xl text-3xl md:text-4xl">
               Concept projects, built not mocked up
             </h2>
           </div>
@@ -28,6 +29,6 @@ export default function Work() {
           <WorkTile key={project.slug} project={project} index={i} />
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

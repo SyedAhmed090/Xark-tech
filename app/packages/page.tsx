@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { pageMeta } from "@/lib/site";
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import Section from "@/components/Section";
 import Footer from "@/components/Footer";
 import Packages from "@/components/Packages";
 import { Reveal } from "@/components/Reveal";
@@ -19,7 +20,7 @@ export default function PackagesPage() {
     <>
       <Nav />
       <main id="main" className="pt-32">
-        <header className="grid gap-10 px-5 md:grid-cols-[2fr_1fr] md:gap-8 md:px-10">
+        <Section size="none" inner="max-w-6xl grid gap-10 md:grid-cols-[2fr_1fr] md:gap-8">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">Packages</p>
             <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
@@ -51,7 +52,7 @@ export default function PackagesPage() {
               </div>
             </div>
           </Reveal>
-        </header>
+        </Section>
 
         <nav
           aria-label="Jump to service"
@@ -73,16 +74,18 @@ export default function PackagesPage() {
           </Reveal>
         </nav>
 
-        {SERVICES.map((service) => (
-          <section
+        {/* Seven price blocks in a row on one ground is a wall. Alternating
+            the band gives the eye a place to stop between services. */}
+        {SERVICES.map((service, i) => (
+          <Section
             key={service.slug}
             id={service.slug}
-            className="scroll-mt-28 px-5 py-16 md:px-10 md:py-24"
+            className={`scroll-mt-28 ${i % 2 === 1 ? "bg-surface" : ""}`}
           >
             <Reveal>
               <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                 <div>
-                  <h2 className="display-tight text-3xl md:text-5xl">
+                  <h2 className="display-tight text-3xl md:text-4xl">
                     {service.name}
                   </h2>
                   <p className="mt-3 max-w-xl leading-relaxed text-muted">
@@ -102,15 +105,15 @@ export default function PackagesPage() {
               serviceName={service.name}
               serviceSlug={service.slug}
             />
-          </section>
+          </Section>
         ))}
 
-        <section className="bg-ink px-5 py-20 text-paper md:px-10 md:py-28">
+        <Section className="bg-ink text-paper">
           <Reveal>
             <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
               <div>
                 <p className="eyebrow text-paper/50">Not sure which</p>
-                <h2 className="display-tight mt-4 max-w-2xl text-3xl md:text-5xl">
+                <h2 className="display-tight mt-4 max-w-2xl text-3xl md:text-4xl">
                   Not sure which package? Just ask.
                 </h2>
                 <p className="mt-6 max-w-xl leading-relaxed text-paper/70">
@@ -127,7 +130,7 @@ export default function PackagesPage() {
                 </Link>
             </div>
           </Reveal>
-        </section>
+        </Section>
 
         <Footer />
       </main>

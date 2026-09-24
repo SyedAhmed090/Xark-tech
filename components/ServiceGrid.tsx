@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Section from "./Section";
 import { SERVICES } from "@/lib/services";
 
 /**
@@ -9,8 +10,7 @@ import { SERVICES } from "@/lib/services";
  */
 export default function ServiceGrid() {
   return (
-    <section className="bg-surface px-5 py-16 md:px-10 md:py-24">
-      <div className="mx-auto max-w-6xl">
+    <Section className="bg-surface">
         <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <p className="eyebrow text-brand">What we do</p>
@@ -37,8 +37,8 @@ export default function ServiceGrid() {
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
                   {service.tagline}
                 </p>
-                <p className="mt-5 flex items-baseline gap-2">
-                  <span className="price text-2xl text-brand">
+                <p className="mt-5 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                  <span className="price whitespace-nowrap text-2xl text-brand">
                     {service.price}
                   </span>
                   <span className="text-xs text-muted">{service.duration}</span>
@@ -47,7 +47,6 @@ export default function ServiceGrid() {
             </li>
           ))}
         </ul>
-      </div>
-    </section>
+    </Section>
   );
 }

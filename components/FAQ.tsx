@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Reveal } from "./Reveal";
+import Section from "./Section";
 import { FAQ_ITEMS } from "@/lib/faq";
 
 export type FaqItem = { q: string; a: string };
@@ -79,12 +80,14 @@ export default function FAQ({
   );
 
   return (
-    <section id="faq" className="px-5 py-24 md:px-10 md:py-36">
-      <div className="grid gap-12 md:grid-cols-[1fr_2fr] md:gap-20">
+    <Section
+      id="faq"
+      inner="max-w-6xl grid gap-12 md:grid-cols-[1fr_2fr] md:gap-20"
+    >
         <div className="md:sticky md:top-28 md:self-start">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">{eyebrow}</p>
-            <h2 className="display-tight text-4xl md:text-5xl">{heading}</h2>
+            <h2 className="display-tight text-3xl md:text-4xl">{heading}</h2>
           </Reveal>
         </div>
         <div className="hairline-t">
@@ -99,7 +102,6 @@ export default function FAQ({
             </Reveal>
           ))}
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }

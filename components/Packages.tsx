@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Section from "./Section";
 import { Tick } from "./Hero";
 import { packageParam, type Package } from "@/lib/services";
 
@@ -97,8 +98,7 @@ export function PackagesSection({
   serviceSlug?: string;
 }) {
   return (
-    <section className="bg-surface px-5 py-16 md:px-10 md:py-24">
-      <div className="mx-auto max-w-6xl">
+    <Section className="bg-surface">
         <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="eyebrow text-brand">Packages</p>
@@ -116,7 +116,6 @@ export function PackagesSection({
           serviceName={serviceName}
           serviceSlug={serviceSlug}
         />
-      </div>
-    </section>
+    </Section>
   );
 }

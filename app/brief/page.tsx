@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import Nav from "@/components/Nav";
+import Section from "@/components/Section";
 import Footer from "@/components/Footer";
 import BriefForm from "@/components/BriefForm";
 import { noindexPage } from "@/lib/site";
@@ -17,10 +18,13 @@ export default function BriefPage() {
     <>
       <Nav />
       <main id="main" className="pb-20 md:pb-0">
-        <section className="px-5 pt-28 pb-16 md:px-10 md:pt-32 md:pb-24">
-          <div className="mx-auto max-w-2xl">
+        <Section
+          size="none"
+          className="pt-28 pb-16 md:pt-32 md:pb-24"
+          inner="max-w-2xl"
+        >
             <p className="eyebrow text-brand">Start your project</p>
-            <h1 className="display mt-4 text-[clamp(2rem,5.5vw,3.5rem)]">
+            <h1 className="display mt-4 text-[clamp(2.25rem,6.5vw,4.5rem)]">
               Tell us what you need
             </h1>
             <p className="mt-5 leading-relaxed text-muted">
@@ -47,8 +51,7 @@ export default function BriefPage() {
                 <BriefForm />
               </Suspense>
             </div>
-          </div>
-        </section>
+        </Section>
         <Footer />
       </main>
     </>

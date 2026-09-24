@@ -1,4 +1,5 @@
 import { Reveal } from "./Reveal";
+import Section from "./Section";
 import { SITE } from "@/lib/site";
 
 /**
@@ -18,14 +19,14 @@ const TEAM = [
 
 export default function Team() {
   return (
-    <section id="team" className="px-5 py-24 hairline-t md:px-10 md:py-36">
+    <Section id="team" className="hairline-t">
       <Reveal>
         <p className="eyebrow mb-4 text-brand">The people</p>
         {/* Was "the person you meet is the person doing the work" — true of
             the studio, and now contradicted by the production team described
             on this same page and in the FAQ. Claiming otherwise is the kind
             of small lie a client discovers on day two. */}
-        <h2 className="display-tight max-w-3xl text-4xl md:text-6xl">
+        <h2 className="display-tight max-w-3xl text-3xl md:text-4xl">
           Founder-led, with a production team — and one person accountable for
           what reaches you.
         </h2>
@@ -68,6 +69,6 @@ export default function Team() {
           </p>
         </Reveal>
       </div>
-    </section>
+    </Section>
   );
 }

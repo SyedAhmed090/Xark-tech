@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Nav from "@/components/Nav";
+import Section from "@/components/Section";
 import Footer from "@/components/Footer";
 import WorkTile from "@/components/WorkTile";
 import { PackagesSection } from "@/components/Packages";
@@ -145,7 +146,7 @@ export default async function ServicePage({
       />
       <Nav />
       <main id="main" className="pt-32">
-        <header className="grid gap-10 px-5 md:grid-cols-[2fr_1fr] md:gap-8 md:px-10">
+        <Section size="none" inner="max-w-6xl grid gap-10 md:grid-cols-[2fr_1fr] md:gap-8">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">Service</p>
             <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
@@ -177,9 +178,9 @@ export default async function ServicePage({
               </div>
             </div>
           </Reveal>
-        </header>
+        </Section>
 
-        <section className="mx-auto grid gap-16 px-5 py-20 md:grid-cols-2 md:gap-20 md:px-10 md:py-28">
+        <Section inner="max-w-6xl grid gap-16 md:grid-cols-2 md:gap-20">
           <Reveal>
             <h2 className="eyebrow mb-8 text-brand">What you get</h2>
             <ul className="hairline-t">
@@ -208,7 +209,7 @@ export default async function ServicePage({
               ))}
             </div>
           </Reveal>
-        </section>
+        </Section>
 
         <PackagesSection
           packages={service.packages}
@@ -224,7 +225,7 @@ export default async function ServicePage({
           />
         )}
 
-        <section className="bg-ink px-5 py-16 text-paper md:px-10 md:py-20">
+        <Section className="bg-ink text-paper">
           <Reveal>
             <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
               <div className="flex flex-col gap-8 md:flex-row md:gap-20">
@@ -249,10 +250,10 @@ export default async function ServicePage({
                 </Link>
             </div>
           </Reveal>
-        </section>
+        </Section>
 
         {related.length > 0 && (
-          <section className="px-5 py-20 md:px-10 md:py-28">
+          <Section>
             <Reveal>
               <p className="eyebrow mb-10 text-brand">
                 {service.name} in the wild
@@ -263,10 +264,10 @@ export default async function ServicePage({
                 <WorkTile key={project.slug} project={project} index={i} />
               ))}
             </div>
-          </section>
+          </Section>
         )}
 
-        <section className="px-5 pb-24 md:px-10 md:pb-32">
+        <Section size="none" className="pb-16 md:pb-24">
           <Reveal>
             <p className="eyebrow mb-6 text-ink/50">Other services</p>
             <ul className="flex flex-wrap gap-3">
@@ -282,7 +283,7 @@ export default async function ServicePage({
               ))}
             </ul>
           </Reveal>
-        </section>
+        </Section>
 
         <Footer />
       </main>

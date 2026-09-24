@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SITE, pageMeta } from "@/lib/site";
 import Nav from "@/components/Nav";
+import Section from "@/components/Section";
 import Footer from "@/components/Footer";
 import { Reveal } from "@/components/Reveal";
 
@@ -39,18 +40,19 @@ export default function PrivacyPage() {
     <>
       <Nav />
       <main id="main" className="pt-32">
-        <header className="px-5 md:px-10">
+        <Section size="none">
           <Reveal>
             <p className="eyebrow mb-4 text-brand">Legal</p>
-            <h1 className="display text-[clamp(2.5rem,8vw,7rem)]">
+            <h1 className="display text-[clamp(2.25rem,6.5vw,4.5rem)]">
               Privacy policy
             </h1>
             <p className="mt-6 font-mono text-xs text-ink/50">
               Last updated: July 2026
             </p>
           </Reveal>
-        </header>
-        <div className="max-w-3xl px-5 py-16 md:px-10 md:py-24">
+        </Section>
+        <Section>
+          <div className="max-w-3xl">
           {SECTIONS.map((s, i) => (
             <Reveal key={s.title} delay={i * 0.04}>
               <section className="py-8 hairline-b">
@@ -59,7 +61,8 @@ export default function PrivacyPage() {
               </section>
             </Reveal>
           ))}
-        </div>
+          </div>
+        </Section>
         <Footer />
       </main>
     </>

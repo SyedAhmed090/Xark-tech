@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import SwapText from "./SwapText";
@@ -18,46 +15,11 @@ const SITEMAP = [
 // Social profiles come from SITE.socials, which is empty until real profile
 // URLs exist — the previous hardcoded list pointed at platform homepages.
 
-function LocationClock() {
-  const [time, setTime] = useState("");
-
-  useEffect(() => {
-    const fmt = new Intl.DateTimeFormat("en-US", {
-      timeZone: "America/Denver",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: true,
-      timeZoneName: "short",
-    });
-    const tick = () => setTime(fmt.format(new Date()));
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  return (
-    <span className="font-mono text-xs tabular-nums text-paper/60">
-      {SITE.address.locality}, {SITE.address.region} — {time || "··:··:··"}
-    </span>
-  );
-}
-
 export default function Footer() {
   return (
     <footer className="bg-ink px-5 pb-10 pt-20 text-paper md:px-10">
-      <div className="mb-14 flex items-center gap-3">
-        <span className="relative flex h-2.5 w-2.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
-          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-brand" />
-        </span>
-        {/* "Accepting Q4 2026 projects" implied a booked-out studio queue.
-            Work starts when the brief lands, so the status line should say
-            that — and it does not need editing every quarter. */}
-        <span className="eyebrow text-paper/70">
-          Taking on new projects now
-        </span>
-      </div>
+      <div className="mx-auto max-w-6xl">
+      <p className="eyebrow mb-14 text-paper/70">Taking on new projects now</p>
 
       <div className="grid gap-12 md:grid-cols-[2fr_1fr_1fr]">
         <div>
@@ -71,8 +33,8 @@ export default function Footer() {
             className="h-20 w-auto object-contain invert md:h-24"
           />
           <p className="mt-6 max-w-sm text-sm leading-relaxed text-paper/60">
-            Independent design studio. Based in Sheridan, Wyoming — working with
-            teams across the United States and worldwide.
+            Logos, websites and branding for small business. Based in Sheridan,
+            Wyoming — working with owners across the United States.
           </p>
         </div>
 
@@ -166,7 +128,7 @@ export default function Footer() {
             Terms
           </Link>
         </p>
-        <LocationClock />
+      </div>
       </div>
     </footer>
   );
